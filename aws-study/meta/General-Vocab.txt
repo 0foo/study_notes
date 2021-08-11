@@ -1,0 +1,25 @@
+General-Vocab.txt
+
+General Vocab to know
+-----
+
+Multi-tenancy 
+	* means that a single instance of the software and its supporting infrastructure serves multiple customers.
+	* vs single tenancy where a software serves one customer
+durability
+resiliencey
+availability
+scalability
+scale out
+scale up
+
+
+
+deployment types
+-----
+canary deployment
+blue/green deployment
+all at once
+rolling 
+rolling with batch
+idempotent

@@ -1,0 +1,84 @@
+SNS.txt
+
+
+
+Simple Notification Service
+-----
+
+
+Web service that makes it easy to set up, operate, and send notifications from the cloud
+Provides developers with a highly scalable, flexible, and cost-effective capability to publish messages to subscribers or other applications.
+Delivers immediately
+pub/sub model
+notifications delivered via push which elimiates need for pull based methods
+
+Formats supported:
+	* http
+	* text message
+	* email
+	* SQS queues
+	* lambda
+	* more
+	
+
+Some Uses:
+	* push directly to mobile devices
+	* SMS text message
+	* email to Amazon SQS queues
+	* HTTP endpoint
+	* can trigger lambda functions and pass the SNS message payload to the lambda
+
+Topics:
+	* publish once to a topic and SNS will deliver to all subscribers
+	* can group multiple recipients
+	* reciepiencts can dynamicaaly subscribe to recieve duplicates of the SNS message
+	* one topic can deliver to mulitple endpoints
+		* ios, android, other
+
+All messages stored to SNS stored to multiple AZ's for durability
+
+
+Benefits
+	* instantaneous push based delivery, no polling
+	* simple APIS/easy integration with other apps
+	* flexible message delivery over multiple transport protocols
+	* inexpensive pay as you go
+	* web based AWS management consol
+
+SNS = push
+SQS = pull
+
+
+pricing
+----
+50 cents per 1 million SNS messages
+6 cents per notification deliveris over http
+75 cents per 100 Notification deliveries over SMS
+2.00 per 100 notification deliveries over email
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

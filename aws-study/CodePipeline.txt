@@ -1,0 +1,40 @@
+CodePipeline.txt
+* Use cloudwatch events to trigger a codepipeline from code commit changes.
+* code pipeline stops if one of the steps stop
+
+
+
+Lambda hooks
+------
+BeforeAllowTraffic
+	* tasks specified to run before traffic sent to newly deployed lambda
+	* i.e. tests or whatever before it gets traffic
+AfterAllowTraffic
+	* tasks/functions after traffic routed to newly deployed lambda functions
+	* correctly accepting traffic, performing as expected
+
+
+EC2 hooks
+-----
+
+* Elb related:
+	 * BeforeBlockTraffic
+	 	* before deregistered from ELB
+	 * BlockTraffic
+	 	* deregisters your instances from ELB
+	 * AfterBlockTraffic
+	 	* after deregistered
+
+* Application Related
+	ApplicationStop
+	DownloadBundle
+	BeforeInstall
+	Install
+	AfterInstall
+	ApplicationStart
+	ValidateService
+
+* Reregister with ELB
+	* BeforeAllowTraffic
+	* AllowTraffic
+	* AfterAllowTraffic

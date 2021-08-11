@@ -1,0 +1,6 @@
+practice-questions.txt
+
+
+
+https://blog.cloudthat.com/sample-questions-for-amazon-web-services-certified-developer-associate-certification/
+https://www.onlc.com/aws-exam/aws-developer-associate-examsample.pdf 

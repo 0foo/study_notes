@@ -1,0 +1,42 @@
+ELB.txt
+
+ ELB elastic load balancer
+----
+3 types of ELB - application, network, classic
+
+
+ 
+Application Load Balancers
+	* load balancing of HTTP and HTTPS traffic
+	* operate at Layer 7 and are application aware
+	* intelligent and you can create advance web request routing, sending specific requests to specific web servers
+
+Network Load Balancers
+	* load balancing TCP traffic 
+	* used where extreme performance is required 
+	* Operate at Layer 4
+	* Millions of QPS while maintaining ultra low latencies
+
+Classic Load Balancers
+	* Legacy
+	* uses layer 4 or layer 7
+	* Layer 7->Load Balance HTTP/HTTPS applications 
+	* can use layer 7 specific features: x-forward and sticky sessions
+		* note: not as intelligent as application LB
+		* just uses those two feature from http
+	* use layer 4 for performance
+
+Errors
+	* if app stops responding: Load balancer responds with a 504 
+	* could be either App or Database
+
+XforwardedFor header
+	* ELB has a public IP and forwards to a network of private IP servers
+	* Note: load balancer tacks on the public address in the xforwardedfor header
+	* if need the public IP, check the xforwardedfor header
+
+root device encryption:
+1> take snapshot
+2> create AMI
+3> deploy encrypted ami
+non-root device(attached volumes) can be encrypted using console,cli,api

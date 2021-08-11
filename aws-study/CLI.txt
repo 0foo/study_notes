@@ -1,0 +1,31 @@
+CLI.txt
+
+
+--page-size flag and pagination
+-----
+can control the number of items included in the output when you run a CLI command
+default page size is 1000
+CLI returns all of the API call results, but under the cover makes multiple calls to the API, but returns them all in bulk
+
+
+IF see errors when running list commands on large numbers of resources the default page size of 1000 may be too high
+Time out error because in between pagination call takes too long so future pagination call times out
+	* exceeded maximum allowed time to fetch the required results
+
+
+
+Fixing AWS Cli pagination errors
+	* --page-size flag
+	* use a smaller number of items than the default of 1000
+	* Same results just makes quicker trips to the API so no danger of API timing out
+
+
+--max-items flag
+------
+returns fewer items in the result set
+ 
+
+
+--dry-run
+-----
+ AWS CLI --dry-run option" : The --dry-run option checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation, otherwise it is UnauthorizedOperation.

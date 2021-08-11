@@ -1,0 +1,19 @@
+MAC
+
+
+mac_dyld_maps -p
+Dynamic libraries managed by dyld
+mac_ldr_modules -p
+Commonly used dynamic libraries mapped into each process by dyld(dyld cache) 
+-look for Kernel mapping but no dyld map
+
+
+
+malfind
+---
+mac_malfind
+
+
+
+
+

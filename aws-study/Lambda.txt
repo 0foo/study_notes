@@ -1,0 +1,168 @@
+Lambda.txt
+
+
+
+Lambda
+-----
+* compute service where you can upload code and create a Lambda function.
+* Lambda takes care of ALL compute infra for you(provisioning, patching, scaling, etc.)
+* scales out automatically NOT UP(have to manually configure more power to lambda)
+
+
+used as:
+	* event driven compute service
+		* runs code in reponse to events
+		* events are called triggers
+		* things like changes in DynamoDb, or s3 bucket, etc
+		* run code in response to HTTP events using API gateway, or API calls using SDK
+		* note: each trigger event triggers a NEW lambda
+Lambda support !!!
+	* node.js
+	* Java
+	* Python
+	* C#
+	* Go
+
+
+Lambda pricing
+	* first 1 million requests/month are free
+	* .20 cents per 1 million after 
+	* duration: 
+		* code execution start time to code termination rounded up to nearest 100ms
+		* also calculated in is the amount of memory used
+		* .00001667 per every GB-second used
+
+
+Lambda invoke
+
+
+Services That Invoke Lambda Functions Synchronously
+	Elastic Load Balancing (Application Load Balancer)
+	Amazon Cognito
+	Amazon Lex
+	Amazon Alexa
+	Amazon API Gateway
+	Amazon CloudFront (Lambda@Edge)
+	Amazon Kinesis Data Firehose
+	AWS Step Functions
+
+
+Services That Invoke Lambda Functions Asynchronously
+    Amazon Simple Storage Service
+    Amazon Simple Notification Service
+    Amazon Simple Email Service
+    AWS CloudFormation
+    Amazon CloudWatch Logs
+    Amazon CloudWatch Events
+    AWS CodeCommit
+    AWS Config
+    AWS IoT Events
+
+
+Lambda Versioning
+----------
+Can publish one of more version of AWS Lambda
+i.e. development, beta, prod, etc
+
+ARN can't be changed once published
+
+$LATEST is the latest version of the lambda
+	* when you update your code $LATEST updates as well
+
+
+Qualified ARN
+	* has the version suffix after it
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>:$LATEST
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>:PROD
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>:BETA
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>:1
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>:CHEESEBURGER
+
+
+Unqualified ARN
+	* no version after it
+	* basically the plain arn
+	* arn:aws:lambda:<aws-region>:<acct-id>:function:<function name>
+
+Alias
+	* name that points to particular version of your function
+	* can for example alias version CHEESEBURGER to the PROD or $LATEST arns
+		* now CHEESBURGER has the same code as PROD
+	* basically creates a new qualified ARN with a different suffix name that points to another qualified ARN and doesn't have code of it's own 
+
+Versions are immutable!
+	* can't change the code in a version
+	* can only change the code in the latest
+
+Split traffic
+	* Can use versioning to create splits between traffic so send SOME traffic to one version and SOME to another
+	* can't do split traffic to latest
+		* have to do an alias to the latest and split with that alias
+	* for blue/green or split deployment
+
+
+Under Qualifiers tab in Lambda console
+
+
+
+
+
+Step Functions
+-------
+under Application Integration in AWS console
+Allow to visualize and test serverless apps
+provide graphical console to arrange and visualize the components of application as a series of steps
+easy to build/run multi-step apps
+automatically triggers
+automatically tracks each step
+logging
+	* logs the state of each step
+retries when there are errors
+Its own JSON language
+	* Amazon States Language (ASL)
+	* as you define the JSON it will graph it out in the console
+	* Don' 
+
+Lambda Environmnetal variables
+----
+There is no limit to the number of environment variables you can create as long as the total size of the set does not exceed 4 KB
+
+
+Lambda and VPC access
+------
+have to enable lambda to connect to a subnet
+	* will need the subnet ID
+	* security group ID
+Uses this info to set up ENI's for the lambda with an IP on the subnet
+Add VPC to the function via cli using the --vpc-config parameter
+Add VPC to the function via console in VPC section
+
+
+
+
+
+
+Lambda concurrent exection limit
+------
+soft limit for lambda concurrent exection of 1000 concurrent executing simoultanously of 1000 per region
+If you hit the limit the error message is TooManyRequestsException 
+code 429
+request this is increased via console
+Reserved concurrency 
+
+
+
+
+
+Lambda unzipped file limits and workarounds
+-----
+A function can use up to 5 layers at a time. The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
+Workaround
+	* When the slim handler is called on a cold start, it downloads the large project zip from S3 and unzips it in Lambda’s shared /tmp space. All subsequent calls to that warm Lambda share the /tmp space and have access to the project files; so it is possible for the file to only download once if the Lambda stays warm.
+
+
+
+
+
+
+

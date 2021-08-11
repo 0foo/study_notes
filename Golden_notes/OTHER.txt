@@ -1,0 +1,14 @@
+OTHER
+--------
+Volatility includes yarascan,
+linux_yarascan, mac_yarascan plugins
+• -Y builds YARA rule on the fly using strings,
+hex, or regular expressions
+– $ vol.py -f memory.img yarascan -Y "I'm evil"
+– $ vol.py -f memory.img yarascan -Y "/[0-9a-fA-F]{32}/"
+– $ vol.py -f memory.img yarascan -Y "{ c6 45 [2] c6 45
+
+-y reads rules from file
+• -K targets kernel address space
+• As usual, can limit to individual processes using
+–p <pid>

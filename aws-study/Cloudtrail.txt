@@ -1,0 +1,6 @@
+Cloudtrail.txt
+
+
+
+Records API calls throughout AWS platform
+used for auditing

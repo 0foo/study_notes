@@ -1,0 +1,392 @@
+Dynamo.txt
+
+This is way better than my notes here:
+https://iaasacademy.com/aws-certified-developer-associate-exam/amazon-dynamodb-exam-tips/
+https://howtotrainyourjava.com/2017/08/24/aws-certified-developer-dynamodb-exam-notes/
+
+Dynamo
+-----
+
+Fast, flexible, no sql database
+consistent single digit millisecond latency at ANY scale
+fully managed
+supports both key value and document models
+
+
+Stored on SSD storage
+spread across 3 geographically distinct data centers
+
+
+
+Consistency
+------
+choice of two consistency models
+	* Eventual consistent reads(default)
+		* low latency but at the cost of potential stale dasta
+		* reads eventually return the updated data
+		* can return any data value until consistency is reached
+		* use if you want ultra speed and are ok with getting an immediate answer from database even if you do not get the latest value for the record
+		* consistency takes up to a second
+		* Consistency is reached within 1 s with eventually consistent model
+		* can get a read result but may take up to a second to get the fully updated data
+		* your reads do not guarantee you are reading up to date data
+	* Strongly consistent reads
+		* high latency but will always return the correct data
+		* returns a result that reflects all writes the recieved a successful response prior to the read
+		* When you request a strongly consistent read, DynamoDB returns a response with the most up-to-date data, reflecting the updates from all prior write operations that were successful
+		* trade off is that it has to wait for all replicas to become consistent before responding so higher delay
+
+
+ref:
+https://www.reddit.com/r/aws/comments/35n9nu/eventual_consistency_in_dynamodb/
+https://hackernoon.com/eventual-vs-strong-consistency-in-distributed-databases-282fdad37cf7
+
+Structure
+----
+Tables(table)
+Items(row)
+Attributes(fields)
+
+Not every item has to have same type or number of attributes
+
+
+Key:Value/Documnet data structure
+
+Document storage can be written in:
+	* json, html, xml
+
+Primary Key
+	* dynamo stores/retrieves data based on primary key
+	* 2 types: partition key or composite key	
+
+Partition Key(unique attribute)
+	* this value is used by a hash function to determine the physical location(partition) where the data is stored
+	* if using partition key as primary key then: no two items can have same partition key
+
+Composite Primary Key
+	* consists of two keys partition key + sort key
+	* allows storing multiple items with the same parition key
+	* ex: same user with multiple post to a forum
+	* partition key: userId
+	* sort key: timestamp of the post
+	* 2 items may have same parition key but must have different sort key
+	* all items with same parition key are stored together(same physical location/partition) and sorted according to the sort key
+
+
+Partition key is defined as keytype=HASH and sort key is defined as keytype=RANGE
+
+
+IAM
+---
+
+
+Access controlled with IAM 
+	* Access can be super fine grained using IAM Condition parameter:
+		for example 
+			* dynamodb:LeadingKeys to allow users to only access items where partition key value matches their user Id
+
+
+Indexes
+------
+
+Index is a data structure that allows performing really fast queries on certain (indexed) columns of a database
+Run your search on the indexed column and it will be faster
+
+The basic goal of indexes in Dynamo is to give different views of data other than original Primary Key/Sort key
+
+2 types of index in DynamoDB
+
+Local Secondary Index (LSI)
+	* only created when first creating the table
+	* cannot add, remove, or modify later
+	* same Partition key as table
+	* but different Sort Key
+	* Gives different view of data according to a different sort key
+	* any queries based on this LSI are much faster using the index than non indexed 
+
+Global Secondary Index (GSI)
+	* create anytime (on table creation, or after table creation)
+	* Different Partition Key as well as Different Sort Key
+	* Gives comletely different view of the data
+	* useful if need different queries with different search goals 
+
+ref:
+	https://cloudaffaire.com/secondary-indexes-in-dynamodb/
+
+
+Scan Vs Query 
+-------
+* Query
+	* You can use Query with any table or secondary index that has a single primary key or composite primary key (partition key and sort key). 
+	* the partition key is the critical search value
+	* finds items in table based on Primary Key attribute and a distinct value
+	* returns all items and attributes by default
+	* Can use an optional sort key to refine results
+	* To query using a non-primary key, we need to create a secondary index on the table
+	* NEED partition to query cant do it on sort key alone
+	* results sorted by sort key, if no sort key present, not sorted
+	* sorted ascending order
+	* numeric sorted or if ascii/utf will sort by
+	* by default eventually consistent, can set it be strongly consistent but need to explicitly set this
+
+* Scan
+	* Scans the entire table
+	* examines every item in the table
+
+ScanIndexForward
+	* set to false to reverse the query
+	* works with both queries and scans
+
+* Projection Expression
+	* by default all attributes are returned
+	* use this to filter attributes
+
+
+* To search on a non-primary key
+    1.create a Global Secondary Index that uses Name as a primary key
+    2.use a Scan + Filter if the table is relatively small, or if you expect the result set will include the majority of the records in the table
+
+
+Query or Scan
+	* Query more efficient than scan
+	* Scan dumps the entire table, then filters out to provide result
+	* adds extra step removing the data you don't want
+	* as table grows scan takes longer/query not the case because it's hashtable
+	* Scan uses provisioned throughput and on a large enough table can use up ALL the throughput on a single scan
+	* Avoid using Scan as much as possible
+		* design tabels to use Query
+
+Optimize
+	* set page size smaller to allow other requests to succeed without throttling
+		* i.e. return 40 vs 100 items
+	* can use parallel scans to speed up scanning 
+		* partitions the table into increments and scans each partition in parallel
+	* isolate scan operation to specific tables and separate from mission critical traffic
+	* avoid using scan as much as possible, design tables to use query
+
+	Read exceptions:
+		* cache: implement DAX or elasticache
+		* parallell scans
+		* improved primary key partitioning
+		Write exceptions:
+		* increase write capacity
+
+Retrieve multiple items from table
+* BatchGetItem API call
+
+
+
+ref:
+https://www.reddit.com/r/aws/comments/4md4kp/aws_dynamodb_is_it_possible_to_make_a_query_only/
+https://stackoverflow.com/questions/37617175/aws-dynamodb-is-it-possible-to-make-a-query-only-using-sort-key
+https://stackoverflow.com/questions/43452219/what-is-the-difference-between-scan-and-query-in-dynamodb-when-use-scan-query
+http://techtraits.com/cloud/nosql/2012/06/28/Amazon-DynamoDB-Understanding-Query-and-Scan-operations.html
+https://linuxacademy.com/community/show/27432-scan-vs-query-dynamodb/
+https://tutorialsdojo.com/dynamodb-scan-vs-query/
+https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
+https://www.dynamodbguide.com/querying/
+https://stackoverflow.com/questions/47521164/aws-dynamodb-query-based-on-non-primary-keys
+
+
+
+
+Provisioned Throughput pricing
+------
+* All capacity units are per second!!
+specify your read and write capacity
+write capacity unit 1 WCU = 1k
+read capacity unit 
+	* strongly consistent(SC-RCU) 1 RCU = 1 @ 4k
+	* eventually consistent(EC-RCU) 1 RCU = 2 @ 4k
+
+Note: you have to round up
+
+ex: read 80 items @ 3kb each
+
+1 SC-RCU is 4k
+you round up the 3kb item to 4k b/c 4k is minimum
+
+So 80 items at 4k each = 80 SC-RCU's needed
+Half this for EC-RCU = 40 EC-RCU's
+
+Same for both read/write
+
+NOTE: Soft limit on Maximum Provisioned Capacity Units
+	* Can increase  Provisioned Capacity Units by raising a ticket 
+
+
+On demand pricing
+------
+charges apply for read/write/storing
+dont' need to specify capacity requirements
+dynamo instantly scales up/down based on activity of your app
+	* based on read/writes you app is doing
+great for doing unpredicatble workloads
+or large spikes
+or brand new app where workload not well understood
+pay per use
+
+
+
+Dynamo DB accelerator (DAX)
+----
+in memory, fully managed, clustered, in-memory cache for Dynamo DB
+delivers up to 10x improvement
+ONLY for READ
+microsecond performance for millions of QPS
+ideal for read heavy and bursty read workloads
+EVENTUAL Consistency model only 
+	* does not support strongly consistent
+
+write through cacheing service
+	* data is written to caches AND back end store at same time
+	* any time main table is updated also gets written to DAX as well
+
+Allows you to point your API calls to DAX cluster
+DAX checks the cache first
+	* if item is available in the cache returns it
+	* if not available: cache miss
+		* DAX calls Dynamo and gets item
+		* writes it into it's cache 
+		* and hands it back to application
+DAX reduces load on Dynamo
+May be able to reduce Provisioned Read Capacity
+	* save some money
+
+Not suitable 
+	*  is eventual consistent reads only
+		* strongly consitent NOT an option
+	* not suitable for write intensive applications
+	* applications that don't perform that many reads won't see a benefit
+	* apps that don't require microsecond response times
+
+
+
+
+
+Dynamo transactions
+-----
+ACID (atomic, consistent, isolated, durable)
+read/write multiple items across tables as all or nothing operation
+check for pre-requisite condition before writing to a table
+
+i.e. 
+1> checking item available
+2> check have enough money
+3> if both are true write item to my inventory and subtract balance
+
+
+Dynamo DB TTL
+------
+* defines expiration for your data
+* expired items marked for deletion
+* Great for removing irrelevant or old data
+	* session
+	* event logs
+	* temporary data
+* reduce costs by automatically remove data which is no longer relevant
+* can filter out expired data from queries and scans
+* can set on an attribute level via table console
+* marked for deletion and deleted within 48 hours
+
+
+
+Dynamo DB streams
+-------
+* time ordered sequence/stream that records any modifications made to item in table
+* any insert, update, delete, etc will record to stream
+* records to logs
+	* which are encrypted at rest
+	* event data is only stored for 24 hours before deleted
+* accessed using a dedicated endpoint
+	* one enddpoint for the dynamo db table
+	* another endpoint for dynamo db streams
+* Purpose:
+	* auditing
+	* archiving
+	* replaying any transaction to another table
+	* MAINLY: trigger events based on events on a table
+		* can use a stream to trigger lambda or other resource based on some condition
+
+* MINIMUM amount of data allowed to store is primary key
+* store before/after changes, so can view state of item before and after
+* events recorded in near real-time
+	* applications/lambdas/resources can take action based on contents
+	* event source for lambda
+	* lambda polls the DB stream and executes based on a found event
+
+ex: invoicing system
+each time an invoice added
+dynamo Db stream created
+lambda polling the db stream and sees new event
+sends events to SNS 
+SNS posts to SQS 
+payments application consuming SQS
+
+
+Provisioned throughput exceeded exception/exponential backoff
+-------
+if your request rate is too high for read/write capacity that has been provisioned/configured on your dynamodb table
+SDK automatically retries until requests are successful
+if not using SDK can use one of both of these to stop these exceptions:
+	* reduce request frequency
+	* use exponential backoff
+
+exponential backoff
+	* progressively longer waits between consecutive retries
+	* 100ms, 200ms, 400ms, 800ms, etc.
+	* note: this is implemented on many things in networking/technology/AWS services/AWS SDK
+
+Note: request size may be way too much and may need to 
+	Read exceptions:
+	* implement DAX
+	* use elasticache 
+	Write exceptions:
+	* increase write capacity
+
+
+
+
+
+
+Pessimistic vs Optimistic Concurrency
+-----
+* Dynamo DB only supports optimistic concurrency
+* uses conditional writes for consistency
+* requires a read before the write so you can see if the version number has changed.
+* Optimistic concurrency depends on checking a value upon save to ensurethatit has not changed. Pessimistic concurrency prevents a value from changing by locking the item or row in the database. DynamoDB does not support item locking, and conditional writes are perfect for implementing optimistic concurrency.
+
+
+* Pessimistic concurrency control (or pessimistic locking) is called “pessimistic” because the system assumes the worst — it assumes that two or more users will want to update the same record at the same time, and then prevents that possibility by locking the record, no matter how unlikely conflicts actually are.
+
+
+* Optimistic concurrency control (or optimistic locking) assumes that although conflicts are possible, they will be very rare. Instead of locking every record every time that it is used, the system merely looks for indications that two users actually did try to update the same record at the same time. If that evidence is found, then one user’s updates are discarded and the user is informed.
+
+	* Optimistic locking uses a version number 
+		* requiring a read before the write so you can see if the version number has changed.
+
+* DynamoDB uses optimistic concurrency control
+* DynamoDB uses conditional writes for consistency
+
+
+ref: 
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.OptimisticLocking.html
+* https://support.unicomsi.com/manuals/soliddb/100/index.html#page/SQL%20Guide/5%20ManagingTransactions.06.4.html
+
+
+
+
+Hot partition
+----
+It is not always possible to distribute read and write activity evenly all the time. 
+When data access is imbalanced, a 'hot' partition can receive such a higher volume of read and write traffic compared to other partitions.
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html
+
+
+
+
+Read API calls
+-----
+ Query, Scan, GetItem, and BatchGetItem are the DynamoDB read operations
+ BatchGetItem- if application needs to read multiple items
+ A single BatchGetItem request can retrieve up to 16 MB of data and contain up to 100 items

@@ -1,0 +1,112 @@
+aws-limits.txt
+
+
+S3
+----
+99.99999999999% (eleven nines) durability
+designed for 99.99% availablity BUT amazon guarantee 99.9%
+unlimited storage !!!
+Largest file you can upload with a single PUT is 5GB
+	* to upload larger files, use multi-part upload to upload up to 5TB
+max file size 0 to 5 TB !!!
+performance by default:
+	* 3,500 PUT qps
+	* 5,500 GET qps
+	* can increase this with name prefix to partition the data
+
+
+EBS
+----
+General Purpose SSD
+	* 3 IOPs per GB with up to 10,000 IOPS and 3000 IOPS burst(if vol is > 3334 Gb)
+Provisioned IOPS SSD
+	* up to 20,000 IOPS per volume
+
+
+
+lambda
+-----
+The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB
+A function can use up to 5 layers at a time. 
+There is no limit to the number of environment variables you can create as long as the total size of the set does not exceed 4 KB
+soft limit for lambda concurrent exection of 1000 concurrent executing simoultanously of 1000 per region
+
+
+
+SQS
+-----
+can contain up to 256kb of text in any format
+Can stay in queue from 1 to 14 days 
+default is 4 days
+default Visibility Timout is 30 seconds
+max Visibility Timout is 12 hours
+can exceed 256kb limit 
+	* using S3 and Amazon SQS Extended Client library
+FIFO limited to 300 transactions per second
+standard queue unlimited transactions per second
+maximum long poll timout = 20 seconds
+default delay =0 ; max delay is 900 seconds(15 minutes)
+
+
+
+EC2
+-----
+By default EC2 monitoring is 5 minute intervals
+Enable Detailed monitoring makes it 1 minute intervals
+
+
+Cloudwatch
+----
+Smallest resolution possible is 1 second
+smallest resolution to watch while live scrolling across the screen is 10 seconds
+
+
+RDS
+----
+periodic backup retention period = 0 to 35 days
+	* deletes after
+recover database to any point in time within 1 to 35 days
+
+
+
+Kenesis
+----
+Stream:
+	* data: default stored for 24 hour but can increase to 7 days
+	* Kenesis Shards
+		* up to 5 read transactions/second 
+		* maximum read rate of 2 MB per second
+		* up to 1000 write transactions/second 
+		* maximum total write rate of 1MB per second
+		* the data capacity of the stream is a function of the number of shards that you specify for the stream
+		* total capacity of the stream is the sum of the capcities of its shards
+		* resharding - as data capacity increases add more shards
+		* Each shard can only accept 1,000 records and/or 1 MB per second 
+			* multiple shards will scale this 
+
+
+
+
+Dynamo
+----
+1 SC-RCU  = 4k
+1 EC-RCU = 2 @ 4k
+1 WCU == 1k
+A single Scan request can retrieve a maximum of 1 MB of data
+	* After reaching 1 MB of data, aside from items, scan returns LastEvaluatedKey value to enable subsequent scan from this item on
+Consistency is reached within 1 s with eventually consistent model
+Maximum 5 local secondary indexes and global secondary indexes per table
+Maximum 3000 read capacity units / 1000 write units per partition.
+Maximum 10000 read / write capacity units per table (40000 in US East).
+Maximum 20000 read / write capacity units per account (80000 in US East)
+Maximum object size: 400 KB
+Item can have an unlimited number attributes.
+
+
+
+
+
+
+
+
+

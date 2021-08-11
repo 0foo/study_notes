@@ -1,0 +1,147 @@
+part 2 notes
+
+Linux prcesses
+----
+task_struct
+-desc process and associated resources
+- evolution of task_struct
+
+Threads
+- lightweight procs
+- created by clone()
+- resources shared with other threads
+- threads associated with a parent process are linked 
+inside of thread_group structure inside task_structu
+
+
+linux proc listing plugins
+-priviliege escalation of a terminal process
+
+linux process enumeration with volatility
+
+
+
+Mac processes
+--------------
+- BSD vs Mach
+- proc vs task
+
+MAC process enumeration with volatility
+
+
+
+Memory allocaiton
+----------------------
+General kernel memory allocation 
+-Memory management for the OS proper
+vs 
+
+Process memory allocation
+-Memory management for individual applications
+
+
+
+Windows Memory Allocation Concepts
+-------
+list of interesting window objects
+how memory allocated in windows?
+-pools
+-non-paged pool vs paged pool
+- <4k(one page or less) vs >4k(pages)
+executive object manager
+object and pool headers
+can find objects based on values in the headers
+structures turned into objects when windows prepends 'heades'
+volatility searches for patterns/values in these headers
+
+
+Header prepends
+--------
+bunch of optional headers attached to an C structure
+
+
+Pool Tag scanning
+-----
+only on memory allocations smaller than a 4k page
+kernel memory
+adds a pool header with a 4byte field that is a tag:
+4 byte tags for every type of object
+can carve based on this 
+for project: Volatility provides an API for designing custom “pool scanners” – will return to this later
+
+Pool tags examples: i.e. Proc, Thrd, Desk, Wind.. etc
+
+
+Get all pool tags with volatility: objtypescan
+Authoritative source : pooltag.txt
+poolmon
+
+custom pool scanners
+- specify pool tags and the associated checks(i.e. size f object)
+
+limitations of pool scanning
+pool scanning alternatives
+
+Windows Process Memory
+------
+i.e. for individual applications
+tons of different apis
+- heap based, non-heap bass
+
+
+
+Volatilitys memmap pluging
+-virtual and physical addresses visible to a process
+- may contian swap holes
+
+Memdump plugin
+- extracts all pages to a single file
+
+
+
+Virtual Address Descriptor
+-------
+VADs
+track all virtual addys associated with a proc 
+plus a bunch of other info
+tree structure of VADs
+
+
+VAD Plugins linst and usage examples
+
+
+
+
+LINUX memorey Allocation
+-------------
+--------
+•  Page frame descriptors contain info about a particular page of physical memory
+•  Data structure is struct page with a bunch of status flags
+
+
+NUMA/Memory Zones
+Reserved Page Frame Pool
+
+
+Zoned Page Frame Allocator
+----
+High Memory and the kernel
+Per-CPU Page Frame Cache
+Memory Pools
+summary
+
+
+Slab allocator
+-----
+manages gaps in memory
+manags caches of  empty blocks of memory
+General vs. Specific Caches
+SLUB / SLAB / SLOB / SLQB alternatives
+•  Unlike some other slab allocator designs, SLUB will group objects with different types into the same cache, as long as they have a compatible size...
+SLUB exploitation
+
+
+
+
+
+

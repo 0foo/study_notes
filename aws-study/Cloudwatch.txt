@@ -1,0 +1,60 @@
+Cloudwatch.txt
+
+
+Monitoring service to monitor AWS resources as well as apps that run on AWS
+
+Can monitor things like
+	* compute-ec2,lambda
+	* storage- s3, ebs
+	* database/analytics
+	* etc.
+
+EC2 Monitoring
+----
+What does it monitor by default in EC2
+	* CPU
+	* Network
+	* Disk 
+	* Status Check of EC2 host
+RAM is a custom metric
+By default EC2 monitoring is 5 minute intervals
+Detailed monitoring makes it 1 minute intervals
+Note you can return data from any termiated EC2 instance
+
+
+
+
+
+Custom Metric
+	* RAM is a custom metric 
+	* for custom metrics the minimum granularity is 1min
+
+
+ How long cloudwatch metrics stored
+ 	* by default stores data indefinitely
+ 	* can change retention time if needed
+
+ GetMetricStatistics API
+ 	* returns cloudwatch logs
+
+Default metric time varies, some 1,3,5 min
+
+smallest possible metric resolution: 1 second
+
+Can create an alarm to monitor any cloudwatch metric
+	* EC2 CPU utilization
+	* ELB latency
+	* even charges on AWS bill
+	* etc. etc.
+
+Can set thresholds to trigger alarm, and actions to take if alarm is triggered
+
+Can install cloudwatch agent on servers to use outside of AWS
+
+Cloudtrail vs Cloudwatch vs Config
+---
+Cloudtrail API calls
+Cloudwatch montoris performance
+Config records state of the environment and can notify you of changes
+
+

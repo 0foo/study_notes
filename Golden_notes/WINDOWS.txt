@@ -1,0 +1,288 @@
+WINDOWS
+
+
+
+atoms?
+------
+>atomscan
+
+
+
+
+processes
+--------
+procdump -p -D
+
+looking for file mapping for a process:
+>vadinfo -p {some proc} --addr={some address}
+ldrmodules -p
+
+
+
+apihooks
+----------
+Malware can also inject instructions into
+the beginning of functions that handle
+system calls, library calls
+• The apihooks plugin attempts to detect
+these by looking for suspicious control flow
+redirection 
+
+run a procdump -p-D on these afterwards
+
+
+sessions
+---------
+>sessions
+One session for each logged in user,
+whether:
+– local
+– RDP (grp for rdp)
+– fast user switching 
+
+
+desktops
+------------
+>deskscan
+-desktop info
+>screenshot -D ./dump
+
+
+>windows
+– Dump a detailed list of windows objects 
+
+>>wintree
+– Dump a less detailed list that illustrates
+relationships between windows 
+
+>clipboard  (optional -v)
+-plugin extracts clipboard
+-contents from all user sessions active on
+-the computer at the time of the memory
+-dump
+
+
+
+
+
+
+command line
+------------
+>cmdscan 
+>consoles 
+plugins recover the
+data (in particular, consoles acquires the full
+input and output displayed on the cmd.exe screen)
+
+
+
+
+Events
+---------------
+
+Event logs:
+see page 39
+>evtlogs --dump-dir LOGS
+
+windows 7
+>dumpfiles plugin and
+analyze using external tools 
+
+audit policies
+>auditpol
+
+
+
+
+
+REGISTRY
+---------
+hivelist
+– locates cached registry hive names and memory addresses
+• hivedump
+– prints out a hive
+• hivescan
+– uses pool scanning to find _CMHIVE data structures
+• printkey
+– prints registry key values and last write timestamp
+• userassist
+– Dumps userassist key data, to determine, e.g., how often and
+when a program was executed
+• shimcache
+– dumps application compatibility info
+• shellbags
+– contains window sizes and preferences, icon and folder view
+settings, etc.
+68
+Copyright 2014-15 by Golden G. Richard III 
+
+
+
+
+
+control set
+--------
+CurrentControlSet
+
+
+
+
+PAsswords
+------
+
+>hashdump
+-windows password hashes
+-use a cracker like john
+
+mimikatz for Volatility
+• Recovers Win Vista / 7 passwords by digging
+through the address space of the lssas.exe
+process. 
+
+
+
+networkd
+------
+• sockscan
+– Uses pool scanning to find socket structures
+– Can therefore find data associated with inactive
+connections
+• connscan
+– Uses pool scanning to find connection structures
+– Can therefore find data associated with inactive
+connections
+• connections
+– Walks linked lists to discover connections
+• netscan
+
+
+
+
+files
+--------
+find suspicious proc-filescan it's files and do a dump of those
+handles -p (-t file )
+filescan
+dumpfiles
+
+
+
+Memory dumps
+------
+>can dump a memory and cat it to see what's in it
+
+procdump -p -D
+memdump -p {xxxx} -D ./location
+
+
+DLLs
+---------
+dlllist -p
+
+ldrmodules -p
+- look for hidden DLLs on the process that are unlinked from the list
+
+dlldump -p -D
+
+
+
+When Are DLLs Suspicious?
+• When they don’t appear in appropriate
+lists
+– This can be discovered, like process hiding,
+by cross-referencing different data sources
+• By context
+– DLLs generally provide specific functionality
+– Networking DLL used in inappropriate context
+– Similar for high performance computing DLLs,
+crypto, etc.
+• When their binary is in a strange place
+181
+Copyright 2014-15 by Golden G. Richard III (@nolaforensix) -- Distribution in any form
+
+
+LoadCount = 0cffff  also = -1
+means it’s in the IAT
+
+
+
+malfind
+-----------
+>malfind
+look for nonsensical assembly
+
+
+
+
+eventhooks
+-----------
+Malware can also hook Windows events
+• Events include playing sounds, when items in
+menus are selected, scrolling, etc. 
+
+messagehooks
+
+
+
+SERVICES
+------
+svcscan Plugin
+• Scans doubly link list of services
+• But also scans address space of
+services.exe to find unlinked structures
+• Still problematic to determine what's
+legitimate—there are lots of services and
+familiarity with all of them is unlikely
+• Pre- and post-infection memory dumps
+can help a lot 
+
+
+
+
+modules
+-----
+
+Can enumerate / analyze loaded kernel
+modules using several plugins:
+• modules
+– List modules in doubly linked list pointed to by
+PsLoadedModuleList in KDBG structure
+• modscan
+– Use pool tag scanning to find modules
+• unloadedmodules
+– Walk list of recently unloaded modules
+• moddump
+– Allows dumping module code for analysis 
+
+• Is the module hidden?
+– Aside from antivirus components, hidden
+probably means malicious
+• Is it handling interrupts or system calls?
+– Means, tampered with IDT or SSDT?
+• Is the module name sensible and does it
+load from a sensible place?
+– e.g., shouldn’t load from IE browser cache dir
+• Does it create devices?
+• Callbacks? 
+
+
+
+threads
+----
+threads Plugin
+• The threads plugin can find threads and
+report on a (vast) number of situations
+• Use the –L option to see the list of…
+options
+• Note that this plugin (now) has
+substantially more capabilities than those
+discussed in AMF 
+
+
+
+
+DRIVERS
+---------
+driverscan
+Uses pool table scanning to find driver objects in kernel
+memory 

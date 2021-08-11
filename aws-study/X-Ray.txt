@@ -1,0 +1,53 @@
+X-Ray.txt
+
+
+X Ray
+-----
+collects data about requests that your application serves, and provides tools that you can use to view, filter, and gain insights into the data to identify issues and opportunities for optimization
+
+can see detailed information about 
+* request and response 
+* calls made to downstream AWS resources, microservices, databases, and Web API's
+
+XRay is installed inside of application via an Xray daemon
+* sends data to Xray API
+* Xray stores data and creates visualization
+
+ Xray SDK
+ * provides interceptors to to trace incoming http requests
+ * client handlers to instrument AWS SDK clients that are used to call other AWS resources
+ * http client to use to make/recieve calls to external and internal HTTP web services
+
+Integrates with
+* ELB
+* LAmbda
+* API gateway
+* Ec2
+* Beanstalk
+
+ Languages supported 
+ * all same langs as lambda
+
+
+ X Ray configuration on ec2 instances
+ ------
+ X-Ray SDK sends data to local X-Ray daemon which buffers this data in a local queue and sends to X-Ray service in batches
+ Need both X-Ray SDK and X-Ray daemon on your local machine
+ The SDK instruments your application and sends required data to the daemon
+ Can record additional info via SDK before sending to daemon with key/value pair annotations
+ 	* they are used with filter expressions in X-Ray console
+
+X ray Config on Docker/ECS
+-------
+Run Xray Daemon in its own docker container alongside the application
+
+
+XRay Sampling
+------
+
+
+
+configuration
+-----
+Xray active tracing must be enabled
+IAM role must be corrects

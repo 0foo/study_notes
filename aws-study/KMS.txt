@@ -1,0 +1,77 @@
+KMS.txt
+
+
+Managed service that makes it easy for you to create and control the encryption keys used to encrypt your data
+Integrated with other AWS services including
+	* Redshift
+	* EBS
+	* S3
+	* Elastic Transcoder
+	* Amazon workmail
+	* RDS
+	* and others
+Makes it simple to encrypt your data with keys you manage
+
+Located in IAM
+	* encryption keys section is where KMS is located
+		* when you create a key
+	* encryption keys are regional
+
+Multi tenant:
+	* KMS is multi-tenant whereas CloudHSM is dedicated hardware
+
+
+
+Customer Master Key(CMK)
+	* alias
+	* creation date
+	* description
+	* key state
+	* administrative permissions
+		* IAM users/roles that can administer this key
+	* usage permissions
+		* IAM users/roles that can use this key to encrypt/decrypt data
+	* key material 
+		* can use kms generated or import your own
+CMK can never leave KMS
+
+Key Rotation
+	* rotates the key every year so that it's a new key each year
+
+4 api calls
+-----
+* note will need to pass in the key id to each of these calls
+	* created from IAM console or CLI previously
+aws kms encrypt
+	* encrypt a file
+aws kms decrypt
+	* decrypt file
+aws kms re-encrypt
+	* take your encrypted key/decrypt/then re-encrypt it immediately
+aws kms enable-key-rotation
+	* enables key rotation in kms
+
+
+KMS envelope encryption
+-----
+Process of encrypting envelope key
+envelope key is our actual key we use to encrypt/decrypt our data
+	* also called data key
+Encrypt the encryption key
+CMK: Have a customer master key that encrypts/decrypts all of our encryption keys 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+study-resources.txt
+
+
+https://aws.amazon.com/certification/certification-prep/
+https://acloud.guru/forums/aws-certified-developer-associate/discussion/-KBkBPMHpN2ITSH1oDTO/passed-with-90-my-exam-tips
+https://medium.com/faun/passing-the-aws-certified-developer-associate-exam-c83c894cb780
+https://www.quora.com/How-difficult-are-the-AWS-certifications-and-how-much-does-it-cost-to-take-one

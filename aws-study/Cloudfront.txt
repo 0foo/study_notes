@@ -1,0 +1,70 @@
+Cloudfront.txt
+
+
+Cloudfront
+-------
+
+used to deliver your entire website, including dynamic, static, streaming, and interactive content
+using a global network of edge locations 
+
+* requests for your content are automatically routed to nearest edge location so content delivered with best possible performance
+
+Optimized to work with other AWS services like s3, ec2, ELB, route53
+also works seamlessly with non-aws origin servers 
+
+
+Cloudfront distribution types:
+	* Web distribution: websites, http/https
+	* Adobe RTMP : Adobe Real Time Messaging protocol
+		* adobe media streaming, flash multimedia content
+
+Cloudfront s3 transfer acceleration
+	* speed up s3 transfers
+	* data goes to edge location first then is streamed behind the scenes to central s3 bucket
+
+CDN-content delivery network
+* geoproximity
+* origin of the webpage
+* content delivery server/edge location
+
+
+Edge locations
+	* asset cache servers spread out all over the world
+	* used by AWS/Cloudfront to serve to closer 
+	* edge location grabs the asset from central location at first, then caches it
+	* improves peroformance: higher reponse time, lower latency, higher transfer times
+
+invalidation:
+ 	* clearing objects from the cache
+ 	* can manually invalidate the objects in the cache if you change them
+
+
+TTL
+ * time to live
+ * amount of time before objects are invalidated
+ * default TTL in cloudfront is 24 hours
+ * how long an item stays in cache
+
+Note: Can clear cache your self but will be charged to clear cache manually
+
+Edge Location
+	* are both read AND write
+	* location where content is cached and can also be written directly to
+	* Separate from a region or AZ and ALOT more of these
+
+Origin
+	* the original definitive version of all the files to distribute, i.e. s3 bucket, ec2, ELB, or Route53
+	* centralized location that all the Edge Locations pull assets from
+
+Distribution
+	* Name given to the CDN
+	* consists of a collection of Edge locations
+
+Web Distribution
+	* used for websites
+	* used for any media not Adobe(i.e. wavs, gifs, etc.)
+
+RTMP
+	* real time messaging protocol
+	* used for meda streaming
+	* ADOBE FLASH MEDIA SERVER FILES ONLY

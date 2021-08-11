@@ -1,0 +1,111 @@
+
+/localusers/golden/VirtualMachines
+/localusers/golden/VirtuaMachines/profiles
+55 4e 4f 23 49 41 23 52 6f 78
+
+
+mac_psxview
+
+pslist- process list in BSD part of kerneel
+task processes-in Mac part of kernel
+
+
+mac_dead_procs
+
+
+Memory allocation
+--------------------
+kernel
+-process descriptior , make new files
+
+
+_EPROCESS
+-basis for pslist plugin
+
+file- open file
+-can see if a process has an open file
+
+- _TOKEN
+-security tokens
+- can escalate priveliges here
+
+_ETHREAD
+-threads running inside eprocess container
+- every eprocess has at least one ethread otherwise theres nothing that can execute
+
+_KMUTANT
+- mutexes
+- note reason we care is because a malware can create a mutex and future malware can know if a machine is already infected 
+
+vs
+
+KERNEL memory allocation
+-----
+done using pools in windows
+different memory allocation pools
+-one that handles all the 4k 
+
+-one that handles all less than 4k
+* can allocate a bunch of eproccesses
+* all of the interesteing stuff here, 
+
+
+-non-paged pool
+	* never swapped
+	* important stuff - eprocess, ethreads, virtual memory managment functionality
+
+-paged - pool
+	* less than important stuff
+
+
+OBJECT structures
+	* rather than putting fields in side the structure
+	* wrap it in optional headers 
+
+
+
+Pool memory allocations
+--------------------
+4byte tags - allocated to EVERY pool that's been created.  
+e.g.
+tag for a _EPROCESS is: proc
+tag for a _FILE is: file
+-every time a memory allocation uses one of the tags
+
+Can use the tag as a pattern to find process and other structs
+-note:  this is (one method?)used by psscan and other functions
+-all types of vol plugins are based on various tags
+-(see one byte attacks on volatility framework paper)
+
+_POOL_TYPE
+-tons of possibilities
+- not really important for us for memory forensics
+
+
+inside volatility
+>>> dt('_OBJECT_TYPE')
+* highwater - how many ever existed 
+* other options
+
+
+objtypescan
+- volatility plugin
+- get a ton of info about the individual tags 
+
+authoritative source tag list: pooltag.txt
+- protected tag list
+- don't reuse anyth ng that's been used by anyone else
+- every tag associated with a weird data structure
+- good possibility for final project
+- look at text file, enumerate all datastructures, would know something about this machine
+
+ex:
+Proc tag is number of eprocess structures that have been allocated
+Can compare it to the task manager and it should be semi close
+
+
+
+
+
+windows internals book
+OS2 operating system

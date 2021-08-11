@@ -1,0 +1,107 @@
+Elasticache.txt
+
+Elasticache
+-------
+
+sits between application and database
+takes load off database
+good if database is read heavy and not frequently changing
+
+
+
+in memory cache in the cloud
+used for:
+1> frequent query results into elasticache (read heavy)
+2>computationally intensive database results (compute heavy)
+improve latency for read heavy workloads or compute intensive workloads
+
+
+2 types of in mem db's:
+1>memcached
+	* basic k/v pair
+	* no redundancy or mulit-AZ
+	* used for scaling horizontally <-!
+	* elasticache manages as pool of expendable nodes that grow/shrink, similar to auto scaling group
+		* scales horizontally 
+	* useful if you don't care about data persistence (i.e. cache can be rebuilt easily)
+	* use cases: 
+		1. object caching
+		2. super simple caching k/v pair model
+		3. large cache nodes, multithreaded performance
+		4. non-persistent
+	* Read Heavy, not prone to frequent changes, object cachine is ALL you want, super simple, scale horizontally
+	* no multi AZ capability
+
+
+2>redis
+	* k/v pair but has alot more data structures(lists, hash, sets)
+	* allows data minipulation i.e. sorting, ranking, uniques,etc
+	* redis in elasticache is fully managed(similar to RDS): 
+		* master/slave replication
+		* multi-AZ
+		* failover
+	* large cache nodes
+	* used for data persistence and data manipulation
+	* PUB/SUB available
+
+  
+
+ 2 caching strategies
+
+ Lazy Loading
+ 	* application handles populating the cache
+ 	* if data not available in cache, cache simply returns a NULL
+ 	* application fetches data from DB then populates the cache as well
+ 	Cons:
+	 	* stale data is an issue 
+	 		* only cache expiration is TTL 
+	 		* so if updated in main db before TTL expires in cache will get stale data
+	 	* add a TTL to the cache
+	 		* Lazy Loading treats expired key as cache miss
+ 	Pros:
+ 		* Only fills up the cache with needed data
+ 		* node failures aren't fatal, since its simply begins repopulating remaining nodes
+ 			* just increased latency 
+
+
+
+ Write Through 
+ 		* add/updates cache whenever data is written to the database
+ 	Pros:
+ 		* data never stale
+ 		* write penalty because has extra write to cache, every write has to populate both cache and database
+ 			* extra latency on write is more tolerated than latency on read
+
+ 	Cons:
+ 		* Cache churn
+ 			* most data is never read
+ 			* implement a TTL
+ 		* missing data
+ 			* New nodes aren't populated until writes populate it
+ 			* lazy loading with write through minimizes this impact
+
+ Can implement lazy loading WITH write through
+
+
+ref:
+https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Strategies.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

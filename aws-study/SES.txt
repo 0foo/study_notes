@@ -1,0 +1,19 @@
+SES.txt
+
+
+Simple email service 
+	* email only
+	* can be used for incoming or outgoing mail
+	* not subscription based just need the email address
+
+Scalable highly available email service with a pay as you go pricing model
+can be used to recieve emails
+	* delivered to an s3 bucket
+incoming emails can be used to trigger:
+	* lambda functions
+	* SNS notifications
+
+Automated as well
+
+
+

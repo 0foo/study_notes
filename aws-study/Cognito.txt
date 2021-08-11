@@ -1,0 +1,51 @@
+Cognito.txt
+
+
+
+Web Identity Federation
+---
+Lets gives users access to AWS resources after they have successfully authtenticated with a web-based identity provider like Amazon, Google, or Facebook
+
+
+User authenticates first with web id provider
+recieves authentication token (Json Web token)
+exchange authentication token for temporary aws access credentials inside AWS
+credentials allow them to assume a role
+
+
+
+Following authentication, user recieves an authentication code from the third party provider that they can trade for temporary AWS resources
+
+* basically OAUTH
+
+
+Cognito
+	* provides web identity federation
+	* sign up/in to your apps
+	* acts as identity between your app and Web ID providers, so you don't need to write any additional code
+	* Synchronizes user data for multiple devices
+	* reccomended for all mobile application AWS services
+	* brokers b/t web id to provide credentials which map to an IAM Role allowing access to other requried resources
+	* No need to store credentials on user device
+
+
+User Pools
+------
+SIGN UP and SIGN IN
+user directories used to manage sign up and sign in functionality for web apps/mobile apps
+generates JWTs (json web tokesn)
+can sign in directly to the user pool or via web id
+
+
+identity pools
+----
+create unique identities for your suers and authenticate with web id providers
+with an identity can obtain temporary IAM creds
+
+
+Cognito Sync
+-----
+Cognito tracks the association between user identity and the devices they sign in from
+uses push synchronization to push updates and synchronize data across devices
+SNS is used to send a silent push notification when ever data stored in the cloud changes
+"Cognito Sync" : Amazon Cognito Sync is an AWS service and client library that enables cross-device syncing of application-related user data. You can use it to synchronize user profile data across mobile devices and the web without requiring your own backend

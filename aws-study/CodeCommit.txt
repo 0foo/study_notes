@@ -1,0 +1,3 @@
+CodeCommit.txt
+
+* Use cloudwatch events to trigger a codepipeline from code commit changes.

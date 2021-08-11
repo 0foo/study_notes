@@ -1,0 +1,1 @@
+* https://igotanoffer.com/blogs/tech/amazon-software-development-engineer-interview

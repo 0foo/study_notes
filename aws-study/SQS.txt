@@ -1,0 +1,124 @@
+SQS.txt
+
+
+first/oldest service available in AWS (don't need to know this, just interesting)
+
+
+Web service that gives you access to a message queue that can be used to store messages while waiting for an application to process them
+Distributed queue system
+Enables web services to quickly and reliably queue messages that one component in the application generates and allows another to consume
+A queue is a temporary repository for messages that are awaiting processing
+
+SQS is a PULL based system
+	* vs SNS which is a PUSH based system
+
+
+SQS provides Resilience
+	* if an application server goes down the message is still in the queue
+
+SQS provides decoupling
+	* a producer and consumer are decoupled
+	* eases message management between components
+	* the messages are stored in a failsafe queue
+	* a producer can send to the queue and any consumer can pick up from the queue at a later time
+
+SQS provides Elasticity
+	* acts a buffer
+	* if the producer is producing messages faster than the consumer can process
+		* buffers intermediate spikes
+		* allows a delay while new consumers are provisioned up or down(ELB)
+	* if the producer and consumer are intermittently connected to the network
+
+Messages:
+* can contain up to 256kb of text in any format
+* Can stay in queue from 1 to 14 days 
+* default is 4 days
+* SQS guarantess messages processed/delivered at least once
+
+Visibility timeout
+	* amount of time message is invisible in the queue after a reader picks it up
+	* if job is processed before visibility timeout expires the message is deleted from queue
+	* if job not processed in that time message becomes visible again and another job proccesses it
+	* default VT is 30 seconds
+	* max VT is 12 hours
+
+Standard Queues (default)
+	* nearly unlimited transactions per second
+	* guarantee a mesage is delivered AT LEAST once
+	* occasionaly more than one copy of a message may be delivered
+	* occasionally messages may be out of order
+	* best effort uniqueness and order but not guaranteed
+	* this sacrifices are made to allow for unlimited speed
+
+Fifo queues(first in first out)
+	* guarantee order
+	* quarantess uniqueness(exactly once processing)
+	* duplicates not allowed into the queue
+	* limited to 300 transactions per second
+	* same attributes as standard queues otherwise
+	* Message Groups:
+		* allow multiple ordered message groups within a single queue
+
+
+Long Polling vs Short Polling
+	Long Poll:
+		* One request goes to server and client is waiting for the response to come (its unresolved)
+		* maximum long poll timout = 20 seconds
+		* essentially a form of pub/sub(not actually pub sub because it's still a pull based model)
+			* sends a requests and waits until timeout or until recieves a response
+	Short Poll:
+		* sends a request and times out and sends again over and over
+		* the query is sent and returned immediately even if no message in the queue then sent again
+
+
+
+
+SQS delay queues
+-----
+postpone delivery of new messages to a queue for a number of seconds
+remain invisible to the consumer for the duration of the delay period 
+default delay is 0 seconds
+max delay is 900 seconds(15 minutes)
+
+If change the setting mid processing;
+ 	* standard queue: wont' change the delay for data already in queue
+ 	* fifo: will change the delay for data already in queue
+
+ When use delay queue
+ 	* might need to introduce a delay queue
+ 	* for example: might need to allow delay between taking an order and checking to see if the product is in stock before sending confirmation.
+
+
+ best practice for managing large sqs messages 
+ -------
+ When dealing with large message in SQS 
+ need to use s3
+ over 256k insize
+ use s3 to store them
+ use Amazon SQS Extended Client library for Java to manage them
+ will need
+ 	* amazon sqs extended client library for java
+ 	* will need the aws sdk for java
+
+ sqs extended library for java 
+ 	* allows store ALL messages in s3 or only messages > 256k
+ 	* send message which references a message/object stored in s3
+ 	* get message object from s3
+ 	* delete message object from s3
+
+
+
+Dead Letter Queue
+----
+When the ReceiveCount for a message exceeds the maxReceiveCount for a queue, Amazon SQS moves the message to a dead-letter queue.
+For example, if the source queue has a redrive policy with maxReceiveCount set to 5, and the consumer of the source queue receives a message 6 times without ever deleting it, Amazon SQS moves the message to the dead-letter queue. 
+Sometimes, messages can’t be processed because of a variety of possible issues, such as erroneous conditions within the producer or consumer application or an unexpected state change that causes an issue with your application code.
+The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard queue must also be a standard queue. 
+
+
+Lambda and Dead Letter queue
+ Any Lambda function invoked asynchronously is retried twice before the event is discarded. If the retries fail and you're unsure why, use Dead Letter Queues (DLQ) to direct unprocessed events to an Amazon SQS queue.
+
+
+
+

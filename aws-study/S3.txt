@@ -1,0 +1,231 @@
+S3.txt
+
+s3 - simple storage service
+-----
+secure, durable, highly available storage
+object based storage !!!
+	* allows upload object files
+	* files only not a database or applications
+max file size 0 to 5 TB !!!
+Largest file you can upload with a single PUT is 5GB
+	* to upload larger files, use multi-part upload to upload up to 5TB
+unlimited storage !!!
+	* no allocation 
+safe-data is spread across multiple devices and facilities
+designed for 99.99% availablity BUT amazon guarantee 99.9%
+amazon guarantees  99.99999999999% (eleven nines) durability
+	* durability -  long-term data protection, i.e. the stored data does not suffer from bit rot, degradation or other corruption
+	* don't want to lose our files
+	* ex: lose an object once every 10,000 years
+files stored in buckets(folder) !!! 
+
+naming:
+	* universal namespace-bucket names are visible globally !!!
+	* buckets must also be DNS compliant
+
+url format
+	* bucket urls: https://s3-<region>.amazonaws.com/<bucketname>
+	* website urls: https://<bucketname>.s3-website-<region>.amazonaws.com
+
+when upload a file upload will recieve a http 200 if successful(i.e. via api or cli)
+
+Data Consistency Model !!!
+	* PUTS(initial upload for first time)of new objects have 'read after write' consistency
+		* as soon as you add your object, and it's successful, it's available to read
+	* Overwrite Put or delete uses 'eventual consistency' 
+		* not immediate
+		* may take some time to synchronize
+
+
+s3 objects consist of:  !!!
+		* key - name
+		* value- data-sequence of byte
+		* version ID - for versioning
+		* metadata 
+			* can add your own metadata
+			* also has some AWS metada
+		* subresources
+			* bucket specific 
+			* bucket policies
+			* bucket ACL's
+			* CORS (cross origin resource sharing)
+			* transfer acceleration
+				* acclerate file transfer speeds when uploading LOTS of files into s3
+
+
+versioning 
+replication
+deletion prevention
+tiers of storage
+lifecycle management-moving data between different storage tiers
+encryption
+secure access to data using ACL's/bucket policies
+
+
+storage tiers/classes !!!
+	* selection of tier happens on object upload NOT bucket creation
+	* s3
+	* s3/IA
+		* infrequent access
+		* lower peridic fee but has a fee when retrieve
+	* s3/IA/One Zone
+		* same as s3/IA but only stored in single availability zone
+		* same durability but only 99.5% availability 
+		* cost 20% less than s3/IA
+	* reduced redundancy storage
+		* 99.99% durability/99.99% availability
+		* data that can be recreated (i.e. thumbnails)
+		* legacy, use standard s3 instead, standard is MORE COST EFFECTIVE
+	* glacier
+		* very cheap
+		* archival only 
+		* takes 3-5 hour to retrieve
+
+Intelligent tiering
+	* data that has unknown or unpredictable access pattern
+	* automatically moves data to most cost effective tier based on how frequently you access each object
+	* two tiers
+		* frequent
+		* infrequent
+	* if object not accessed in 30 (consecutive) days automatically moves to s3/IA
+	* if accessed automatically move to regular s3
+	* same level of durability/availablily as s3/IA
+	* no fees for accessing your data .0025/per 1,000 objects for the automation monitoring of intelligent tiering
+
+charges
+	* amount of storage in GB
+	* number of requests(get,put,copy,etc)
+	* fee for storage management 
+		* invnetory, analytics, tagging
+	* data management pricing
+		* data transfer out of s3 
+		* free to transfer into s3 but costs to transfer out
+	* transfer acceleration
+		* uses cloudfront to optimize those transfers
+
+
+CORS
+	* by default one bucket cannot access files in another bucket
+	* need to set up CORS to allow cross origin file sharing
+	* Permisssions->CORS configuration 
+	* gives you a url, will need to specify an index and an error page in the console
+	* Allows one bucket to access files in a another bucket via HTTP
+	* important: will need to use the static website URL and NOT the bucket url
+
+
+
+s3 Security
+----------
+By default all new buckets are PRIVATE (unless you deselect all privacy protections)
+access control managed by:
+
+* ACL's
+	* applied at object level
+	* define accounts/groups/users etc
+	* read write full control etc
+
+* Bucket Policies
+	* applied at bucket level
+	* written in JSON, there's a tool to generate
+
+Can configure buckets to write access logs
+	* log all requests
+	* can be written to another bucket
+
+Can log to cloudtrail as well
+
+
+ Public Access Config 
+ 	* can block public acccess and ADDING public access ACLs/policies for the bucket
+
+
+Chosen at bucket creation:
+	* tags
+	* public access restriction
+		* can disable allowing any ACL's/Policies to the bucket
+	* object level logging(cloudtrail)
+	* whole bucket encryption(automatically encrypt objects that are uploaded)
+	* versioning
+	* server access logging(save access logs to another s3 bucket in same region)
+	* cloudwatch request metrics(cloudwatch performance metrics!)
+
+Chosen at object upload
+	* ACL for the object - User, Other Account, Public permissions
+	* Object Encryption
+	* storage tier
+	* metadata for the object 
+		* this is http headers
+	* object tags
+
+Open object
+	* can open via S3 console
+	* can open via link (if public disabled, this won't work)
+
+
+s3 encryption
+-------
+encrytion in transit 
+	* to and from bucket uses SSL/TLS(TLS replaces TLS)(also known as HTTPS)
+encryption at rest 
+	* server side encryption:
+		* three types
+			* s3 managed key(SSE-S3)
+				* AWS manages key for you(and rotation) in s3
+				* AES-256 (advanced encryption standard)
+			* AWS - KMS(Key managed service)(SSE-KMS)
+				* AWS manages the key for you(and rotation) in KMS
+				* higher amounts of encryption
+				* audit trail which logs the use of your encryption key
+			* SSE-C
+				* AWS manage encryption/decryption but you manage your own keys and key rotation
+
+	* client side encryption:
+	 	* encrypt your self before uploading to s3
+
+
+
+x-amz-server-side-encryption:
+	* uses a bucket policy to only allow requests with x-amz-server-side-encryption in the header to upload
+	* enforce the use of encryption on files uploaded use s3 bucket policy to deny all PUT's that don't include this header
+	* x-amz-server-side-encryption parameter will be included in the request header during upload
+	* this tells s3 to encrypt the object at time of upload, using the specified encryption method
+	* header values:
+		* x-amz-server-side-encryption: AES256
+		* x-amz-server-side-encryption: ams:kms
+	* can enforce a bucket policy which denies any s3 PUT request that doesn't have this header
+
+
+Optimize s3 performance
+-----
+if s3 bucket gets > 100 PUT/LIST/DELETE qps
+or >300 GET qps
+
+
+GET intensive workloads
+	* use cloudfront 
+
+Mixed request type workloads
+ 	* mix of GET/DELETE/PUT/LIST etc
+ 	* s3 uses key name to partition the objects, 
+ 		* therefore if all key's are similar will not be partitioned well and harder to access due to I/O issues
+ 	* use a random key name PREFIX to partition randomly and this distributes the I/O workload
+
+  ex: bucket-name/my-object-name-1.jpg  vs bucket-name/7eh4-my-object-name-1.jpg 
+
+
+As of 7/2018 AWS increased s3 performance
+	* 3,500 PUT qps
+	* 5,500 GET qps
+
+logical and sequential naming can now be used without any performance implication 
+
+ref: https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html
+
+Optimising S3 Key (File) names for heavy load (http://docs.aws.amazon.com/AmazonS3/latest/dev/request-rate-perf-considerations.html)
+	* add prefixes to filenames to parallelize 
+ 	* 3,500 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per second per prefix in a bucket. 
+	* There are no limits to the number of prefixes in a bucket. You can increase your read or write performance by parallelizing reads. For example, if you create 10 prefixes in an Amazon S3 bucket to parallelize reads, you could scale your read performance to 55,000 read requests per second. 
+	* can use cloudfront for heavy asset READs 
+	* elasticache for heavy data reads
+	* amazon s3 transfer acceleration 
+		*  Transfer Acceleration uses the globally distributed edge locations in CloudFront to accelerate data transport over geographical distances.

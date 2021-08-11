@@ -1,0 +1,156 @@
+volatillity command reference
+https://code.google.com/p/volatility/wiki/CommandReference23
+
+• hh() – Help 
+• cc() 
+– Set process context 
+– Can use pid, name, offset of process descriptor 
+– cc(pid=2139) – cc(name="xmlavipv.exe") 
+• sc() – Show current context 
+• dt() – Describe a data structure
+•  addrspace()
+– Access current address space object
+•  ps()
+– List active processes
+•  getprocs()
+– Generator for active processes
+•  modules()
+– List kernel modules
+•  getmods()
+– Generator for kernel modules
+•  db(addr) – Dump bytes
+•  dd(addr)
+– Dump doublewords (32-bit quantities)
+•  dq(addr)
+– Dump quadwords (64-bit quantities)
+•  dis(addr)
+– Disassemble at address quantities)
+
+
+
+python vol.py –profile=WinXPSP3x86 –f mem.dump volshell 
+ 
+ python vol.py –info to see which are available
+- view available profiles
+- also check proper installation of new profiles
+
+how to find correct windows profile
+imageinfo or kdbgscan plugin
+
+
+volatility process windows listing plugin
+(from kernel structures - list walking)
+•  pslist
+–  enumerates processes by walking the active list –  will miss unlinked processes
+•  psscan
+–  enumerates processes using the pool tag scanning
+technique
+–  finds unlinked processes
+–  can output a Graphviz-compatible diagram
+•  pstree
+–  shows a tree of parent/child relationships
+•  psxview
+–  enumerates processes 7 different ways and
+compares them to show discrepancies
+
+(carving technique)
+psxview 
+
+
+
+windows priveleges
+
+getsids 
+python vol.py –f grrcon.img getsids –p 1096 
+-process id's
+
+privs
+python vol.py  -f   grrcon.img   privs   -p 1096
+
+dt("token")
+-view per OS privelege token structure
+
+
+
+linux process enumeration
+---------
+•  linux_pslist
+–  enumerates processes by walking the active process list
+•  linux_psaux
+–  enumerates processes like ps –aux
+•  linux_pstree
+–  tree view of process list, showing parent/child relationships
+•  linux_threads
+–  List all processes/threads
+•  linux_pidhashtable
+–  enumerates processes/threads by walking the PID hash table
+•  linux_pslist_cache
+–  looks for task_structs in memory allocator (NOT for SLUB)
+•  linux_psxview
+–  cross-validates sources above + others
+
+
+
+MAC process enumeration
+----------------------
+•  mac_pslist
+– Enumerates processes by walking the active
+process list
+•  mac_dead_procs – Discovers terminated processes
+•  mac_tasks – Enumerates Mach tasks
+•  mac_psxview
+– Typical Volatility cross-verification
+
+
+
+list VAD types
+-----
+Get all pool tags with volatility: objtypescan
+
+
+VAD Plugins
+----------
+•  vadinfo
+– most verbose output, default all processes
+•  vadtree
+– tree layout, optionally as a Graphviz diagram
+– Color-coded nodes to indicate stacks, heaps, mapped files, DLLs, etc.
+•  vaddump
+– extracts zero-padded memory ranges to files,
+for further analysis
+
+
+memmap
+-----
+Volatility’smemmap plugin shows the virtual and physical addresses “visible” to a process
+
+memdump
+-----
+The memdump plugin extracts all pages to a single file on disk
+
+
+strings
+---------
+strings -n 2 <filename> | grep "yourstring"
+
+
+
+awk
+----
+
+pipe to awk '$4 == 0'
+to do column manipulations
+
+also awk ‘$4 == “0” {print $0}’
+the print statement prints columns the $0 is print all columns
+
+
+wc
+----
+wc outputs line/word/and some other thing
+
+use -l or -w for just word or lines
+
+
+
+

@@ -1,0 +1,49 @@
+Route53.txt
+
+Route 53
+------
+Amazons DNS service
+Can map domain names to:
+* EC2 instances
+* Load Balancers 
+* S3 buckets
+
+Note: under the covers, it's mapping a domain name to an IP of one of the previous
+
+Inside of Route 53 console
+	* will create an A record (IP)
+	* and alias section of the console will allow you to map that to a certain type of resource
+
+
+IAM - Identity access manager
+----
+users, groups, roles, policies
+
+if cred's on an ec2 instance and active, they will override that instances roles if using CLI. 
+Delete them in order to use aws cli with the roles of the ec2 instance
+
+Can connect security groups to other security groups i.e. can allow a security group into a port in another security group 
+
+Least Permissions
+Add users to groups
+Access Key and
+Secret Access key only see once
+
+Roles allow you not to use access keys and secret access keys
+preferred from security perspective
+roles controlled by policies
+changing policy on a role takes immediate effect, even on running ec2's 
+
+
+Principle is who is allowed to access this resource
+	* account, user ,ec2, etc.
+Service
+	* what service
+Resource
+	* arn of a specific resource
+Action
+	* the list of policy
+Role
+	* what the policies can do
+ARN(amazon resource name)
+	* a specific resource, i.e. a specific s3 bucket, etc.

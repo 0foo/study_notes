@@ -1,0 +1,51 @@
+Cloudformation.txt
+
+Cloudformation
+------
+Ref vs Sub vs GetAtt vs FindInMap
+required parts of template
+Exported outputs vs regular outputs
+
+
+CloudFormation is declarative, not imperative. You don't have to specify the order in which resources are created, updated, or deleted. CloudFormation automatically determines the correct sequence of actions to create your environment.
+
+
+
+
+Main sections
+
+
+(AWSTemplateFormatVersion
+Description)
+
+
+
+Parameters
+Conditions
+Mappings
+Transform
+	* used to reference additional code stored in s3
+Resources
+Outputs
+
+
+Only mandatory section is 
+	* Resources
+
+
+
+Intrinsics
+----
+
+Ref
+	* getts atributes of paramter or resource
+
+GetAtt
+	* returns attribute from a resource 
+
+ImportValue
+	* returns the value of an output exported by another stack.
+
+Sub
+	* substitutes variables in an input string with values that you specify.
+	* basically templating

@@ -1,0 +1,103 @@
+Kenesis.txt
+
+
+
+Streaming data
+-----
+data that is generated continuously by thousands of data sources
+which typically send the data records simoultaneously and in small sizes
+	* purchases from online stores
+	* stock prices
+	* game data
+	* social network data
+	* geospatial data
+	* iOT sensor data
+
+Kenesis is a platform on AWS to send your streaming data to
+	* makes it easy to load and analyze streaming data
+	* provide ability to build own custom apps for business needs
+
+
+Kenesis Stream
+	* data 'producers', mobile phones, desktops, hosts sending the data 
+		*sends data to kenesis streams -> kenesis stream stores this data
+		* default stored for 24 hour but can increase to 7 days
+	* data stored in 'kenesis shards'
+		* default stored for 24 hours but can increase to 7 days
+	*  'data consumers'
+		* take data from shard and turn into something useful
+		* lambdas or ec2 instances 
+		* will run a function on it before the data goes somewhere else
+	* once data consumers have turned that into something useful they can store in other AWS resources
+		* RDS, DYnamo, etc
+	* Video Streams, stream video from connected devices for analytics and machine learning
+	* Data Streams, build custom apps to process data in real time
+	* Kenesis Shards
+		* up to 5 read transactions/second 
+		* maximum read rate of 2 MB per second
+		* up to 1000 write transactions/second 
+		* maximum total write rate of 1MB per second
+		* the data capacity of the stream is a function of the number of shards that you specify for the stream
+		* total capacity of the stream is the sum of the capcities of its shards
+		* resharding - as data capacity increases add more shards
+
+
+Kenesis Firehose
+	* capture, transform, load data into AWS data stores for near real-time analytics with Biz Intel tools
+	* data 'producers' send data to firehose
+	* don't have to worry about shards, streams, consumers with firehose
+		* all completely automated
+		* lambdas are the consumers (scale out)
+	* can anlyze that data using lambda in real time and/or send to s3
+	* No data retention window
+		* as soon as the data comes into firehose it's either analyzed by lambda or sent on to:
+			* s3
+			* redshift (oddly must write to s3 first before writing to redshift)
+			* elasticsearch
+			* elasticache NOT supported
+
+Kenesis Analytics
+	* allows you to run sql queries of data in firehose or streams and then use that sql query to store that data to store it in:
+		* s3, redshift, elasticsearch
+		* essentially a way of analyzing the data inside kenesis using sql type querie language 
+		* useable in both steams and firehose
+
+
+
+Kenesis Client Library
+	* have kenesis client library on consumers
+	* KCL ensures that for every shard there's a record processor
+	* it does this via proc's and load balancing
+		* if only one instance each record processor will be a proc
+		* as more instances join in the record processors are load balanced, procs divided between all the instances
+	* KCL handles the load balancing
+	* ensure number of instances does not exceed the number of shards
+	* one worker can process multiple shards->one shard cannot be processed by multiple workers
+	* definitely fine that the number of shards exceeds the number of instances
+	* CPU utilization is what should drive the number of instances, not number of shards in your stream
+	* SOLUTION: use autoscaling group based on the CPU utilization of your instances doing to record processing
+
+
+
+
+
+
+ProvisionedThroughputExceededException exception
+	* batch messages
+	* use exponential backoff
+
+
+
+Kenesis Stream Partition Key
+	Partition keys only matter when you have multiple shards in a stream (but they're required always). Kinesis computes the MD5 hash of a partition key to decide what shard to store the record on (if you describe the stream you'll see the hash range as part of the shard decription).
+
+	So why does this matter?
+
+	Each shard can only accept 1,000 records and/or 1 MB per second (see PutRecord doc). If you write to a single shard faster than this rate you'll get a ProvisionedThroughputExceededException.
+
+	With multiple shards, you scale this limit: 4 shards gives you 4,000 records and/or 4 MB per second. Of course, there are caveats.
+
+	The biggest is that you must use different partition keys. If all of your records use the same partition key then you're still writing to a single shard, because they'll all have the same hash value. How you solve this depends on your application: if you're writing from multiple processes then it might be sufficient to use the process ID, server's IP address, or hostname. If you're writing from a single process then you can either use information that's in the record (for example, a unique record ID) or generate a random string.
+
+	Second caveat is that the partition key counts against the total write size, and is stored in the stream. So while you could probably get good randomness by using some textual component in the record, you'd be wasting space. On the other hand, if you have some random textual component, you could calculate your own hash from it and then stringify that for the partition key.
+

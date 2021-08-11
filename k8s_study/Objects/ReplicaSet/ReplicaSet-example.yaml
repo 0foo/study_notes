@@ -1,0 +1,24 @@
+# pod-replicas.yml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-replicas
+  labels:
+    app: web
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: web
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80

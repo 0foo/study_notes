@@ -1,0 +1,132 @@
+ElasticBeanstalk.txt
+
+
+Service for deploying and scaling applications developed in many popular languages onto widely used application platforms(tomcat,nginx,passenger,etc)
+provisions ALL the resources underneath the software
+developers can focus on writing code and don't need to worry about the underlying infrastructure
+
+upload the code and elastic beanstalk handles:
+	* deployment
+	* provisioning
+	* load balancing
+	* auto-scaling
+	* application health
+
+you retain full control of the underlying AWS resources powering your application
+pay only for the AWS resources required to store/run your applications
+	* i.e. ec2, s3, etc.
+
+fastest/simplest way to deploy your applications in AWS
+can select ec2 instance types you desire
+can retain full administrative control or let beanstalk handle
+can do managed platform updates
+	* update your code version, server version, os, etc.
+monitor and manage application health via a dashboard
+integrated with x-ray and cloudwatch for performance data and metrics
+
+
+elastic beanstalk config files
+-------
+Can customize your Elastic Beanstalk environment by using configuration files 
+Define packages to install
+create linux users/groups
+run shell commands
+specify services to enable
+configure load balancer 
+
+written in yaml or json
+filename of your choice but have .config extension
+save inside a .ebextensions folder
+
+
+.ebextensions folder included in the top level of application source code
+	* means they can be source controlled
+ 
+
+ Elastic Bean Stalk and RDS
+ ------
+ two ways of integrating an RDS database with your beanstalk environment
+ * launch instance within your Elastic Beanstalk console/environment
+ 	* RDS created with your elastic beanstalk environment
+ 	* (good for dev/test) not good for prod because lifecycle of database tied to the lifecycle of the app
+ 		* i.e. if terminate the app will also end up terminating the database
+ *  launch RDS separately from Elastic Beanstalk (i.e. directly from RDs)
+ 	* decouple RDS from Elastic Beanstalk
+ 	* can connect multiple Elastic Beanstalks to single RDS database
+ 	* tear down your elastic beanstalks without losing RDS database
+ 	requires 2 things:
+ 		* additional security group must be added to the auto beanstalk environments aut0-scaling group for the database port
+ 		* provide connection string information to your application servers (user/pass, connection string) using Beanstalk params
+ 
+
+
+Updating Elastic Beanstalk
+-----
+
+(elastic beanstalk)EBS deployment policy
+
+How we update
+
+all at once
+	* deploys new version to all instances simoultanously
+	* all of instances out of service while update taking place 
+	* experience an outage while update takes place
+	* if update fails will need to roll back the changes by re-deploying the original version
+	* this is not ideal for mission critical applications(test,dev environments not prod)
+
+rolling
+	* deploys the new version in batches
+	* some batch of instances taken out of service while deployment takes place
+	* environment capacity will be reduced by the number of instances in a batch while deployment takes place
+	* not ideal for performance sensitive systems
+	* if update fails will need to perform an additional rolling update to roll back the changes
+	* good for systems that can't affor down time but can afford a loss of capacity
+
+rolling with additional batch
+	* launches an additional batch of instances
+	* deploys the new version in batches
+	* maintain full capactity during the deployment process
+	* if update fails need to perform additional rolling update to roll back the changes
+	* good for systems that can't afford downtime or loss of capacity
+
+immutable
+	* deploys to fresh group of instance in their own new autoscaling group
+	* when new instance pass health checks they are moved into existing autoscaling group and old instances terminated
+	* maintains full capacity during entire process
+	* impact far less and rollback requires only terminating the new autoscaling group
+	* preferred option for mission critical systems
+
+
+
+
+
+Elastic Beanstalk and Docker
+-------
+EBstalk Supports the deployment of docker containers
+can handle the provisioning, load balancing, scaling, monitoring, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

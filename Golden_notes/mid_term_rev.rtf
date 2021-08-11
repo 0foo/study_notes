@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 Memory Acquisition\
+\'97\'97\
+\
+\
+\
+list walking vs carving\
+\
+\
+list walking\
+- travels down know list of data structures\
+- fast\
+- don\'92t have to have a pattern\
+\
+dis advantage\
+- attacker can easily avoid\
+\
+\
+carving\
+- disadvantage:\
+- need a pattern\
+- can get false positives\
+- attacker can mix with a false pattern\
+\
+- advantages: can find hidden things\
+- can find deallocated structures->dead process/threads\
+\
+Side note:\
+attacker\
+attackers have anti virus as well\
+- can run to make sure it doesn\'92t find their virus\
+\
+NOTE:  \'97info gives you all plugins!!  (if get lost) \
+ex: can run \'97info | grep dump\
+\
+basic analysis of memory image\
+- figure out what the volatility profile: \
+- run image info plugin -> gives you some idea of what profile to use\
+-\
+\
+how many processes we\'92re running?\
+wordcount -l\
+cat then grep something you know appears on each line\
+less, tail\
+\
+\
+how many time does the word \'93deadlock\'94 occur in the memory allocated to a specific process?\
+\
+plugin to dump memory? \
+How\
+1> dump memory for only one process\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 options:\
+a>memdump\
+b>use the VAD thing (b/c it\'92s windows)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 2> run strings command on that dump \
+(note default strings formtting is ascii  -el is unicode)\
+\
+\
+\
+MAC OS X memory analysis\
+\'97\'97\
+how many processes were running ?\
+\
+what were the last four fields(name only) of the VM_MAP structure?\
+\
+\
+What are the start and end  addresses of the last region of memory to a certain process in this memory dump?\
+\
+\
+\
+how many instances of the bash shell were running when the memory dump was taken?\
+plugin?   linux pslist  then grep for bash\
+\
+A number of Chrome browser instances were running.  what is the name and PID of the oldest ancestor?\
+\
+linux pstree,  just walk back and find the oldest thing responsible for them being alive\
+\
+\
+how many threads are executing inside a certain process?\
+plugin? linux threads \
+\
+\
+\
+\
+know basic concepts..\
+use simple volatile to look at data structures\
+\
+}

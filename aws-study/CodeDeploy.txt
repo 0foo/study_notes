@@ -1,0 +1,19 @@
+CodeDeploy.txt
+
+
+.appspec in root directory
+
+
+
+deploymnets
+----
+Code deploy deplyments
+Blue/Green
+	* Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green.
+	* At any time, only one of the environments is live, with the live environment serving all production traffic. For this example, Blue is currently live and Green is idle.
+	* As you prepare a new version of your software, deployment and the final stage of testing takes place in the environment that is not live: in this example, Green. Once you have deployed and fully tested the software in Green, you switch the router so all incoming requests now go to Green instead of Blue. Green is now live, and Blue is idle.
+	* note: router can be DNS/IP mapping
+In/Place
+	* The application on each instance in the deployment group is stopped, the latest application revision is installed, and the new version of the application is started and validated. You can use a load balancer so that each instance is deregistered during its deployment and then restored to service after the deployment is complete.
+
+ref: https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments.html

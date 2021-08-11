@@ -1,0 +1,5 @@
+Fargate.txt
+
+
+
+"Fargate" : AWS Fargate is a compute engine for Amazon ECS that allows you to run containers without having to manage servers or clusters. With AWS Fargate, you no longer have to provision, configure, and scale clusters of virtual machines to run containers. AWS Fargate eliminates the need to manage a cluster of Amazon EC2 instances

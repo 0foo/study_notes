@@ -1,0 +1,109 @@
+Physical Memory Dumps
+Memory Analysis / Live Forensics
+Memory Analysis: Then
+Memory Analysis: 2004
+- grep
+- pt_finder
+- POOL_TAG,OBJECT_HEADER,DISPATCH_HEADER
+- FACE on memory dump, vs ps, netstat
+ - FACE Socket Buffer Dumps
+
+modern:
+Volatility Framework
+
+Basic use of Volatility (command line pics)
+-help
+-imageinfo
+-pslist
+-sockets
+-handles
+-cmdscan
+-iehistory
+-pstree
+
+Befor and After memory dumps
+- comparing pslists between a before and after dump
+-VolDiff
+
+volshell
+- a huge tutorial 
+
+
+Acqurigin memory Dumps
+- methods
+- virtual machine
+
+LIME
+- memory acquirere
+wimpmem
+- memory acquirere
+
+
+Volatility Memory Image support
+- can analyze a variety of different image types
+
+
+Virtual Memory tutorial
+Data STructure tutorial
+
+
+
+Memory Analysis
+- carving vs list walking
+- other methods
+
+
+DKOM FU rootkit
+Lists and DKOM
+
+
+Data Carving tutorial
+
+Vtypes in Volatility
+Dwarf stuff
+Volatility overlays
+Volatility Profiles
+- creating a new
+
+
+-Address space
+-Plugins
+-identifying windows profiles
+
+
+memory analyais vs spyware
+-eblaster
+-how to fix eblaster
+
+Process representationas
+- what is a process
+- process information
+
+Windows processes
+- EProcess structure
+- Windows organizes active processes using a doubly linked list pointed to by PsActiveProcessHead
+- – Rootkits can unlink entries to hide processes from tools on the running system
+– Does not interrupt process execution because the CPU scheduler is thread-based
+- more DKOM and unlinking
+
+
+Identifying system processes
+- list of legit system processes
+- visualization of clean systems
+
+
+cross refereneing kernel strucutrues
+-cross reference multiple kernel structures 
+- to see if unlinked in one but not another
+
+psxview
+- info
+- carving
+
+
+windows process tokens
+- priveliges
+- token strcutres
+- token analysis
+- privelige analysis
+- simpoulating privilege esclation

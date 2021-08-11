@@ -1,0 +1,1 @@
+# produce all permutations of a string  

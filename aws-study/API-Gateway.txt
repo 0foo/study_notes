@@ -1,0 +1,93 @@
+API-Gateway.txt
+
+
+
+API Gateway
+-----
+
+Fully managed API service
+	* publish, maintain, monitor, secure API's at any scale
+	* can connect to many other AWS services
+
+* can cache for you to increase performance
+* Expose HTTP endpoints to define a restful API
+* is serverless
+* can send each endpoint to a different target
+* API keys to track/control use
+* throttle requests to prevent attacks/usage plans
+* cloudwatch for monitoring
+* multi-version of API
+* scale effortlessly, low cost, 
+
+Configure
+* define an API container
+* Define resources and nested resources(url paths)
+* For each resource 
+	* HTTP verb (GET, PUT, DELETE, etc.)
+	* set security 
+	* choose target 
+	* set request/response transformatoin
+* deploy API gateway to a stage(dev, prod, QA, etc)
+* Domain
+	* uses API gateway domain by default 
+	* can use a custom domain
+* Can use AWS certificate manager(free SSL/TSL certs)
+
+API GW caching 
+	* caches endpoint response
+	* reduces number of calls made to endpoint
+	* improve latency of the requests to you API
+	* caches with a TTL (in seconds)
+	* API will look up from the cache instead of making request to your endpoing
+
+API means (applicatiom programming interface)
+Rest API 
+	* Representation State Transfer
+	* simple
+	* json
+SOAP Api's
+	* Simple Object Access Protocol
+	* not simple 
+	* uses xml
+
+CORS
+	* same origin policy
+		* web browswer permits one file to access another file but only if both have the same origin domain
+		* done to prevent cross site scripting attacks
+		* Browser make an HTTP OPTIONS call (OPTIONS is another http verb like GET)
+		* Server returns response with allowed domains to get this URL
+		* "Origin policy cannot be read at the remote resource" 
+			* need to enable CORS
+
+
+Can import APIs
+	* API gateway import feature
+	* swagger(open API) spec v2.0
+	* can update, merge, create, etc
+
+API throttling
+	* api gateway default 10,000 QPS
+	* max concurrent requests(i.e. simoultanous requests) is 5,000 concurrent requests across all API's withing an AWS account
+	* if violate this will recieve '429 Too Many Request' error
+	* Note: if 10000 requests sent all at once will violate the concurrency EVEN if within the one second limit
+	* the 10000 must be staggered to not violate the 1 second or the concurrency issues
+
+SOAP service pass through
+	* Can configure API gateway as a SOAP service passthrough
+
+
+
+
+MApping templates
+-----
+The API Gateway mapping templates are used to transform an incoming payload into a different format
+API Gateway uses the concept of “models” and “mapping templates” to specify the mapping between the client payload and the server payload.
+* A model defines the structure of the incoming payload using JSON Schema. The model is an optional, but not required, piece of API Gateway. By providing a model, you make it easier to define the upcoming mapping template that actually does the transformation between the client and server.
+
+
+
+
+
+
+
+

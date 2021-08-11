@@ -1,0 +1,8 @@
+Redshift.txt
+
+Redshift
+-------
+Data warehousing
+Use if management keep running OLAP transactions and it's stressing the prod database
+
+

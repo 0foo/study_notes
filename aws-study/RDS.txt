@@ -1,0 +1,108 @@
+RDS.txt
+
+
+RDS- relational database service
+----
+RDS is used for OLTP 
+relational database vs non-relational
+database - database
+table - collection
+row - document
+fields - key:value
+non-relational database-don't need to predefine the structure
+typically a json structure
+
+6 instance types available within rds: mssql, oracle,mysql, postgres, aurora, mariadb
+* aurora is mysql compatible(amazon)
+
+data warehousing
+	* used for buisiness intelligence
+	* pull in large/complex data sets
+	* example use: current performance vs targets etc
+	* typically separate from prod database
+
+OLTP vs OLAP
+* online transaction processing
+	* simple transactions that happen very frequently
+	* ex: e commerce
+ 
+ vs 
+
+ * online analytic processing
+ 	* complex transactions that happen infrquently
+ 	* runs algorithms on data
+
+dynamo - no sql
+redshift-OLAP
+Elasticache
+* in memory cache 
+* 2 engines: memcached and redis
+
+aurora can't be free tier
+mysql/aurora: 3306
+
+RDS-backups, multi-az, read replicas
+---
+automated backups
+	* point in time recovery down to the second, due to snapshot plus transaction logs
+	* recover database to any point in time within 1 to 35 days
+	* snapshot of the database plus transaction logs
+	* enabled by default
+	* free storage (equal to size of database)
+	* backups taken within a defined window
+		* storage I/O may possibly be suspended
+		* may experience latency during the backup
+	* after delete original RDS database will also delete the backups
+
+manual snapshots
+	* simple snapshot of the database
+	* done manually
+	* always be stored even after delete original RDS database
+
+Restore:
+	* When restore either of these, will be a new RDS instance with new DNS endpoint
+
+Encryption:
+	* everything supports encryption at rest
+	* uses KMS to encrypt
+	* all data, read replicas, and snapshots are also encrypted(everything done with that database is)
+	* to convert to encrypted db
+		* make a copy of the DB, and select encrypted when creating the copy
+
+console settings:
+	* backup window(when takes snapshot), 
+	* backup retention period(how long keeps them)
+	* restore to point in time (will restore snapshots plus transaction logs, so restore back to second)
+
+
+Multi AZ vs Read Replicas
+	* Multi AZ 
+		* synchronous replication
+		* for disaster recovery ONLY NOT PERFORMANCE(use read replica)
+		* changes made to a DB in one AZ will sync to other DB in other AZ exactly
+			* for disaster recovery only, not for prod
+
+	* Read Replicas
+		* used for scaling NOT disaster recovery
+		* asynchronous replication
+		* used for horizontal scaling 
+		* used for read heavy databases
+		* used for performance improvements ( use multi AZ for disaster recovery)
+		* must have automatic backups turned on in order to deploy read replica <-!
+		* 5 read replicas per prod DB by default <-!
+		* each read replicas have their DNS endpoint, can also use main endpoint
+		* Can point your apps to the read replicas, takes load off primary DB, horizontally read scale
+		* read replicas can be in different regions(mysql/maria db ) and different AZ's
+		* can have read replicas of read reaplicas i.e. multiple levels of read replicas <-!
+			* may experience latency more levels down you go
+		* available for mysql, postgres, mariadb, aurora. NOT avail for sql server or Oracle
+		* can promote a read replica to it's own database
+	* Load Balancing
+			* Amazon provides connection load balancing for RDS Aurora, via a specific load-balanced endpoint. 
+			* For any other RDS database configuration you will have to handle the connections yourself.
+			* For non-Aurora can setup single DNS hosted zone with equally weighted endpoint CNAMEs to distribute the traffic to 
+				* https://aws.amazon.com/premiumsupport/knowledge-center/requests-rds-read-replicas/
+* Failover
+	* There's an primary DNS record that never changes but if need to failover the underlying IP's changes to point to a new DB.
+	* RDS automatically failsover to the standby, downtime is very limited (one min or so)
+

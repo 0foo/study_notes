@@ -1,0 +1,91 @@
+IAM.txt
+
+IAM - Identity access manager
+----
+users, groups, roles, policies
+
+if cred's on an ec2 instance and active, they will override that instances roles if using CLI. 
+Delete them in order to use aws cli with the roles of the ec2 instance
+
+Can connect security groups to other security groups i.e. can allow a security group into a port in another security group 
+
+Least Permissions
+Add users to groups
+Access Key and
+Secret Access key only see once
+
+Roles allow you not to use access keys and secret access keys
+preferred from security perspective
+roles controlled by policies
+changing policy on a role takes immediate effect, even on running ec2's 
+
+
+Principle is who is allowed to access this resource
+	* account, user ,ec2, etc.
+Service
+	* what service
+Resource
+	* arn of a specific resource
+Action
+	* the list of policy
+Role
+	* what the policies can do
+ARN(amazon resource name)
+	* a specific resource, i.e. a specific s3 bucket, etc.
+Condition:
+	* a even finer grained permission on that resource
+	* ex: in regards to dynamo
+		* condition to access dynamo items where only partition key matches their userID
+		* and only certain attributes on a dynamo table
+
+
+3 types of IAM policies
+-----
+	Inline policies
+		* actually embedded withing the user/role/group to which it applies
+		* 1:1 relationship between entity and policy
+			* cannot attach to other roles
+			* when the entity it's embedded into is deleted so is the policy
+		* useful when need to target this entity specificially 
+	Customer policies
+		* Standalone policy you create and administer inside your AWS account
+		* can attah this policy to any number or resources inside your accoutn
+		* can copy then modify an existing managed policy to create a custom policy
+	Managed policies
+		* poliicies that AWS manages
+		* policies for really common needs
+		* no need to write the policy yourself
+		* users cannot change these
+
+AssumeRoleWithWebIdentity
+-----
+	* assume-role-with-web-identity is an API provided by STS (security token service)
+	* returns temporary security credentials for users authenticated by:
+		* mobile or web app
+		* or using a web id provider like google, facebook, amazon
+	* for mobile applications Cognito is reccomended
+		* note: cognito uses this under the covers
+	* this is targeted towards regular web apps that arent using cognito
+
+	An amazon AssumeRoleWithWebIdentity API response returns a data strucutre with:
+		* an ARN to the temporary credentials
+		* actual acess key and ecret key with expiration timestamp
+		* this is what's used to access the aws resources not any other roles or users or anything
+
+
+
+IAM policy simulator
+-----
+Ther'es a policy simulator you can use in order to test the effects of your policy
+
+
+
+
+AWS policy evaluation logic
+----
+
+By default, all requests are denied. (In general, requests made using the account credentials for resources in the account are always allowed.)
+An explicit allow overrides this default.
+An explicit deny overrides any allows.
+* If an explicit deny is present it overrides all other allow policies
+

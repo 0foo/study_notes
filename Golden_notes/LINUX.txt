@@ -1,0 +1,46 @@
+LINUX
+linux_ifconfig
+– List network interfaces (e.g., eth0, wlan0)
+• linux_netstat
+– List open connections (including Internet and Unix
+domain sockets)
+• linux_list_raw
+– List applications using raw IP protocol
+• Generally indicative of network snooping
+• linux_route_cache
+– List cache route information
+• linux_arp
+– List ARP cache entries
+Copyright 2014-15 by Golden 
+
+
+
+
+
+
+linux_proc_maps -p 
+gives all memory maps in a proc
+
+
+
+linux_malfind
+
+
+linux_process_hollow
+
+
+
+linux_library_list -p
+linux_librarydump -p
+linux_psenv -p (look for LD_preload )
+
+Tables maintained to resolve symbols in
+dynamically loaded libraries 
+-----
+linux_plthook -p
+
+
+
+>linux_apihooks -p
+Examines instructions at the beginning of each function call to
+detect JMP, CALL, etc. outside of the library 

@@ -1,0 +1,36 @@
+EBS.txt
+
+EBS - elastic block storage
+----
+Virtual disk
+
+SSD:
+	General Purpose SSD
+		* balances price and performance for variety of workloads
+		* 3 IOPs per GB with up to 10,000 IOPS and 3000 IOPS burst(if vol is > 3334 Gb)
+	Provisioned IOPS SSD
+		* I/O intensive applications
+		* if need > 10,000 IOPS
+		* can provision up to 20,000 IOPS per volume
+		* higest performance of all HDD's
+
+Magnetic:
+	Throughput Optimized HDD
+		* low cost HDD for frequently accessed throughput intensive
+		* Big Data, Data Warehousing, Log Processing
+		* Cannot be boot volume
+	Cold HDD
+		* lowest cost storage for infrequently accessed workloads
+		* file server
+		* cannot be boot volume
+	Magnetic Bootable
+		* lowest cost of all HDD's that is bootable 
+		* good for infreq/cheap needs
+		* previous generation, legacy
+
+EBS Types of Encryption
+----
+Encryption at Rest
+	* everything in the EBS volume is encrypted
+Encryption in flight 
+	* between instance and EBS volume

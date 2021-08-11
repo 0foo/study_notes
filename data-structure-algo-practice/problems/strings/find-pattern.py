@@ -1,0 +1,1 @@
+# find pattern p in string s

@@ -1,0 +1,65 @@
+
+EC2
+
+ec2 (elastic compute cloud)
+----
+Individual instances provisioned in AZ's NOT regions
+4 pricing types - 
+on demand 
+	* baseline servers
+	* fixed rate by the hour cost
+reserved 
+	* requires a contract
+		* 1 year or 3 year terms
+	* standard RI's(up to 75% cheaper) vs convertile RI's(up to 54% cheaper)
+		* standard RI's can be modified:	
+		    Availability Zone or scope
+		    Network platform (EC2-Classic or VPC)
+		    Instance size in same instance family
+		* convertible can be modified and exchanged
+			instance family 
+			operating system 
+			tenancy
+	* scheduled RI's !!!
+		* instance time share
+
+spot
+	* apps that can be interrupted, flexible start/end times
+	* need a lot of compute for cheap(genomics/data crunching)
+	* bid whatever price you want 
+	* !!! If a spot instance is termiated by Amazon EC2, you will not be charged for partial hour of usage, however, if you terminate it yourself, 
+		you will be charged the full hour
+
+dedicated
+	* useful for regulatory requirements/licensing, that don't support multi-tenant virtualization
+	* purchased on demand, or reserved (up to 70% off on demand price)
+	* some licenses are server bound and attach to a server, so you don't want that server to change
+
+User Data
+	* can run bash scripts when instance is first created
+
+Instance Meta Data
+	* can get a bunch of info about a running instance that AWS has stored
+	* must visit http://169.254.169.254/latest/meta-data
+
+
+ec2 instance types(note only need this for professional, not associate cert.)
+Fight Dr McPx
+F - FPGA - field programmable gate array - genomics, financial analytics, real time video processing, big data crunching
+I - IOPS - high speed storage (no sql dbs, data warehousing)
+G - Graphics - video encoding/3d app streaming
+H - High disk throughput - (map/reduce, distributed file systems)
+T - cheap general purpose(thrifty) - web servers, small DBs
+D - Density - dense storage - file systems, data warehousing, hadoop
+R - Ram - memory intensive (high memory intensive apps/db's)
+M - main choice for general purpose apps - application servers
+C - Compute/CPU - CPU intensive Apps/DB's
+P - Pics(graphics) - machine learning/crypto mining
+X - Xtreme memory - SAP Hana/Apache Spark/etc.
+
+
+Autoscaling group
+----
+unhealthy instances will be terminated and a new one launched
+
+
