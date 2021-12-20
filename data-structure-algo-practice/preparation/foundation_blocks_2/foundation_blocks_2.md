@@ -15,6 +15,15 @@
 * In problems where greedy algorithms fail, dynamic programming might be a better approach.
 * An important property of a problem that is being solved through dynamic programming is that it should have overlapping subproblems. This is what distinguishes DP from divide and conquer in which storing the simpler values isn't necessary.
 
+Example problems suitable for DP:
+    Fibbonacci and similar number sequences.
+    Prime sieves.
+    Rod cutting problems.
+    Pathfinding algorithms.
+    Towers of hanoi.
+    Subtring comparisons.
+
+
 ### Divide and Conquor
 1. Divide the problem into a number of subproblems that are smaller instances of the same problem.
 2. Conquer the subproblems by solving them recursively. If they are small enough, solve the subproblems as base cases.
