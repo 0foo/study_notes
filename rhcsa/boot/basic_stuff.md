@@ -1,15 +1,17 @@
 ## Boot 
 
 
-* The kernel and initramfs is stored in the /boot directory
-    * This directory is read by GRUB and must be formatted in a format GRUB can read
-    * https://unix.stackexchange.com/questions/175728/what-file-system-should-a-grub-2-boot-partition-use
-    * Note: many people format /boot with ext2,3,or 4 no matter what format the main file system is using
-    * Also if the main file system is encrypted will need to have a seperate unencrypted partition for GRUB/initramfs
 
+### Diagram
 
-
-
+* BIOS -> 
+* POST -> 
+* MBR -> 
+* GRUB -> 
+* Kernel + kernel params + initramfs ->
+* systemd  -> 
+* default.target
+* login screen
 
 ### Boot high level examination
 1. BIOS has control
@@ -38,6 +40,15 @@
     1. note: login screen presented in parallel with other units loading, so login does not mean it's fully  operational
     1. once default.target loaded fully, system is operation
 
+
+
+
+
+* The kernel and initramfs is stored in the /boot directory
+    * This directory is read by GRUB and must be formatted in a format GRUB can read
+    * https://unix.stackexchange.com/questions/175728/what-file-system-should-a-grub-2-boot-partition-use
+    * Note: many people format /boot with ext2,3,or 4 no matter what format the main file system is using
+    * Also if the main file system is encrypted will need to have a seperate unencrypted partition for GRUB/initramfs
 
 
 
