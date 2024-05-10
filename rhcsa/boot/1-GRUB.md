@@ -1,15 +1,44 @@
 ## GRUB
 
+### BIOS boot
+* In a BIOS boot: GRUB is installed in the MBR. 
+* The MBR are the first 512 bytes on a disk. 
+* The MBR is also used by the partition table of the disk, therefore GRUB itself has somewhat less space than the 512 bytes.
+* GRUB sets bootstrap code in the MBR which takes control from BIOS after POST
+* Once GRUB takes over it loads `grub.cfg`
+
+
+### UEFI boot
+* UEFI replaces BIOS and is more advanced
+* UEFI can read a file system (typically FAT types)
+* UEFI has a configuration in its settings to look for a FILE which functions as a bootloader
+* in GRUB that's typically 
+```
+    /grub/x86_64-efi/grub.efi
+    /efi/EFI/ubuntu/grubx64.efi
+```
+* Many times this file system is separate partitions and is mounted into boot directory i.e.: `/dev/nvme0n1p1 on /boot/efi type vfat`
+* After this bootloader FILE is loaded it functions as an MBR GRUB bootloader which can then read the config file and start it's configurations
+
+
+### Grub Config
+* Some times in UEFI systems will have two grub.cfg
+* For example on Ubuntu:
+    * `/efi/EFI/ubuntu/grub.cfg` is `grub.cfg` is typically only a few lines and points to the main `/grub/grub.cfg`
+```
+    /grub/grub.cfg
+    /efi/EFI/ubuntu/grub.cfg
+```
+* red hat seems to not have this designation
+
 
 ### Bootfile Locations 
-
-* GRUB is installed in the MBR. The MBR are the first 512 bytes on a disk. The MBR is also used by the partition table of the disk, therefore GRUB itself has somewhat less space than the 512 bytes.
-    * GRUB sets bootstrap code in the MBR which takes control from BIOS after POST
+* `/boot`
+* after the above process:
 * GRUB (rest of it) are several files that are loaded, from /boot/grub (for example: that nice image that appears as a background in GRUB is not stored on the MBR)
 
 
-
-### GOAL
+### GOAL of GRUB
 * GRUB is reponsible for loading kernel and initramfs(or initrd on other distros)
 
 Other Tasks:

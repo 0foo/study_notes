@@ -2,29 +2,44 @@
 
 
 
-### Diagram
+### BIOS boot diagram
 
 * BIOS -> 
 * POST -> 
-* MBR -> 
-* GRUB -> 
+* UEFI or BIOS-> 
+* GRUB bootloader -> 
 * Kernel + kernel params + initramfs ->
 * systemd  -> 
 * default.target
 * login screen
 
+
 ### Boot high level examination
-1. BIOS has control
-    1.  POST 
+1. BIOS(basic input/output system) has control
+    1.  POST (power on self test)
         * hardware testing
     1. identify boot device
         * there's a boot device hierarchy set in the BIOS and the default boot device is indicated there
         * NOTE: can typically hit a hotkey to bring up a menu to set boot device manually to override 
-    1. BIOS looks in MBR of boot device for boot loader and passed control to that
+    1. Load bootloader
+        * BIOS looks in MBR of boot device for GRUB boot loader and passed control to that
+        * UEFI looks on a file system(FAT typically) for a GRUB bootloader FILE and passes control to that file as UEFI can read file system
 1. Bootloader takes control
     * GRUB on linux
+
+
+
+
+
+
+
     * GRUB looks at it's configuration/or the UI selection menu 
     * Grub will then put together kernel params + kernel + initramfs file system
+
+
+
+
+
 1. Kernel + initramfs take control
     1. purpose: to locate/identify the root OS
     1. creates a fully operational OS in RAM
@@ -34,15 +49,12 @@
     1. /sbin/init runs initrd.target to load the units that make up a minimal OS
     1. After the “real” root file system has been identified: it is checked for errors and mounted.
     1. If this is successful, the initramfs is cleaned and the systemd daemon on the root file system is executed. 
+
 1. systemd on host storage hardware takes control
     1. runs default.target
     1. login screen
     1. note: login screen presented in parallel with other units loading, so login does not mean it's fully  operational
     1. once default.target loaded fully, system is operation
-
-
-
-
 
 * The kernel and initramfs is stored in the /boot directory
     * This directory is read by GRUB and must be formatted in a format GRUB can read

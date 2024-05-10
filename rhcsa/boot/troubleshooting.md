@@ -7,10 +7,10 @@
     * Replace hardware or use rescue system.
 
 * Loading the boot 
-    * loader grub2-install and edits to etc/defaults/grub. 
+    * loader grub2-install and edits to /etc/defaults/grub. 
     * GRUB boot prompt and edits to /etc/defaults/ grub, followed by grub2-mkconfig.
 
-Loading the kernel 
+* Loading the kernel 
     * Edits to the GRUB configuration and /etc/ dracut.conf. 
     * GRUB boot prompt and edits to /etc/defaults/grub, followed by grub2-mkconfig.
 
@@ -23,11 +23,9 @@ Loading the kernel
     * Compiled into initramfs. 
     * Not typically required.
 
-
 * Switch to the root file system 
     * Edits to the /etc/fstab file. 
     * Edits to the /etc/fstab file.
-
 
 * Running the default target 
     * Using systemctl set-default to create the /etc/systemd/system/ default.target symbolic link 

@@ -29,6 +29,7 @@
                 * networking communicates in packets vs bytes and has connections/streams which come and go frequently
                 * connections require more than simple file name passed to read()
             * network applications are more complex than file accessing applications
+            * network sockets are files though
         * video
             * x-server writes to video adaptor memory directly
             * if communicated with kernel system calls each time need to change video memory would be too slow 
