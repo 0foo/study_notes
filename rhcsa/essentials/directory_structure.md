@@ -33,18 +33,44 @@
     * Add-on applications should be installed under either /opt/ or /opt/ sub-directory.
 
 
+1. /dev directory
+    * Full of device files/nodes for devices attached to the system
+    * Device files/nodes are abstractions of standard devices that applications interact with via I/O system calls.
+    * Userspace applications can use these device nodes to interface with the systems hardware, 
+        * For example, the X server will "listen to" /dev/input/mice so that it can relate the user's mouse movements to moving the visual mouse pointer. 
+     * Note: some hardware interfaces not in /dev, typically for legacy reasons and the code is too involved to change now
+        * network interfaces not in /dev
+            * these were historically considered not amenable to file style communication
+                * can't use simple read() write() calls to communicate like most file style hardware devices
+                * networking communicates in packets vs bytes and has connections/streams which come and go frequently
+                * connections require more than simple file name passed to read()
+            * network applications are more complex than file accessing applications
+            * network sockets are files though but in different location
+                * see below
+        * video
+            * x-server writes to video adaptor memory directly
+            * if communicated with kernel system calls each time need to change video memory would be too slow 
+        * https://unix.stackexchange.com/questions/23199/why-are-network-interfaces-not-in-dev-like-other-devices
+        * https://askubuntu.com/questions/306594/why-do-ethernet-devices-not-show-up-in-dev
+    * /dev directory is populated by udev daemon
 
 
-1. /dev :
-    * Essential device files, e.g., /dev/null. 
-    * These include terminal devices, usb, or any device attached to the system.
-    * Example: /dev/tty1, /dev/usbmon0
+1. /sys directory
+    * Primarily provides access to kernel data structures related to devices, drivers, and other kernel subsystems.
+    * /sys is an interface to kernel data structures, while /dev provides access to actual hardware devices via device files
+    * contains all the information for all devices on your system, such as the manufacturer and model, where the device is plugged in, the state of the device, the hierarchy of devices and more. 
+    * The files you see here aren't device nodes, so you don't really interact directlywith devices from the /sys directory, you interact with the kernel structures of those devices
+    * Enables users and applications to configure and manage device settings.
+    * Often used for monitoring kernel events and system status. 
+    * kernel docs here:
+        * https://www.kernel.org/doc/Documentation/filesystems/sysfs.txt
 
-1. /sys
-    * interface to different hardware devices that are managed by Linux kernel and procs
-    
+
+
 1. /proc:
-    * Virtual filesystem providing process and kernel information as files. 
+    * Virtual filesystem providing process and kernel information as files.
+    * Contains files and directories that represent running processes and other system information.
+    * Allows inspection of kernel parameters, system memory, CPU usage, network connections, and loaded modules. 
     * In Linux, it corresponds to a procs mount. Generally, automatically generated and populated by the system, on the fly.
     * Contains information about system process.
     * This is a pseudo filesystem that contains information about running processes. 

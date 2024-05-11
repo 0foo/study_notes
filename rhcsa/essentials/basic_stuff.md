@@ -1,3 +1,5 @@
+### Command redirection
+
 1. Use input-output redirection (>, >>, |, 2>, etc.)
 	* essentially change the output/input from monitor/keyboard
 
@@ -38,23 +40,25 @@
 		```shell
 		/error.sh 1> capture.txt 2> error.txt
         		```
+    * Pipes
+        * redirect output of one command to another command
+        * `cat somefile.txt | grep someword`
 
-
-
+### Linux everything is a file
 
 * Everything in linux is a file (or at least trys to be)
     * can be accessed with read() and write()
     * hardware can be accessed via device files in /dev
     * streams are files
     * network sockets are files
-* Pipes
-    * redirect output of one command to another command
-* History: gives command history
-    * cntr + r
-    * -c clears current history, -w clears ALL history(can also delete ~/.bash_history)
-    * located in ~/.bash_history (all commands kept in memory until shell closed then history is written)
+
+
 * Bash cmpletion
     * Can hit tab twice on incomplete commands or filenames and cli will autocmplete ghe command or file
+
+
+
+### Shell types
 * Environment files
     * login shells:
         * When ssh'ing into systems, when logging in the FIRST TIME to system
@@ -79,58 +83,17 @@
             prompt> echo $0
             bash # "-" is NOT the first character. This is NOT a login shell.
         ```
+
+
+
+### Login files
 * login files:
     * /etc/motd: after login
     * /etc/issues: before login, good for specifying login issues or security concerns
 
 
-1. Log in and switch users in multiuser targets
-
-    * A user can switch to another user using the *su* command. The *-i* option ensures that the target users login scripts are run:
-        ```shell
-        sudo -i -u targetUser
-        ``` 
-
-    * To run a command as root without switching:
-        ```shell
-        sudo -c
-        ``` 
-
-    * The configuration for which users can run which commands using sudo is defined in the `/etc/sudoers` file. The visudo command is used to edit the sudoers file. The sudo command logs successful authentication and command data to `/var/log/secure`.
-
-    * su -
-        * 
-
-* chvt 
-    * switches between virtual terminals
-
-
-* if a command is aliased can use a forward slash to ignore the alias
-    * ie if ls is aliased to ls -la use \ls to use the original command
 
 
 
-* Power off
-    * shutdown [flags] [now | {time format}] [any message string]
-        * like poweroff but gracefully shuts off machine
-        * -r  will reboot after shutdown
-        * allows a delay string
-            * time format can be: +20 to shutdown in 20 min or actual time 05:00
-        * message string notifys all users on the system
-        * sudo shutdown -r +10 "System upgrade"
-        * cancel a scheduled shutdown
-            * sudo shutdown -c "Cancelling reboot"
-    * commands:
-        * systemctl reboot, 
-        * reboot, 
-        * systemctl halt, 
-        * halt, 
-        * systemctl poweroff, 
-        * poweroff
-        * shutdown -r now
-        * init 6
-        * sudo systemctl start reboot.target
-    * poweroff talks to power management on the machine to shutoff power, sends ACPI command
-    * halt shuts down system without powering off, does not shutoff power
-    * echo b > /proc/sysrq-trigger
+
 
