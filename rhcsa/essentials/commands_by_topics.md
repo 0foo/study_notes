@@ -291,9 +291,9 @@
 
 ### Archive, compress, unpack, and decompress files using tar, star, gzip, and bzip2
 
-    * `tar`
-        * -v is verbose
-        * -f is the archive to target
+1. `tar`
+    * -v is verbose
+    * -f is the archive to target
 
     * To archive using tar use -c:
         ```shell
@@ -346,8 +346,8 @@
     * The star command is an enhanced version of tar. It also supports SELinux security contexts and extended file attributes. The options are like tar.
 
 
-    * gzip, bzip2, gunzip, bunzip2
-        * can use flags with tar -z(gzip) -j(bzip2)
+1. `gzip`, `bzip2`, `gunzip`, `bunzip2`
+        * can use flags with `tar -z(gzip) -j(bzip2)`
 
 
 ### File management
@@ -416,3 +416,149 @@
         ```shell
         rm -r directory
         ```
+
+
+### Permissions
+1. List, set, and change standard ugo/rwx permissions
+
+    * Permissions are set for the user, group, and others. User is the owner of the file or the directory, group is a set of users with identical access defined in `/etc/group`, and others are all other users. The types of permission are read, write, and execute.
+    
+    * Permission combinations are shown below:
+        | Octal Value | Binary Notation | Symbolic Notation | Explanation                           |
+        |-------------|-----------------|-------------------|---------------------------------------|
+        | 0           | 000             | ---               | No permissions.                       |
+        | 1           | 001             | --x               | Execute permission only.              |
+        | 2           | 010             | -w-               | Write permission only.                |
+        | 3           | 011             | -wx               | Write and execute permissions.        |
+        | 4           | 100             | r--               | Read permission only.                 |
+        | 5           | 101             | r-x               | Read and execute permissions.         |
+        | 6           | 110             | rw-               | Read and write permissions.           |
+        | 7           | 111             | rwx               | Read, write, and execute permissions. |
+
+    * To grant the owner, group, and others all permissions using the *chmod* command:
+        ```shell
+        chmod 777 file1
+        ```
+
+    * The default permissions are calculated based on the umask. The default umask for root is 0022 and 0002 for regular users (the leading 0 has no significance). The pre-defined initial permissions are 666 for files and 777 for directories. The umask is subtracted from these initial permissions to obtain the default permissions. To change the default umask:
+        ```shell
+        umask 027
+        ```
+
+    * Every file and directory has an owner. By default, the creator assumes ownership. The owner's group is assigned to a file or directory. To change the ownership of a file or directory:
+        ```shell
+        useradd user100
+        chown user100 item1
+        chgrp user100 item1
+        ```
+    
+        ```shell
+        chown user100:user100 item1
+        ```
+    * Note that the -R option must be used to recursively change all files in a directory.
+
+
+### Hard/Soft link 
+
+1. soft link
+    ```shell
+    ln -s file1 softlink
+    ``` 
+
+1. hard link
+    ```shell
+    ln file1 hardlink
+    ``` 
+
+
+### Mounts
+* Commands for managing mounts
+    * View mounts
+        * /proc/mounts directory
+            * contains mount data
+        * mount
+            * overview of all mounted devices
+            * same data as /proc/mount
+            * also shows kernel interfaces
+        * df -Th
+            * size info about mounts
+        * findmnt
+            * tree structure showing relationship between mounts
+            * findmnt -A 
+    * mount 
+
+
+### Kernel data gathering
+* dmesg the same as: journalctl -dmesg the same as: journalctl -k
+    * shows contents of the kernel ring buffer (KRB)
+    * KRB is where kernel keeps log messages
+    * note: pass -T to dmesg in order to see time as objective time vs seconds since kernel start
+* uname
+    * info about the linux kernel
+    * -r, relevant kernel version
+    * -a, much info about operating system
+    * info about cpu
+* cat /etc/redhat-relesae
+    * info about the redhat version
+* hostnamectl status
+    * another place to get info on kernal and O.S. version
+* view kernel threads with: `ps aux`
+    * kernel threads have square brackets around them []
+
+
+### upgrade kernel
+
+* `yum upgrade kernel` and `yum install kernel`
+    * install new kernel alongside old kernel in /boot
+
+* /boot directory
+    * keeps the last 4 kernel files installed on system
+    * GRUB looks at this and allows selecting
+
+
+### Kernel Module management
+
+
+* lsmod
+    * lists all currently loaded kernel modules
+
+* modinfo
+    * to find out more about a specific kernal module
+    * module alias is another name that can be used to address the module
+    * params: parameters that can be set while loading the module
+
+* modprobe/modprobe -r
+    * load/unload modules
+    * insmod and rmmod are legacy way to load modules
+        * does not also load dependencies
+    * modprobe -r will give error message if trying to unload a module that's currently in use
+
+* lspci 
+    * shows all hardware devices that have been detected on the pci bus
+    * pass -k to show co-oresponding kernel modules loaded to match the hardware device
+
+
+
+### write to logfile from bash
+    * can use logger command to write to rsyslogd from bash or script
+    * logger <message>
+    * sends message to /var/messages
+    * add -p for an error priority 
+    * logger writes to /dev/log which is a socket via udp 
+        * journald is listening on that socket
+        * journald records then forwards the message to rsyslog
+    * https://unix.stackexchange.com/questions/464361/examining-dev-log
+    * https://serverfault.com/questions/959982/is-rsyslog-redundant-on-when-using-journald
+
+
+### journalctl
+    * reports starting from oldest to newest
+    * -f : latest 10 messages
+    * -r : view in newest to oldest
+    * G will go to end
+    * / and ? work to search
+    * --no-pager : shows output without a pager i.e. like a cat
+    
+### view boot logs
+* journalctl -xb
+    * shows boot logs

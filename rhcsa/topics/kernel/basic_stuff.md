@@ -18,7 +18,6 @@
 * The Networking Unit
 * Inter-Process Communication Unit
 
-
 ### Important Kernel interfaces
 * /etc/proc
     * interface with linux kernel
@@ -35,22 +34,6 @@
     * populated by udev daemon
     * see [devices folder](devices/basic_stuff.md) for more info
 
-### Kernel data gathering
-* dmesg the same as: journalctl -dmesg the same as: journalctl -k
-    * shows contents of the kernel ring buffer (KRB)
-    * KRB is where kernel keeps log messages
-    * note: pass -T to dmesg in order to see time as objective time vs seconds since kernel start
-* uname
-    * info about the linux kernel
-    * -r, relevant kernel version
-    * -a, much info about operating system
-    * info about cpu
-* cat /etc/redhat-relesae
-    * info about the redhat version
-* hostnamectl status
-    * another place to get info on kernal and O.S. version
-* view kernel threads with: `ps aux`
-    * kernel threads have square brackets around them []
 
 
 ### Kernel modules
@@ -76,11 +59,20 @@
 
 
 
-### upgrade kernel
+## Modules
 
-* `yum upgrade kernel` and `yum install kernel`
-    * install new kernel alongside old kernel in /boot
+* see devices/basic_stuff.md for more info
 
-* /boot directory
-    * keeps the last 4 kernel files installed on system
-    * GRUB looks at this and allows selecting
+
+### Locations
+* can create files in these dir's to load modules not auto loaded by udev system:
+    * /etc/modules-load.d/
+    * /usr/lib/modules-load.d/
+    * alternative to the udev system
+* can specify module parameters when loading modules here
+    * /etc/modprobe.d
+    * can get a list of available parameters from modinfo
+        * ex: some have a debug param that can set to true and will output debug info someplace
+        * in /etc/modprobe.d:
+            * `options cdrom debug=1`
+

@@ -3,6 +3,7 @@
 * config file at /etc/rsyslog.conf
 * config directory is at /etc/rsyslog.d
     * many rpms put configurations in here
+    
 * /etc/sysconfig/rsyslog
     * can pass rsyslog options to the command when the daemon is starting or restart
     * this file contains a single line to pass option to the command which is used by systemd
