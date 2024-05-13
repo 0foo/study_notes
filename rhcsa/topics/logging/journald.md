@@ -1,14 +1,19 @@
 ### Journald
 
+
+* new logging, tightly integrated with systemd
+* It centralizes logs from various sources, including system logs, kernel logs, and application logs.
 * listens on UDP on /dev/log
 * forwards messages to rsyslog
 * by default journal has built in logrotation used monthly
+* handles it's own compression, cleanup, rotation of old logs, i.e. does not use logrotate
 * by default journal will will begin dropping older entries if if:
     * it reaches 10% of file system size
     * the file system only has 15% of it's space left
 * can adjust all of these setting in journald.conf
 * journald files are written in binary
 * use journalctl command to examine journald
+* config file: /etc/systemd/journald.conf
 
 
 ### Logging persistence of journald:  /run/log/journal vs /var/log/journal

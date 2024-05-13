@@ -5,8 +5,8 @@
 
 ### locations
 
-    * sysfs(/sys) vs devtmpfs(/dev)
-        * https://unix.stackexchange.com/questions/236533/sysfs-and-devtmpfs
+* sysfs(/sys) vs devtmpfs(/dev)
+    * https://unix.stackexchange.com/questions/236533/sysfs-and-devtmpfs
 
 * /sys directory
     * see directory_structure.md file
