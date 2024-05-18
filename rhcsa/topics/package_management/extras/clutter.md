@@ -1,39 +1,4 @@
 
-### To define a link to a new repository 
-
-* you can either add a [repository] section to the /etc/yum.conf file, 
-* or to a .repo file in the /etc/yum.repos.d/
-
-* bare minimum yum repofile definition
-
-```
-[repository]
-name=repository_name
-baseurl=repository_url
-```
-
-
-* name: name of repo
-* baseurl: protocol prefixed url of repository
-* mirrorlist: url for accessing info on mirror server
-* gpgcheck/gpgkey: for digital signing of repo
-    * gpgkey is used to sign the packages
-    * keys for repo's gpg keys are here:
-        * /etc/pki/rpm-gpg
-
-
-
-
-
-### to create the actual repository
-
-* in the folder you're interested in making a repo:
-    * add all files you want
-    * createrepo --database /mnt/local_repo
-    * creates metadata and sqllite file
-
-
-
 ### using yum
 
 * yum search <keyword of packagename or summary>
@@ -93,6 +58,27 @@ baseurl=repository_url
         *simple package groups:
             contain packages on a particular topic: web-server, network-file-system-client, etc.
     
+### remote repo management
+* `sudo dnf repolist -v`
+    * lists all available repos setup locally
+
+* `sudo dnf repoquery`
+    * lists every package available in every repo
+    * can filter with grep
+    * can filter with --repo flag
+        * `sudo dnf repoquery --repo "BaseOS"`
+
+* `sudo dnf list`
+    * lists all installed and non-installed remote packages available for install
+    * the @ sign means it's installed
+
+
+### local package mangement
+* `sudo dnf list installed`
+    * lists package name, version, repo installed from
+    * @anaconda repo means installed at time of RHEL installation
+
+
 
     * Also, inside a package group, there are potentially three different categories:
         * mandatory package groups/packages are always installed.
@@ -112,7 +98,6 @@ baseurl=repository_url
         * gives list of packages in the group
     * yum groups install
     * yum groups remove
-
 
 
 

@@ -23,13 +23,13 @@
     * interface with linux kernel
     * many files are human readable
     * contains info about CPU, memory, mounts, 
-/sys
+* /sys
     * kernel interface that exports kernel info about various kernel subsystems and more
     * also called sysfs
     * https://en.wikipedia.org/wiki/Sysfs
     * `mount -t sysfs sysfs /sys`
 
-/dev
+* /dev
     * interface with devices
     * populated by udev daemon
     * see [devices folder](devices/basic_stuff.md) for more info

@@ -59,8 +59,6 @@
 * cannot be managed by administrators with standard tools
 
 
-
-
 ### Commands
 * ps
     * default ps command only show procs started by current user

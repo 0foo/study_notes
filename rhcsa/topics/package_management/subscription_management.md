@@ -1,13 +1,4 @@
-point of package repositories
-* easy to keep updated
-* helps with resolving dependencies for a package
-
-
-* cannot mix repository operating systems
-    * i.e. cannot mix centos and redhat or debian, etc
-
-* Cross OS repository: extended packages for enterprise linux (EPEL) repositories 
-
+### Subscription Management
 
 * have to register red hat to get repository access
     * uses subscription-manager tool
@@ -35,10 +26,3 @@ point of package repositories
     * /etc/pki/entitlement
         * info about which subscriptions are attched to this system
 
-
-* configuring custom repos
-    * main yum config file is /etc/yum.conf
-    * repos stored in: /etc/yum.repos.d directory
-        * can change this is /etc/yum.conf
-    * create a file that ends with extension .repo
-    * can add more than one repository in a file

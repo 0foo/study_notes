@@ -4,10 +4,6 @@
 * if a command is aliased can use a forward slash to ignore the alias
     * ie if ls is aliased to ls -la use \ls to use the original command
 
-
-
-
-
 ### History
 * `history`: gives command history
     * cntr + r
@@ -458,6 +454,21 @@
     * Note that the -R option must be used to recursively change all files in a directory.
 
 
+### File Attributes
+* chattr
+    * A set : The atime record is not updated.
+    * S set : The changes are updated synchronously on the disk.
+    * a set : File can only be opened in append mode for writing.
+    * i set : File cannot be modified (immutable), the only superuser can unset the attribute.
+    * j set : All of files information is updated to the ext3 journal before being updated to the file itself.
+    * t set : No tail-merging is allowed.
+    * d set : No more candidate for backup when the dump process is run.
+    * u set : When such a file is deleted, its data is saved enabling the user to ask for its undeletion.
+
+* lsattr -l
+    * list attributes
+
+
 ### Hard/Soft link 
 
 1. soft link
@@ -555,13 +566,12 @@
     * reports starting from oldest to newest
     * -f : latest 10 messages
     * -r : view in newest to oldest
+    * -u : log of a specific unit/process/daemon
     * G will go to end
     * / and ? work to search
     * --no-pager : shows output without a pager i.e. like a cat
-    
-### view boot logs
-* journalctl -xb
-    * shows boot logs
+    * journalctl -xb
+        * shows boot logs
 
 
 ### Networking
@@ -589,8 +599,6 @@
         * netstat -tulanep
     * note: use sudo with these
 
-
-
     * if proc is listening on localhost loopback @ 127.0.0.1 
         * cannot be accessed by machines off network
         * completely on localmachine
@@ -617,4 +625,6 @@
     * can modify these files instead of using network config commands
     * after making changes, to make it take effect:
         *  nmcli con up
-     
+
+
+

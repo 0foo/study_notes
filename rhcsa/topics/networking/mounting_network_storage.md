@@ -1,45 +1,8 @@
-## Network Storage
+### Mount command
 
-### NFS
-
-* authentication is expected to be managed with a different service like LDAP/Kerberos
-
-* NFS versioning
-    * current version of NFS (as of writing this) is NFS4
-    * fallback to previous versions 
-        * if trying to connect to a server that only offers an older NFS version:
-        * mount option nfsvers=
-        * This can prove useful if you are connecting to a server or a device that offers NFS 3 only.
-
-* viewing available shares
-    * showmount -e <some nfsserver ip/dns>
-    * NOTE: showmount relies on the portmapper service for share discovery
-        * firewalld nfs service opens port 2049 only: 
-            * only for mapping 
-            * does not allow portmapper traffic for showmount share discovery
-        * for share discovery mountd and rpc-bind services need to be added to the firewall as well.
-
-* mount NFS server
-    * showmount -e some.nfsserver.ip_or_dns.com
-    * mount some.nfsserver.ip_or_dns.com:/ /mnt
-    * use mount command and `ls /mnt` to verify success
-
-
-### CIFS
-* evolved from Samba which is Microsoft server message block
-* SMB used to be a microsoft propriety sharing protocal but was opened up 
-* The Samba project formed to use it to allow sharing across operating systems
-* Samba became the de facto standard for sharing files between different operating systems
-* At some point transitioned from Samba to CIFS: Common Internet File System
-    * the de facto interoperable sharing protocol between operating systems
-
-
-* smbclient
-    * linux tool for working with CIFS/SAMBA
-    * smbclient -L <servername>
-        * list available shares
-        * note even though asks for a password can just hit enter to browse anonymously
-        * this will be a read only guest
+* mounting NFS share on a client for short term use
+    * `sudo mount -t nfs 192.168.1.100:/srv/nfsdir /mnt`
+    * use the -t flag with nfs parameter for type in order to mount NFS shares
 
 * mount CIFS/SAMBA share
     * `mount -t cifs -o user=guest //192.168.4.200/data /mnt`
@@ -59,8 +22,8 @@
         * Use a colon after the name of the server to identify the mount as an NFS share.
         * Use two forward slashes in remote server to identify a CIFS/Samba
 * NFS mount example:
-    * server1:/share /nfs/mount/point nfs sync 0 0 
-        * first col: server and share name
+    * `server1:/share /nfs/mount/point nfs sync 0 0` 
+        * first col: server:/share name
         * second col: local location to mount
         * third col: mount type
         * fourth col: mount option
@@ -75,6 +38,8 @@
         * can specify username= and password= mount options in the fstab file but DONT
     
 
+
+
 ### automount
 * automount is alternative to /etc/fstab file
 * the share is mounted ON DEMAND not at boot
@@ -85,11 +50,16 @@
 
 * mount an automount share is two step process:
     1. /etc/auto.master
-        * maps a mount point to a secondary configuration file
-        * /nfsdata/mount/point /etc/auto.nfsdata
-    1. in /etc/auto.nfsdata
-        * files -rw server2:/nfsdata
-        * files keyword, mount options, server and share name
+        * parent root folder for autofs
+        * inside this file are mappings of a root directory to some target file
+        * `/somedir /etc/somefile --timeout 60`
+
+    1. in /etc/somefile
+        * mapping of subdirectory options remote_url:/share
+        * `files -rw server2:/nfsdata`
+        * this mounts remote: server2:/nfsdata to local mount point: /somedir/files
+
+
     1. access the share
         * if you try to access this mount with `ls` it will show not existing
         * mount will not show it existing as well
@@ -100,7 +70,3 @@
     * note: not sure if on the exam, flesh out if needed/experiment with when have time
 
 
-
-### FTP
-* uses: vsftpd package
-* see ./FTP.pdf in this directory

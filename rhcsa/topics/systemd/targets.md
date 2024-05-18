@@ -1,6 +1,4 @@
 ## Systemd targets
-
-
 * A systemd target is a group of systemd units that belong together
     * some targets are states that a system needs to enter into 
         * default.target, graphical.target, multi-user.target
