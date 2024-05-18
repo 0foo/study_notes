@@ -94,6 +94,15 @@ gpgcheck=0
     * displays info about a package
     * will display info even if not installed or installed
 
+* `sudo dnf provides <file name>`
+    * will search all repositories (remote and installed) to find out which ones provide a file
+    * can use wildcards for the search: * or ?
+    * Note: can provide other things than file name but not needed for RHCSA
+
+* `sudo dnf search <some string>`
+    * To search for all the packages that match the specified string in their name or summary
+    * doesn't search in a package searches the metadata and name
+
 ### local package mangement
 * `sudo dnf list installed`
     * lists package name, version, repo installed from
@@ -122,7 +131,7 @@ gpgcheck=0
     * installs dependencies from remote repos
 
 * `sudo dnf localinstall <rpm file name>`
-    * installs a package from an rpm filex
+    * installs a package from an rpm file
     * installs dependencies if they are present in the local directory or prompts for manual installation if dependencies are missing.
 
 
