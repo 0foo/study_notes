@@ -70,3 +70,93 @@
         * scp root@server:/some/remote/location  ~/some/local/location
     * to upload a file
         * scp ~/some/local/location root@server:~/some/remote/location
+
+
+## Exam Topics
+
+###   Access remote systems using SSH 
+
+* **Connecting to a Remote System**:
+  * **Basic SSH Command**:
+    * `ssh username@hostname`: Connects to the remote system specified by `hostname` using the SSH protocol with `username`.
+    * Example:
+      ```bash
+      ssh user@example.com
+      ```
+  * **Specifying a Port**:
+    * Use the `-p` option followed by the port number to connect to a non-standard SSH port.
+    * Example:
+      ```bash
+      ssh -p 2222 user@example.com
+      ```
+
+* **Authentication**:
+  * **Password Authentication**:
+    * Enter the password when prompted after executing the SSH command.
+    * Example:
+      ```bash
+      ssh user@example.com
+      Password: [enter your password]
+      ```
+  * **Public Key Authentication**:
+    * Preconfigure SSH keys for passwordless authentication:
+      1. Generate SSH keys on your local machine using `ssh-keygen`.
+      2. Append your public key (`~/.ssh/id_rsa.pub`) to the remote system's `~/.ssh/authorized_keys` file.
+    * Example:
+      ```bash
+      ssh-copy-id -i ~/.ssh/id_rsa.pub user@example.com
+      ```
+
+* **Executing Commands Remotely**:
+  * **Running Commands**:
+    * Execute a command directly on the remote system using SSH without interactive shell:
+      ```bash
+      ssh user@example.com "ls -l /var/log"
+      ```
+  * **Interactive Session**:
+    * Start an interactive session on the remote system:
+      ```bash
+      ssh user@example.com
+      ```
+
+* **File Transfer with SCP**:
+  * **Copying Files**:
+    * Use `scp` (secure copy) to transfer files between local and remote systems:
+      ```bash
+      scp /path/to/local/file user@example.com:/path/to/remote/location/
+      ```
+    * Example:
+      ```bash
+      scp example.txt user@example.com:/home/user/
+      ```
+
+* **Advanced SSH Configurations**:
+  * **SSH Configuration File**:
+    * Customize SSH behavior using the `~/.ssh/config` file:
+      ```plaintext
+      Host example
+          HostName example.com
+          User user
+          Port 2222
+          IdentityFile ~/.ssh/id_rsa
+      ```
+    * Connect using:
+      ```bash
+      ssh example
+      ```
+
+* **Security Considerations**:
+  * **Disable Root Login**:
+    * Set `PermitRootLogin no` in `/etc/ssh/sshd_config` to prevent root from logging in directly.
+  * **Firewall Rules**:
+    * Ensure that SSH port (default: 22) is open and accessible through firewall rules.
+
+* **Troubleshooting**:
+  * **Verbose Mode**:
+    * Use `-v` option to troubleshoot connection issues:
+      ```bash
+      ssh -v user@example.com
+      ```
+  * **Check Logs**:
+    * Review SSH logs on both local and remote systems (`/var/log/auth.log` on Ubuntu, `/var/log/secure` on CentOS/RHEL).
+

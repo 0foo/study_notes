@@ -11,7 +11,6 @@
     * List, set, and change standard ugo/rwx permissions 
     * Locate, read, and use system documentation including man, info, and files in /usr/share/doc 
 
-
 * Create simple shell scripts
     * Conditionally execute code (use of: if, test, [], etc.)
     * Use Looping constructs (for, etc.) to process file, command line input
@@ -30,7 +29,6 @@
     * Preserve system journals
     * Start, stop, and check the status of network services
     * Securely transfer files between systems
-
 
 * Configure local storage
     * List, create, delete partitions on MBR and GPT disks
@@ -67,7 +65,6 @@
     * Change passwords and adjust password aging for local user accounts
     * View, Create, delete, and modify local groups and group memberships
     * Configure superuser access
-
 
 * Manage security
     * Configure firewall settings using firewall-cmd/firewalld

@@ -265,3 +265,146 @@ newgrp
     ```
 * Note that the -R option must be used to recursively change all files in a directory.
 
+
+
+
+## Exam Objectives:  
+
+### Log in and switch users in multiuser targets 
+* **Login Methods**:
+  * **Graphical Login**: Usually provided by a display manager like GDM, allowing users to log in through a graphical interface.
+  * **Text-based Login**: Accessible via virtual consoles (e.g., Ctrl+Alt+F2 to F6) or through SSH for remote login.
+
+* **Switching Users**:
+  * **Using `su` Command**:
+    * `su username`: Switches to the specified user.
+    * `su - username` or `su -l username`: Simulates a full login, loading the user's environment.
+    * `exit`: Returns to the previous user.
+  * **Using `sudo` Command**:
+    * `sudo command`: Executes a command as another user, typically the root user.
+    * `sudo -i`: Starts an interactive root shell.
+    * `sudo -u username command`: Executes a command as the specified user.
+
+* **Multi-User Targets**:
+  * **Understanding Systemd Targets**:
+    * `multi-user.target`: A non-graphical multi-user system state, similar to the traditional runlevel 3.
+    * `graphical.target`: A graphical multi-user system state, similar to the traditional runlevel 5.
+  * **Switching Targets**:
+    * `systemctl isolate multi-user.target`: Switches to a non-graphical multi-user target.
+    * `systemctl isolate graphical.target`: Switches to a graphical multi-user target.
+    * `systemctl set-default multi-user.target`: Sets the default target to multi-user (non-graphical) for subsequent boots.
+    * `systemctl set-default graphical.target`: Sets the default target to graphical for subsequent boots.
+
+* **Managing User Sessions**:
+  * **Viewing Logged-in Users**:
+    * `who`: Lists currently logged-in users.
+    * `w`: Shows who is logged in and what they are doing.
+    * `last`: Displays a list of last logged-in users.
+  * **Broadcasting Messages**:
+    * `wall "message"`: Sends a message to all logged-in users.
+    * `write username`: Sends a message to a specific user.
+
+* **Basic User Management**:
+  * **Creating and Deleting Users**:
+    * `sudo adduser username`: Adds a new user.
+    * `sudo userdel username`: Deletes a user.
+  * **Adding Users to Groups**:
+    * `sudo usermod -aG groupname username`: Adds a user to a specific group.
+
+* **Password Management**:
+  * **Changing User Passwords**:
+    * `passwd`: Changes your own password.
+    * `sudo passwd username`: Changes the password of a specified user.
+  * **Password Aging and Policies**:
+    * `chage -l username`: Lists password aging information.
+    * `sudo chage -M days username`: Sets the maximum number of days before a password change is required.
+    * `sudo chage -m days username`: Sets the minimum number of days between password changes.
+    * `sudo chage -E YYYY-MM-DD username`: Sets the account expiration date.
+
+
+### List, set, and change standard ugo/rwx permissions 
+
+* **Listing Permissions**:
+  * **Using `ls -l`**:
+    * `ls -l filename`: Lists detailed information about a file, including its permissions.
+  * **Example**:
+    ```bash
+    ls -l
+    ```
+    * Output:
+      ```plaintext
+      -rw-r--r-- 1 user group 1234 May 19 12:00 example.txt
+      ```
+    * Interpretation:
+      - `-rw-r--r--`: File type and permissions (user: rw-, group: r--, others: r--)
+      - `1`: Number of hard links
+      - `user`: Owner
+      - `group`: Group
+      - `1234`: File size in bytes
+      - `May 19 12:00`: Last modification date and time
+      - `example.txt`: File name
+
+* **Setting and Changing Permissions**:
+  * **Using `chmod`**:
+    * **Symbolic Mode**:
+      * `chmod u+rwx,g+r,o+r filename`: Adds read, write, and execute permissions for the user, read permission for the group, and read permission for others.
+      * `chmod u-x filename`: Removes execute permission for the user.
+      * `chmod g+w filename`: Adds write permission for the group.
+      * `chmod o-r filename`: Removes read permission for others.
+    * **Numeric (Octal) Mode**:
+      * Permissions are represented by a three-digit octal number, where each digit ranges from 0 to 7:
+        * `r = 4`, `w = 2`, `x = 1`
+        * Sum the values to get the octal representation.
+      * `chmod 755 filename`: Sets permissions to rwxr-xr-x (user: rwx, group: r-x, others: r-x).
+      * `chmod 644 filename`: Sets permissions to rw-r--r-- (user: rw-, group: r--, others: r--).
+
+  * **Examples**:
+    * Add execute permission for the user:
+      ```bash
+      chmod u+x filename
+      ```
+    * Remove write permission for the group:
+      ```bash
+      chmod g-w filename
+      ```
+    * Set permissions to rwxr-xr-x (755) using numeric mode:
+      ```bash
+      chmod 755 filename
+      ```
+
+* **Changing Ownership**:
+  * **Using `chown`**:
+    * `chown user filename`: Changes the owner of the file to `user`.
+    * `chown user:group filename`: Changes the owner to `user` and the group to `group`.
+  * **Examples**:
+    * Change the owner of `example.txt` to `newuser`:
+      ```bash
+      sudo chown newuser example.txt
+      ```
+    * Change the owner to `newuser` and the group to `newgroup`:
+      ```bash
+      sudo chown newuser:newgroup example.txt
+      ```
+
+* **Changing Group Ownership**:
+  * **Using `chgrp`**:
+    * `chgrp group filename`: Changes the group of the file to `group`.
+  * **Example**:
+    * Change the group of `example.txt` to `newgroup`:
+      ```bash
+      sudo chgrp newgroup example.txt
+      ```
+
+* **Common Permissions**:
+  * **Directories**:
+    * Read (`r`): Allows listing the directory contents.
+    * Write (`w`): Allows creating, deleting, and renaming files within the directory.
+    * Execute (`x`): Allows accessing the files and directories within the directory.
+
+  * **Files**:
+    * Read (`r`): Allows reading the file.
+    * Write (`w`): Allows modifying the file.
+    * Execute (`x`): Allows running the file as a program or script.
+
+Understanding these commands and concepts will help you manage file and directory permissions effectively, which is an important part of the RHCSA exam and day-to-day Linux system administration.
+

@@ -65,8 +65,9 @@
         * sed -i -e '2d' ~/somefile
         * delete line 2
 
-1.  `grep`
+1.  `grep` and `zgrep`
     * Use grep and regular expressions to analyse text
+    * zgrep is grep on compressed files
     * The grep command is used to find text. For example:
         ```shell
         grep user100 /etc/passwd 
@@ -97,4 +98,115 @@
         * "" : Mask meaning of all enclosed special characters except \, $ and ''
         * {x} : Matches a number of the previous character: x{3} matches xxx
         * {x,y} : Matches a minimum of x and maximum of y: x{1,3} matches 1 to 3 x's
+        * \b: boundary anchor used to make sure regex is searched based on a word not the string inside a text
+            * grep "\bword\b" file.txt
+                * will return all occurance or word with non word character in front and back
+                * a non-word character is basically NOT alphanumeric (more or less)
+
+
+## Exam Objectives
+
+### Use grep and regular expressions to analyze text 
+
+* **Basic Usage**:
+  * **Search for a Pattern**:
+    * `grep pattern file`: Searches for lines in `file` that contain `pattern`.
+    * Example:
+      ```bash
+      grep "keyword" file.txt
+      ```
+
+* **Regular Expressions (Regex)**:
+  * **Basic Patterns**:
+    * `.` : Matches any single character.
+    * `^` : Matches the beginning of a line.
+    * `$` : Matches the end of a line.
+    * `*` : Matches zero or more occurrences of the previous character or group.
+    * `[]` : Matches any one of the enclosed characters.
+
+* **Examples**:
+  * **Search for Lines Starting with a Pattern**:
+    ```bash
+    grep "^pattern" file.txt
+    ```
+  * **Search for Lines Ending with a Pattern**:
+    ```bash
+    grep "pattern$" file.txt
+    ```
+  * **Search for Lines Containing a Word**:
+    ```bash
+    grep "\bword\b" file.txt
+    ```
+  * **Search for Lines Not Containing a Pattern**:
+    ```bash
+    grep -v "pattern" file.txt
+    ```
+  * **Count Matching Lines**:
+    ```bash
+    grep -c "pattern" file.txt
+    ```
+
+* **Advanced Usage**:
+  * **Recursive Search in Directories**:
+    ```bash
+    grep -r "pattern" directory/
+    ```
+  * **Search for Patterns in Specific File Types**:
+    ```bash
+    grep "pattern" *.txt
+    ```
+  * **Using grep with Pipelines**:
+    ```bash
+    command | grep "pattern"
+    ```
+
+* **Combining Commands**:
+  * **Count Lines Matching a Pattern in a Command Output**:
+    ```bash
+    command | grep "pattern" | wc -l
+    ```
+  * **Search for Patterns in Compressed Files**:
+    ```bash
+    zgrep "pattern" file.gz
+    ```
+
+* **Using Extended Regular Expressions**:
+  * **Using `-E` Option**:
+    ```bash
+    grep -E "pattern" file.txt
+    ```
+  * **Escape Special Characters**:
+    ```bash
+    grep "\(" file.txt
+    ```
+
+* **Ignoring Case Sensitivity**:
+  * **Using `-i` Option**:
+    ```bash
+    grep -i "pattern" file.txt
+    ```
+
+* **Understanding Output**:
+  * **Display Matching Lines Only**:
+    ```bash
+    grep -o "pattern" file.txt
+    ```
+
+* **Common Errors**:
+  * **No Such File or Directory**:
+    ```bash
+    grep: file.txt: No such file or directory
+    ```
+
+* **Searching for Multiple Patterns**:
+  * **Using `-e` Option**:
+    ```bash
+    grep -e "pattern1" -e "pattern2" file.txt
+    ```
+
+* **Searching for Inverted Patterns**:
+  * **Using `-v` Option**:
+    ```bash
+    grep -v "pattern" file.txt
+    ```
 

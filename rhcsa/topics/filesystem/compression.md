@@ -79,3 +79,45 @@
 
     * gunzip/bunzip2
         * Uncompress files
+
+
+### Exam Objectives:  Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2
+
+
+* **Using `tar` for Archiving and Compressing**:
+  * **Create an Archive**:
+    * `tar -cvf archive.tar file1 file2 dir1`: Create an uncompressed archive.
+  * **Extract an Archive**:
+    * `tar -xvf archive.tar`: Extract an uncompressed archive.
+  * **View Contents of an Archive**:
+    * `tar -tvf archive.tar`: List the contents of an archive.
+  * **Create a Compressed Archive with gzip**:
+    * `tar -czvf archive.tar.gz file1 file2 dir1`: Create a gzip-compressed archive.
+  * **Extract a gzip-compressed Archive**:
+    * `tar -xzvf archive.tar.gz`: Extract a gzip-compressed archive.
+  * **Create a Compressed Archive with bzip2**:
+    * `tar -cjvf archive.tar.bz2 file1 file2 dir1`: Create a bzip2-compressed archive.
+  * **Extract a bzip2-compressed Archive**:
+    * `tar -xjvf archive.tar.bz2`: Extract a bzip2-compressed archive.
+
+* **Using `gzip` and `gunzip`**:
+  * **Compress a File**:
+    * `gzip file`: Compresses the file, resulting in `file.gz`.
+  * **Uncompress a File**:
+    * `gunzip file.gz`: Uncompresses the file, restoring the original file.
+
+* **Using `bzip2` and `bunzip2`**:
+  * **Compress a File**:
+    * `bzip2 file`: Compresses the file, resulting in `file.bz2`.
+  * **Uncompress a File**:
+    * `bunzip2 file.bz2`: Uncompresses the file, restoring the original file.
+
+* **Using `tar` with gzip and bzip2**:
+  * **Compress with gzip**:
+    * `tar -czvf archive.tar.gz file1 file2 dir1`: Combines tar and gzip to compress files into an archive.
+  * **Compress with bzip2**:
+    * `tar -cjvf archive.tar.bz2 file1 file2 dir1`: Combines tar and bzip2 to compress files into an archive.
+  * **Extract with gzip**:
+    * `tar -xzvf archive.tar.gz`: Extracts a tarball compressed with gzip.
+  * **Extract with bzip2**:
+    * `tar -xjvf archive.tar.bz2`: Extracts a tarball compressed with bzip2.

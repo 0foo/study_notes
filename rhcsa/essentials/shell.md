@@ -152,7 +152,7 @@ $ type /bin/ls
     * /etc/motd: after login
     * /etc/issues: before login, good for specifying login issues or security concerns
 
-### Linux everything is a file
+
 
 ### Everything in linux is a file (or at least trys to be)
     * can be accessed with read() and write() system calls
@@ -165,3 +165,88 @@ $ type /bin/ls
     * Can hit tab twice on incomplete commands or filenames and cli will autocmplete ghe command or file
 
 
+
+## Exam Objectives
+
+###  Use input-output redirection (>, >>, |, 2>, 2>&1, etc.) 
+
+* **Basic Redirection Operators**:
+  * **`>`**: Redirects standard output (stdout) to a file, overwriting existing content.
+    ```bash
+    command > output.txt
+    ```
+  * **`>>`**: Appends standard output (stdout) to a file, preserving existing content.
+    ```bash
+    command >> output.txt
+    ```
+  * **`<`**: Redirects standard input (stdin) from a file to a command.
+    ```bash
+    command < input.txt
+    ```
+  
+* **Pipeline Operator**:
+  * **`|`**: Sends the output of one command as input to another command.
+    ```bash
+    command1 | command2
+    ```
+
+* **Standard Error Redirection**:
+  * **`2>`**: Redirects standard error (stderr) to a file, overwriting existing content.
+    ```bash
+    command 2> error.log
+    ```
+  * **`2>>`**: Appends standard error (stderr) to a file, preserving existing content.
+    ```bash
+    command 2>> error.log
+    ```
+  * **`&>` or `>&`**: Redirects both stdout and stderr to a file.
+    ```bash
+    command &> output_and_error.log
+    ```
+  * **`2>&1`**: Redirects stderr to stdout, useful for capturing both outputs in the same file.
+    ```bash
+    command 2>&1 > output.txt
+    ```
+
+    * difference
+        * 2>&1 is standard Bourne/POSIX shell.
+        * &> is a bash extension and not de jure standard.
+
+        
+* **Combining Redirections**:
+  * **Sequential Redirection**:
+    ```bash
+    command1 > output.txt 2>&1
+    ```
+  * **Redirecting and Appending**:
+    ```bash
+    command1 > output.txt 2>> error.log
+    ```
+  * **Chaining Commands with Redirections**:
+    ```bash
+    command1 | command2 > output.txt
+    ```
+
+* **Examples**:
+  * **Redirecting Command Output**:
+    ```bash
+    ls -l > listing.txt
+    ```
+  * **Appending Command Output**:
+    ```bash
+    echo "Additional content" >> listing.txt
+    ```
+  * **Piping Commands**:
+    ```bash
+    ps aux | grep ssh
+    ```
+  * **Redirecting Errors**:
+    ```bash
+    grep pattern file.txt 2> error.log
+    ```
+  * **Redirecting Both Output and Errors**:
+    ```bash
+    command &> output_and_error.log
+    ```
+
+Redirection operators are powerful tools for managing command output, errors, and input within the Unix command line interface. Mastering these techniques is crucial for system administration tasks, scripting, and troubleshooting in Unix-based environments.
