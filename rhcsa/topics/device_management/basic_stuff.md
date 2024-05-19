@@ -63,6 +63,9 @@
         * lists all pci devices
     * lsscsi
         * lists all scsi devices
+    * lscpu
+        * Processor details
+
 
 ### Network socket file locations
 * not on the RHCSA just here for edification

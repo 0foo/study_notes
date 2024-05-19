@@ -1,11 +1,3 @@
-1. wildcards
-    * star(*) used for 1 or more characthers
-        * ls * would show all files in current directory (except hidden with dot would need -a)
-    * ? used for a single character
-        * ls c*t  would match any character 
-    * brackets [] used for one character amongst these
-        * ls c[ua]t  would match cat and cut
-
 1. Directories
     * mkdir, cd, pwd, rmdir, cp, rm, rm -rf, ls, ln, ln -s
     * absolute vs relative paths
@@ -16,7 +8,8 @@
     * tip: add a slash after copy to not create the new folder and get error message
         * cp /etc/hosts /tmp/ vs cp /etc/hosts /tmp
 
-
+1. file <filename>
+    * identifies what type of file it is
 
 1. Create and edit text files
 
@@ -30,8 +23,7 @@
         ```shell
         vi file
         ``` 
-
-
+        
 1. Create, delete, copy, and move files and directories
 
     * To create a directory:
@@ -92,14 +84,25 @@
     ln file1 hardlink
     ``` 
 
+### directory navigation
 
-### rsync
-1. `rsync`
-    * synchronizes files
-    * -r : recursive, entire directory tree
-    * -l : also symbolic links
-    * -p : preserves symbolic links
-    * -n : only a dry run, not actually sync anything
-    * -a : use archive mode and ensure that entire subdirectory and file properties are synchronized
-    * -A : archive mode (-a) PLUS sync ACLs
-    * -X : sync SELinux content as well
+* ls
+    * -h (human readable)
+    * -a (show hidden)
+    * -l (detailed)
+    * -lt (newest file first)
+    * -ltr (oldest file first)
+    * -R (current dir plus all subdirs recursively)
+    * -d (just shows names of directories)
+    * List of files and directories
+
+* pwd
+    * Print working directory
+
+* cd
+    * ~ (home)
+    * / (root)
+    * - (switch)
+    * .. (parent)
+    * Change directories
+    * - (last directory)

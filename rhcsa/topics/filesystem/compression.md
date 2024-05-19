@@ -55,6 +55,27 @@
     * The star command is an enhanced version of tar. It also supports SELinux security contexts and extended file attributes. The options are like tar.
 
 
-1. `gzip`, `bzip2`, `gunzip`, `bunzip2`
-        * can use flags with `tar -z(gzip) -j(bzip2)`
 
+* tar
+    * -c (create)
+    * -f (specifies name)
+    * -v (verbose)
+    * -r (append to existing)
+    * -x (extract)
+    * -z (compress with gzip)
+    * -j (compress with bzip2)
+    * Archive file
+
+
+* star
+    * Enhanced tar
+
+1. `gzip`, `bzip2`, `gunzip`, `bunzip2`
+    * can use flags with `tar -z(gzip) -j(bzip2)`
+
+    * gzip/bzip2
+        * -d (uncompress)
+        * Compress files
+
+    * gunzip/bunzip2
+        * Uncompress files

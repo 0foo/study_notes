@@ -1,6 +1,19 @@
 * Epoch time
     * number of seconds since January 1, 1970 in UTC
 
+### Basic time
+
+* timedatectl
+    * set-time
+    * list-timezones
+    * set-timezone
+    * Display system time
+
+* date
+    * --set
+    * View system date
+
+
 ### NTP
 * Series of time servers around the world
 

@@ -1,3 +1,58 @@
+### Network
+* ip
+    * ip addr : configure/monitor network addresses
+    * ip route: configure/monitor routing info
+    * ip link: configure/monitor link state
+        * ip link show
+        * show the link state(a subset of info of ip addr show)
+        * ip -s link show
+            * can get stats on packets transferred, sent, recieved
+
+    * ip addr show
+        * show's current network settings 
+    
+    * ip addr add
+        * add an ip to an interface
+        * non-persistent
+            * for persistent use nmcli/nmtui
+
+* Check ports
+    * ss
+        * ss -ltp
+    * netstat
+        * netstat -tulanep
+    * note: use sudo with these
+
+    * if proc is listening on localhost loopback @ 127.0.0.1 
+        * cannot be accessed by machines off network
+        * completely on localmachine
+    
+    * if proc is listening with an local IP/port and the remote/peer is: 0.0.0.0:* it means it doesn't have a connection to a remote host to populate that value
+
+
+* nmcli/nmtui
+    * nmcli 
+        * nmcli gen permissions
+            * lets one check their networking permissions
+        * nmcli con show
+            * shows all active/inactive sessions
+            * note: this is INTERFACE connections NOT tcp/udp connections
+        * nmcli con show <cnx name>
+            * can view the legend for these settings at: man 5 nm-settings
+        * can view device settings
+            * nmcli dev show/ nmcli dev show <device name>
+        * man nmcli-examples
+    * nmtui
+
+* network connection config files
+    * stored in /etc/sysconfig/network-scripts
+    * can modify these files instead of using network config commands
+    * after making changes, to make it take effect:
+        *  nmcli con up
+
+
+### General concepts 
+
 * private addy ranges
     * 172.16.0.0 / 16 
     * 192.168.0.0 / 24
@@ -63,38 +118,6 @@
 
 * Each Linux network interface has an ifcfg configuration file located in /etc/sysconfig/network-scripts. The device name is added to the end of the filename. So, for example, the configuration file for the first Ethernet interface is called ifcfg-eth0.
 
-### DNS 
-* change local hostname
-    * nmtui
-    * hostnamectl set-hostname
-    * edit /etc/hostname
-
-* view hostname
-    * hostnamectl status
-    * cat /etc/hostname
-
-* /etc/hosts
-    * first column: ip
-    * second column: hostname
-    * can have a third name with another alias, have to(?) put FQDN in second column
-
-* set DNS resolvers
-    * options:
-        1. nmtui/nmcli 
-        1. /etc/sysconfig/network-scripts
-        1. DHCP server can set it on a dynamic DHCP configured interface
-            * can ignore this part of DHCP setup with one of these options:
-                1. edit ifcfg config file to include PEERDNS=no
-                1. nmcli con mod <connection id> ipv4.ignore-auto-dns yes
-        1. nmcli con mod <connection id> [+]ipv4.dns <ip of dns>
-
-    * NetworkManager  stores DNS-resolver info in:
-        * config file: /etc/sysconfig/network-scripts
-        * then pushes to : /etc/resolv.conf
-        * NEVER edit /etc/resolve.conf directly as will be overrwritten when restart neworkmanager
-    * always setup 2 dns servers to use for redundancy
-    * to verify a DNS host
-        * getent hosts google.com
     
 ### Important network files
 

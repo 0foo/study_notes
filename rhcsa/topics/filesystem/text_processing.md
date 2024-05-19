@@ -1,5 +1,8 @@
 ### Text processing
 
+
+
+
 1. `less`
     * press q to quit less
     * search with forward slash: /<keyword>
@@ -74,22 +77,24 @@
         * -r: recursively search all files/subdir's
         * -e: search for lines matching more than one regex
         * -A, -B: num lines before and after the match to return
+        * -E (use alternation)
+        * -w (word match)
+        * -n (show line numbers)
 
     * Always surround regex with quotes or single quotes for escaping purposes
         * grep '^root' /etc/passwd
       
     * Common regular expression parameters are shown below:
-        | Symbol | Description                                                        |
-        |--------|--------------------------------------------------------------------|
-        | ^      | Beginning of a line or word                                        |
-        | $      | End of a line or word                                              |
-        | \|     | Or                                                                 |
-        | .      | Any single character: r.t matches rat rot rut, etc.                                                      |
-        | *      | Zero to infinite number of the previous character                                        |
-        | ?      | Zero or one  of any of the previous character: cou?ler, matches color and couler, makes previous character optional                                              |
-        | []     | Range of characters  [abc] matches a or b or c                                        |
-        | \      | Escape character                                                   |
-        | ''     | Mask meaning of enclosed special characters                        |
-        | ""     | Mask meaning of all enclosed special characters except \, $ and '' |
-        |{x}| matches a number of the PREVIOUS character: x{3}, matches xxx|
-        |{x,y}| matches a minimum of x and maximum of y: x{1,3} matches 1 to 3 x's|
+        * ^ : Beginning of a line or word
+        * $ : End of a line or word
+        * | : Or
+        * . : Any single character: r.t matches rat, rot, rut, etc.
+        * * : Zero to infinite number of the previous character
+        * ? : Zero or one of any of the previous character: cou?ler matches color and couler, makes previous character optional
+        * [] : Range of characters [abc] matches a or b or c
+        * \ : Escape character
+        * '' : Mask meaning of enclosed special characters
+        * "" : Mask meaning of all enclosed special characters except \, $ and ''
+        * {x} : Matches a number of the previous character: x{3} matches xxx
+        * {x,y} : Matches a minimum of x and maximum of y: x{1,3} matches 1 to 3 x's
+
