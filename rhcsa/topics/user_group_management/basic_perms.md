@@ -1,24 +1,3 @@
-* id 
-    * get info on a usre
-
-groups
-    * get groups of a user
-
-* su 
-    * open subshell as different user
-    * no user specified will open with root
-    * if specifiy a user will open subshell as that user
-    * if pass a dash (-) will treat the login as login shell and run all scripts that create the login environment
-    * without a dash will not be a login shell
-
-* sudo
-    * run specific commands as root
-    * allows fine grained permissions for users to perform specific tasks
-    * config by /etc/sudoers
-    * visudo also edits /etc/sudoers
-    * linda ALL=/usr/bin/useradd, /usr/bin/passwd
-        * only allows linda to run useradd command as sudo with sudo command
-
 
 * user accounts
     * /etc/passwd
@@ -46,15 +25,6 @@ groups
     * secondary group mmberships stored in /etc/groups
         * secondray groups allow access to files i.e. if group has access so does user
 
-* vipr/vigr
-    * add a user
-    * can edit /etc/passwd, /etc/group, and /etc/shadow directly
-        * if mess up or have a typo in this fill will block all users from logging in
-        * vipw will open editor to edit those files also
-            * vipw -s opens /etc/shadow
-            * vipw -g opens /etc/group (equivqlent to vigr command)
-            * vipw (optional -p) open /etc/passwd
-            * vipw DOES NOT validate syntax so can mess up system if theres a typo
 
 * user addition default files
     * /etc/login.defs
@@ -67,6 +37,106 @@ groups
 
     * /etc/default/useradd
         * default's to use with the useradd command
+
+
+All files created will get user as owner and user's primary group
+
+
+            file                    directory
+Read        open a file             list contents of directory
+Write       change file contents    create/delete files
+Execute     run a file              navigate into the directory
+
+
+
+
+
+* Permissions are set for the user, group, and others. User is the owner of the file or the directory, group is a set of users with identical access defined in `/etc/group`, and others are all other users. The types of permission are read, write, and execute.
+
+* Permission combinations are shown below:
+    | Octal Value | Binary Notation | Symbolic Notation | Explanation                           |
+    |-------------|-----------------|-------------------|---------------------------------------|
+    | 0           | 000             | ---               | No permissions.                       |
+    | 1           | 001             | --x               | Execute permission only.              |
+    | 2           | 010             | -w-               | Write permission only.                |
+    | 3           | 011             | -wx               | Write and execute permissions.        |
+    | 4           | 100             | r--               | Read permission only.                 |
+    | 5           | 101             | r-x               | Read and execute permissions.         |
+    | 6           | 110             | rw-               | Read and write permissions.           |
+    | 7           | 111             | rwx               | Read, write, and execute permissions. |
+
+* To grant the owner, group, and others all permissions using the *chmod* command:
+    ```shell
+    chmod 777 file1
+    ```
+
+* chown
+
+* The default permissions are calculated based on the umask. The default umask for root is 0022 and 0002 for regular users (the leading 0 has no significance). The pre-defined initial permissions are 666 for files and 777 for directories. The umask is subtracted from these initial permissions to obtain the default permissions. To change the default umask:
+    ```shell
+    umask 027
+    ```
+
+* Every file and directory has an owner. By default, the creator assumes ownership. The owner's group is assigned to a file or directory. To change the ownership of a file or directory:
+    ```shell
+    useradd user100
+    chown user100 item1
+    chgrp user100 item1
+    ```
+
+    ```shell
+    chown user100:user100 item1
+    ```
+* Note that the -R option must be used to recursively change all files in a directory.
+
+* `su`
+    * A user can switch to another user using the *su* command. The *-i* option ensures that the target users login scripts are run:
+        ```shell
+        sudo -i -u targetUser
+        ``` 
+* `sudo`
+    * To run a command as root without switching:
+        ```shell
+        sudo -c
+        ``` 
+    * The configuration for which users can run which commands using sudo is defined in the `/etc/sudoers` file. The visudo command is used to edit the sudoers file. The sudo command logs successful authentication and command data to `/var/log/secure`.
+
+* `chvt `
+    * switches between virtual terminals
+
+
+
+* id 
+    * get info on a usre
+
+groups
+    * get groups of a user
+
+* su 
+    * open subshell as different user
+    * no user specified will open with root
+    * if specifiy a user will open subshell as that user
+    * if pass a dash (-) will treat the login as login shell and run all scripts that create the login environment
+    * without a dash will not be a login shell
+
+* sudo
+    * run specific commands as root
+    * allows fine grained permissions for users to perform specific tasks
+    * config by /etc/sudoers
+    * visudo also edits /etc/sudoers
+    * linda ALL=/usr/bin/useradd, /usr/bin/passwd
+        * only allows linda to run useradd command as sudo with sudo command
+
+
+* vipr/vigr
+    * add a user
+    * can edit /etc/passwd, /etc/group, and /etc/shadow directly
+        * if mess up or have a typo in this fill will block all users from logging in
+        * vipw will open editor to edit those files also
+            * vipw -s opens /etc/shadow
+            * vipw -g opens /etc/group (equivqlent to vigr command)
+            * vipw (optional -p) open /etc/passwd
+            * vipw DOES NOT validate syntax so can mess up system if theres a typo
 
 * passwd
     * -n : minimum usage in days before it can be changd
@@ -122,10 +192,3 @@ newgrp
     * will only last until logout
 
 
-All files created will get user as owner and user's primary group
-
-
-            file                    directory
-Read        open a file             list contents of directory
-Write       change file contents    create/delete files
-Execute     run a file              navigate into the directory

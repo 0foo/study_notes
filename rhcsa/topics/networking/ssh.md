@@ -42,3 +42,31 @@
 2. Type ssh-add to add the passphrase for the current user’s private key. The key is now cached.
 3. Connect to the remote server. Notice that there is no longer a need to enter the passphrase.
 * This procedure needs to be repeated for all new sessions that are created.
+
+
+* `ssh-keygen`
+        * generate ssh keys
+        * add public key to remote server in ~/.ssh/authorized in home directory of user with the private key
+            * use ssh-copy-id remote server name
+        * add private key to ~/.ssh/someprivatekeyfilename
+
+* `ssh`
+    * To login using SSH: 
+        ```shell
+        ssh user@host
+        ``` 
+    * -p : can specify port to connect to
+    * -l : can specify a username
+    * -v : verbose to get info about the connection
+    * public key of the server connected to is stored in ~/.ssh/known_hosts
+        * every time you connect to that server ssh will check the be sure that key matches
+
+
+1. `scp`
+    * scp source destination
+    * -r : recurisvely copy directory
+    * -P : (uppercase) SSH port if not 22
+    * to download a file
+        * scp root@server:/some/remote/location  ~/some/local/location
+    * to upload a file
+        * scp ~/some/local/location root@server:~/some/remote/location
