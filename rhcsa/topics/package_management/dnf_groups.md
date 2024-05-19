@@ -1,5 +1,12 @@
 ### DNF groups
 
+* environment group
+    * An environment group is a larger collection of RHEL packages that provides all necessary software to build the operating system foundation for a desired purpose. 
+
+* group
+    * A group, on the other hand, is a small bunch of RHEL packages that serve a common purpose.
+    
+
 * `dnf group list`
     * To list all available and installed package groups from all repositories
     * pass as a final parameter
@@ -25,8 +32,3 @@
 * `sudo dnf group remove "<group name>"`
     * uninstalls all packages from the group
 
-* environment group
-    * An environment group is a larger collection of RHEL packages that provides all necessary software to build the operating system foundation for a desired purpose. 
-
-* group
-    * A group, on the other hand, is a small bunch of RHEL packages that serve a common purpose.
