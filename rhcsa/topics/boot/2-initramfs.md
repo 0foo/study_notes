@@ -5,8 +5,6 @@
 * has full udev
 * has systemd called init though
 
-
-
 ### Kernel + intraramfs
 
 3. Kernel + initramfs take control
@@ -31,11 +29,6 @@
     * Note: many people format /boot with ext2,3,or 4 no matter what format the main file system is using
     * Also if the main file system is encrypted will need to have a seperate unencrypted partition for GRUB/initramfs
 
-
-
-
-
-
 ### Files
 * typically in /boot partition
 * named either initramfs or initrd depending on distribution
@@ -49,7 +42,6 @@
 * External storage drives which root partitions live require hardware drivers, and block files to access, and other configuration
 * RAM and CPU are all available at boot time and kernel can manage RAM with no additional drivers needed, so an OS is built in RAM
     * This full mini OS in RAM is used to configure and set up the hardware devices to be able to configure/acces the devices which contain root file system
-
 
 ### Function of init(systemd on initramfs)
 * Loading Kernel Modules
