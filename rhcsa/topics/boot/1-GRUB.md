@@ -1,40 +1,12 @@
 ## GRUB
 
-### BIOS boot
-* In a BIOS boot: GRUB is installed in the MBR. 
-* The MBR are the first 512 bytes on a disk. 
-* The MBR is also used by the partition table of the disk, therefore GRUB itself has somewhat less space than the 512 bytes.
-* GRUB sets bootstrap code in the MBR which takes control from BIOS after POST
-* Once GRUB takes over it loads `grub.cfg`
 
-
-### UEFI boot
-* UEFI replaces BIOS and is more advanced
-* UEFI can read a file system (typically FAT types)
-* UEFI has a configuration in its settings to look for a FILE which functions as a bootloader
-* in GRUB that's typically 
-```
-    /grub/x86_64-efi/grub.efi
-    /efi/EFI/ubuntu/grubx64.efi
-```
-* Many times this file system is separate partitions and is mounted into boot directory i.e.: `/dev/nvme0n1p1 on /boot/efi type vfat`
-* After this bootloader FILE is loaded it functions as an MBR GRUB bootloader which can then read the config file and start it's configurations
-
-
-### Grub Config
-* Some times in UEFI systems will have two grub.cfg
-* For example on Ubuntu:
-    * `/efi/EFI/ubuntu/grub.cfg` is `grub.cfg` is typically only a few lines and points to the main `/grub/grub.cfg`
-```
-    /grub/grub.cfg
-    /efi/EFI/ubuntu/grub.cfg
-```
-* red hat seems to not have this designation
+### Grub config load
+* Once GRUB fully takes over it loads `grub.cfg`
 
 
 ### Bootfile Locations 
-* `/boot`
-* after the above process:
+*  `/boot`
 * GRUB (rest of it) are several files that are loaded, from /boot/grub (for example: that nice image that appears as a background in GRUB is not stored on the MBR)
 
 
@@ -48,9 +20,25 @@ Other Tasks:
 
 
 ### Grub config file management
+
+* Grub functional config
+    * Some times in UEFI systems will have multiple grub.cfg
+    * For example on Ubuntu:
+        * `/efi/EFI/ubuntu/grub.cfg` is `grub.cfg` is typically only a few lines and points to the main `/grub/grub.cfg`
+    ```
+        /grub/grub.cfg
+        /efi/EFI/ubuntu/grub.cfg
+    ```
+    * red hat seems to not have this designation
+    * many times grub functional config is located in /boot/grub2/grub.cfg
+        * DO NOT modify this file, this is the trans-piled grub file
+
+* pre-trans-piled configuration of grub config
     * /etc/default/grub file
     * This file is the source for several possible generated files
-    * grub file example:
+
+
+* grub file example:
 ```
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
@@ -76,15 +64,15 @@ GRUB_ENABLE_BLSCFG=true
     * This defines the amount of time your server waits for you to access the GRUB 2 boot menu before it continues booting automatically.
 
 ### Modify GRUB config
-* grub config is located at /etc/default/grub
-* edit this file and run a grub maker
+* grub config files are located at /etc/default/grub and at /etc/grub.d/ 
+* edit this file and run a grub transpiler
     * `update-grub` (ubuntu)
     * `grub2-mkconfig -o /boot/grub2/grub.cfg` (red hat)
 * this creates and populates files in /boot directory
     * If your system is a BIOS system, the name of the file is /boot/grub2/grub.cfg. 
     * On a UEFI system the file is written to /boot/efi/EFI/redhat
     * the command is grub2-mkconfig
-    * BIOS system: grub2-mkconfig -o /boot/grub2/grub
+    * BIOS system: grub2-mkconfig -o /boot/grub2/grub.cfg
     * UEFI system: grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
 
 ### Adding new kernel versions
@@ -93,4 +81,10 @@ GRUB_ENABLE_BLSCFG=true
 
 
 
+
+### Install grub to MBR or EFI file system
+* `sudo grub-install /dev/sda`
+* `sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub`
+* the generate the config file
+    * `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`
 
