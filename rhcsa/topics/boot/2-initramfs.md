@@ -4,8 +4,15 @@
 * has all of the modules/hardware drivers to intitialize the system
 * has full udev
 * has systemd called init though
+* It contains a minimal set of files and directories to bootstrap the system.
+* It includes necessary drivers and kernel modules to access the root filesystem.
+* It is loaded into memory by the bootloader before the kernel is executed.
+* It initializes hardware and mounts the real root filesystem.
+* It facilitates the transition from the bootloader to the main filesystem, allowing for a smooth system startup.
 
 ### Kernel + intraramfs
+
+
 
 3. Kernel + initramfs take control
     1. purpose: to locate/identify the root OS
@@ -78,8 +85,6 @@
     *  contains the system default configuration files.
 * /etc/dracut.conf.d 
     * contains custom dracut configuration files.
-
-
 
 ### Historical Context and Usage
 

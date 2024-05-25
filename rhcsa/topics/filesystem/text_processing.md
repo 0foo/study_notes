@@ -1,8 +1,4 @@
 ### Text processing
-
-
-
-
 1. `less`
     * press q to quit less
     * search with forward slash: /<keyword>

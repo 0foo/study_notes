@@ -1,5 +1,10 @@
 ## GRUB
 
+### purpose
+
+* Linux bootloader's main task is to find the kernel image (vmlinuz) and the initramfs archive, and to provide command-line options to the kernel – which contain the root partition's name in Linux syntax, such as root=/dev/sda2 or root=UUID=XYZ-ABC.
+
+* note: the bootloader knows nothing about the root partition it just passes as a kernel param
 
 ### Grub config load
 * Once GRUB fully takes over it loads `grub.cfg`
