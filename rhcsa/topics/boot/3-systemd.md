@@ -1,5 +1,51 @@
 ## Systemd
 
+###  initialization process
+
+
+1. **Kernel Initialization**: The kernel initializes hardware, mounts the initial root filesystem (usually provided by `initramfs`), and starts the first userspace process, which is typically `systemd`.
+
+2. Startup systemd: `systemd` is started as the init process (PID 1). It takes over the process of booting the system.
+    ```sh
+   /sbin/init
+   ```
+
+3. Initialize systemd: `systemd` starts by reading its configuration files, primarily located in `/etc/systemd/`.
+    * /etc/systemd/system/
+    * /lib/systemd/system/
+    * /run/systemd/system/
+
+4. Mount filesystems: `systemd` mounts necessary filesystems defined in the `fstab` file and in `systemd` unit files.
+    * Root filesystem is already mounted by the kernel.
+    * Other filesystems like `/home`, `/var`, `/tmp`, etc., are mounted.
+    * Virtual filesystems like `proc`, `sysfs`, and `tmpfs` are also mounted.
+    ```
+    mount -t proc proc /proc
+    mount -t sysfs sys /sys
+    mount -t devtmpfs dev /dev
+    ```
+
+5. Run Early Boot Services: Services required early in the boot process are started, such as:
+    * udev: For device management.
+    * tmpfiles: For creating temporary files and directories.
+
+6. Sysinit Target: Completes basic system initialization, including:
+    * Applying kernel parameters.
+    * Setting up system time.
+    * Initializing random seed.
+
+7. Switch to default target
+    * The default target is typically `default.target`, which is often an alias for `multi-user.target` or `graphical.target`.
+
+4. Start services: 
+    * `systemd` starts all required services in parallel, according to their dependencies and the specified target. 
+    * Services are defined in unit files with `.service` extension.
+
+5. Handling Sockets and Devices 
+    * `systemd` manages sockets and devices using `.socket` and `.device` units. 
+    * This allows it to handle activation on demand (socket activation) and respond to device availability (udev).
+
+
 
 ### units
 * systemd has different unit's specified by unit files that do different things
@@ -172,6 +218,7 @@
 
 * systemctl enable and systemctl disable
     * add units to targets
+
 
 ### Isolated Target states
     * these are isolated targets
