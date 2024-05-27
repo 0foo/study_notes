@@ -11,9 +11,7 @@
    ```
 
 3. Initialize systemd: `systemd` starts by reading its configuration files, primarily located in `/etc/systemd/`.
-    * /etc/systemd/system/
-    * /lib/systemd/system/
-    * /run/systemd/system/
+    * See below for more info
 
 4. Mount filesystems: `systemd` mounts necessary filesystems defined in the `fstab` file and in `systemd` unit files.
     * Root filesystem is already mounted by the kernel.
@@ -53,11 +51,10 @@
     * systemctl -t help
 
 
-
 ### systemd config file locations
 
 * /run/systemd/system
-    * automatically generated systemd unit files
+    * base level OS systemd unit files
 
 * /etc/systemd/system
     * customizable file location
@@ -69,16 +66,15 @@
     * unit files!!!
     * including all of the isolated unit files!!!
 
-
 * if files specifying same thing exist in multiple locations priority is:
     1. /run/systemd/system
     1. /etc/systemd/system
     1. /usr/lib/systemd/system
 
-* if changing files, be sure to only edit file in /etc/systmd/system and not the default files auto generated in /usr/lib/systemd/system
+* if changing files, be sure to only edit file in /etc/systemd/system and not the default files in /usr/lib/systemd/system
 
 * this will override  ON A SETTING BASIS
-    * any settings not presetn in the custom edited config file will use the settings from other locations i.e. auto created  /usr/lib/systemd/system
+    * any settings not presetn in the custom edited config file will use the settings from other locations i.e. /usr/lib/systemd/system
 
 
 * systemctl edit \<service name>
@@ -154,7 +150,6 @@
 
 
 ### systemctl
-
 * systemctl enable
     * this ensures unit is automatically started when booting
     * will create a symlink from the service location to /etc/systemd/system/\<some target directory>
@@ -187,8 +182,6 @@
     * show detailed info about a service
 
 
-
-
 ### Systemd dependencies
 * certain unit types such as socket and path are directly related to a service unit
 * Dependencies defined in the \[Unit\] section:
@@ -206,7 +199,6 @@
 * systemctl list-dependencies \<unit name>
     * gives the dependencies that this unit needs
     * --reverse option will give the dependencies that need this unit
-
 
 
 ## Systemd targets
