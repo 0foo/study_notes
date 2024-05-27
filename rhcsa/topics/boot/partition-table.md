@@ -18,7 +18,6 @@
     * the very first LBA(logical block address, typically 0-512 bytes) on a GPT, LBA 0, contains legacy MBR information. 
     * The GPT boot header takes the next LBA, at LBA 1(513-1025). In this manner, we provide a recognizable MBR for older disk applications, and ensure the GPT won’t accidentally be overwritten. This is known as the Protective MBR, for just these reasons.
 
-
 1. **Capacity and Size Limitations**:
    - MBR: MBR partitioning scheme supports up to 2 TB (terabytes) of storage space and up to four primary partitions. To overcome this limitation, users often create extended partitions, which can contain multiple logical partitions.
    - GPT: GPT partitioning scheme supports significantly larger storage capacities, up to 9.4 zettabytes (ZB), and allows for up to 128 partitions by default. It does not have the limitations of MBR, making it suitable for modern large-capacity storage devices.

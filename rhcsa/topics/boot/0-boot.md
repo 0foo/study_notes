@@ -24,6 +24,7 @@
     * GRUB has a stage 1.5
         * Location: Stage 1.5 is located in the unused sectors between the MBR and the first partition on the disk.
         * Function: Stage 1.5 contains filesystem drivers necessary to access files stored on the filesystems of the disk. It enables GRUB to read configuration files and other necessary data from the filesystem before loading the main GRUB modules.
+            * note: it doesn't mount the drive since there's no kernel yet to mount it into BUT it can READ from certain file systems.
 
     * stage 2:
         * much more complex bootloader as it has much more space available for functionality
