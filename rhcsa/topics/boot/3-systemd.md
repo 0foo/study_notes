@@ -18,6 +18,7 @@
     * Other filesystems like `/home`, `/var`, `/tmp`, etc., are mounted.
     * Virtual filesystems like `proc`, `sysfs`, and `tmpfs` are also mounted.
     ```
+    # run /etc/fstab
     mount -t proc proc /proc
     mount -t sysfs sys /sys
     mount -t devtmpfs dev /dev

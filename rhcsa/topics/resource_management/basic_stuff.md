@@ -107,6 +107,7 @@
     * pkill -15 firefox
     * corresponds with pgrep in searching processes to kill, so use pgrep first to validate what you're about to kill
     * can kill process with exact name using regex: pkill '^somecommand$'
+    
 * killall
     * kills all procs with the same name
     * have to match name exactly unlike with pkill which used regex matching

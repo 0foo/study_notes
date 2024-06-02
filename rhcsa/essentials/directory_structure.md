@@ -53,6 +53,18 @@
         * https://unix.stackexchange.com/questions/23199/why-are-network-interfaces-not-in-dev-like-other-devices
         * https://askubuntu.com/questions/306594/why-do-ethernet-devices-not-show-up-in-dev
     * /dev directory is populated by udev daemon
+    * /dev/random vs /dev/urandom
+        * prefer /dev/urandom
+        * /dev/random has been deprecated for a decade
+        * /dev/random can block if it runs out of entropy and halt process execution
+        * provides random series of bytes
+        * generate a random number with $RANDOM 
+        * deprecation: https://lkml.org/lkml/2017/7/20/993
+    * /dev/null
+    * /dev/tty, /dev/console
+        * tty is the virtual console i.e. if ssh'd in
+        * https://unix.stackexchange.com/questions/60641/linux-difference-between-dev-console-dev-tty-and-dev-tty0
+
 
 
 1. /sys directory
@@ -77,6 +89,10 @@
         * For example: /proc/{pid} directory contains information about the process with that particular pid.
     * This is a virtual filesystem with text information about system resources. 
         * For example: /proc/uptime
+    * /proc/meminfo
+    * contains all info about memory
+    * /proc/cpuinfo
+        * contains all info about cpu
 
 
 1.  /home :
@@ -105,7 +121,20 @@
     * Contains configuration files required by all programs.
     * This also contains startup and shutdown shell scripts used to start/stop individual programs.
     * Example: /etc/resolv.conf, /etc/logrotate.conf.
-    
+    * /etc/profile
+    * /etc/bashrc
+    * /etc/motd
+        * message after login
+    * /etc/issues:
+        * message before login, good for specifying login issues or security concerns
+    * /etc/passwd, /etc/shadow, /etc/group, /etc/gshadow, /etc/skel
+        * user management
+    * /etc/*release
+        * redhat: /etc/redhat-release
+        * ubuntu: /etc/lsb-release
+    * /etc/services
+        * a nice list of well known ports for different services
+        
 1. /boot :
     * Boot loader files, e.g., kernels, initrd. 
     * Kernel initrd, vmlinux, grub files are located under /boot
@@ -113,6 +142,8 @@
 1. /var
     * files that change in size dynamically
     * For example: log files, mail boxes, spool files
+    * /var/log/secure
+
 1. /tmp : 
     * Temporary files. Often not preserved between system reboots and may be severely size restricted.
     * Directory that contains temporary files created by system and users.
@@ -134,33 +165,9 @@
     * Example, /srv/cvs contains CVS related data.
 
 
-### Interesting locations
-* /dev/null
-* /var/log/secure
-* /etc/profile
-* /etc/bashrc
-* /etc/motd
-    * message after login
-* /etc/issues:
-    * message before login, good for specifying login issues or security concerns
-* /etc/passwd, /etc/shadow, /etc/group, /etc/gshadow, /etc/skel
-    * user management
-* /dev/tty, /dev/console
-    * tty is the virtual console i.e. if ssh'd in
-    * https://unix.stackexchange.com/questions/60641/linux-difference-between-dev-console-dev-tty-and-dev-tty0
-* /etc/services
-    * a nice list of well known ports for different services
-* /dev/random vs /dev/urandom
-    * prefer /dev/urandom
-    * /dev/random has been deprecated for a decade
-    * /dev/random can block if it runs out of entropy and halt process execution
-    * provides random series of bytes
-    * generate a random number with $RANDOM 
-    * deprecation: https://lkml.org/lkml/2017/7/20/993
-* /proc/meminfo
-    * contains all info about memory
-* /proc/cpuinfo
-    * contains all info about cpu
-* /etc/*release
-    * redhat: /etc/redhat-release
-    * ubuntu: /etc/lsb-release
+
+
+
+
+
+

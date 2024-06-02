@@ -95,11 +95,15 @@ Provide a list of options, some useful ones are:
 ### Resetting root password
 1. GRUB 2 boot menu-> press e
 1. enter rd.break kernel param
+    * `linux /boot/vmlinuz-xxxx-generic root=UUID=xxxx ro quiet splash rd.break`
 1. this drops into initrams at end of initramfs boot step
 1. mount -o remount,rw /sysroot
     * get access to disk operating system
+    * remounts root as read writable
+
 1. chroot /sysroot
     * make /sysroot the new root /
+    
 1. `passwd` command as usual
 
 1. The SELinux context will be messed up now two options:
@@ -113,3 +117,70 @@ Provide a list of options, some useful ones are:
         * load_policy -i to start SELinux
         * manually set the correct context type to /etc/shadow. To do this, type chcon -t shadow_t /etc/shadow
         * reboot
+
+
+
+
+### Get into recovery shell
+1. **Reboot the System**:
+   - Restart your computer. If it’s a virtual machine, use the reboot option from your virtualization software.
+
+2. **Access the GRUB Menu**:
+   - As the system boots, press and hold the `Shift` key (for BIOS systems) or the `Esc` key (for UEFI systems) to bring up the GRUB menu. The exact key can vary depending on your system, so refer to your system's documentation if these don't work.
+
+
+
+#### Method 1
+1. **Select Recovery Mode**:
+   - In the GRUB menu, there should be a recovery mode entry for each kernel. This entry is usually named something like `Advanced options for Ubuntu` or `Recovery mode`.
+   - Use the arrow keys to select this entry and press `Enter`.
+2. **Access the Recovery Menu**:
+   - The system will boot into a recovery menu with several options, including `root`, `fsck`, `network`, etc.
+   - Select the `root` option to access a root shell.
+
+#### Method 2
+1. **Edit GRUB Boot Options**:
+   - Once the GRUB menu appears, use the arrow keys to select the kernel you want to boot.
+   - Press `e` to edit the selected boot entry.
+2. **Modify the Boot Parameters**:
+   - Find the line that starts with `linux` and ends with `ro quiet splash` or similar. This is the line that loads the kernel.
+   - Replace `ro` (read-only) with `rw` (read-write) and append `init=/bin/bash` or `init=/bin/sh` at the end of this line. This tells the kernel to start a basic shell instead of the usual initialization process.
+     ```
+     linux /boot/vmlinuz-xxxx-generic root=UUID=xxxx rw init=/bin/bash
+     ```
+   - Press `Ctrl + X` or `F10` to boot with these parameters.
+
+* this will mount a shell at the real root filesystem which is usually more complete
+
+### Method 3
+1. **Edit GRUB Boot Options**:
+   - Once the GRUB menu appears, use the arrow keys to select the kernel you want to boot.
+   - Press `e` to edit the selected boot entry.
+2. **Modify the Boot Parameters**:
+   - Find the line that starts with `linux` and ends with `ro quiet splash` or similar. This is the line that loads the kernel.
+   - enter rd.break kernel param
+    * `linux /boot/vmlinuz-xxxx-generic root=UUID=xxxx ro quiet splash rd.break`
+
+   - Press `Ctrl + X` or `F10` to boot with these parameters.
+
+* this will mount a shell in initramfs
+* useful in case the real root file system needs special functionality to load like encrypted or RAID or something
+
+#### Use the root shell
+1. **Access the Root Shell**:
+   - The system should boot to a shell prompt as the root user.
+   - From here, you can perform necessary maintenance tasks. For example, if you need to change the root password, you can use:
+     ```bash
+     passwd
+     ```
+2. **Remount the File System**:
+   - If you need to remount the file system to make changes, use:
+     ```bash
+     mount -o remount,rw /
+     ```
+3. **Reboot the System**:
+   - After making your changes, reboot the system using:
+
+     `exec /sbin/init`  
+     or if available:  
+     `reboot`
