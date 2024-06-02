@@ -1,7 +1,7 @@
 * Understand and use essential tools
     * Access a shell prompt and issue commands with correct syntax.
     * Use input-output redirection (>, >>, |, 2>, 2>&1, etc.) 
-    * Use grep and regular expressions to analyze text 
+    * [Use grep and regular expressions to analyze text](/topics/filesystem/text_processing.md)
     * Access remote systems using SSH 
     * Log in and switch users in multiuser targets 
     * Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2
