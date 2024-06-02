@@ -96,7 +96,10 @@
           * Types of grep regex:
               * What doesn't need escaping/What is BRE (basic regular expression)
                 - `[]` (Character classes)
-                  * ^ is also not inside
+                  - ^ this means NOT if inside a character class
+                  - `grep '[^a-z]' file.txt`
+                    - This matches any character that is not a lowercase letter from 'a' to 'z'.
+                    - don't have to backslash if in a character class
                 - `^` (Start of line anchor)
                 - `$` (End of line anchor)
                 - `.` (Any single character)
@@ -105,7 +108,6 @@
                 - \t for tab
                 - \n for newline
                 - NOTE: No shorthand character classes are available like \d, \w, etc.
-
 
         * Extended Regular Expression (ERE)
             * can use these in basic regex but would have to backslash escape
@@ -412,5 +414,7 @@
     - d) `grep -E '\W+' tokens.txt`
 
 
+* Note: ChatGPT generated this, so there may be more than one correct answer.
+* If you have a problem run it through ChatGPT.
 * Answers: a,b,d,b,d,b,a,a,b,a,a,b,a,b,a,a,c,c,a,a
 * Answers: b,c,a,d,b,a,c,b,b,c,b,b,a,b,c,b,b,b,b,b

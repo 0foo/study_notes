@@ -1,9 +1,9 @@
 * Understand and use essential tools
     * Access a shell prompt and issue commands with correct syntax.
-    * Use input-output redirection (>, >>, |, 2>, 2>&1, etc.) 
+    * [Use input-output redirection (>, >>, |, 2>, 2>&1, etc.)](/essentials/shell.md)
     * [Use grep and regular expressions to analyze text](/topics/filesystem/text_processing.md)
-    * Access remote systems using SSH 
-    * Log in and switch users in multiuser targets 
+    * [Access remote systems using SSH](/topics/networking/ssh.md) 
+    * [Log in and switch users in multiuser targets](/essentials/shell.md)
     * Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2
     * Create and edit text files
     * Create, delete, copy, and move files and directories
@@ -65,12 +65,6 @@
     * Change passwords and adjust password aging for local user accounts
     * View, Create, delete, and modify local groups and group memberships
     * Configure superuser access
-
-
-
-
-
-
 
 
 * Manage security(Firewalld, ACL's/umask, SSH, SELinux)
