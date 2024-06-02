@@ -73,6 +73,26 @@
 
 
 ### Hard/Soft link 
+* softlink:
+    * A soft link associates one file with another. 
+    * If the original file is removed the soft link will point to nothing.
+    * a link to an actual hardlink of the file 
+    * can link directories and to locations on other devices
+    * does not increment inode counts, so when the file is deleted the soft link quites working
+
+
+* hard link
+    * same think as a directory entry
+    * are a direct link to the inode
+    * increase link count in the inode
+    * must exist on SAME device/partition/logical volume
+    * cannot create hard links to directories only files
+    * when the last name/hard link to file is removed the file data is no longer acccessible, i.e. when hard link count reaches 0
+    * A hard link associates multiple files to the same inode making them indistinguishable. If the original file is removed, you will still have access to the data through the linked file. To create a soft link to file1:
+    *  Since hard links share the same inode, they have the same metadata (permissions, timestamps, etc.) and point to the same data blocks on the disk.
+    * note: inode has no idea which files are pointing to it so have to use find command.
+    * can view inode id number with ls -i, then can use find with -inum flag to find all hardlinks
+
 
 1. soft link
     ```shell

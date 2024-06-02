@@ -1,14 +1,14 @@
 * Understand and use essential tools
-    * Access a shell prompt and issue commands with correct syntax.
+    * [Access a shell prompt and issue commands with correct syntax.](/essentials/shell.md)
     * [Use input-output redirection (>, >>, |, 2>, 2>&1, etc.)](/essentials/shell.md)
     * [Use grep and regular expressions to analyze text](/topics/filesystem/text_processing.md)
     * [Access remote systems using SSH](/topics/networking/ssh.md) 
     * [Log in and switch users in multiuser targets](/essentials/shell.md)
-    * Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2
-    * Create and edit text files
-    * Create, delete, copy, and move files and directories
-    * Create hard and soft links
-    * List, set, and change standard ugo/rwx permissions 
+    * [Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2](topics/filesystem/compression.md)
+    * [Create and edit text files](/topics/filesystem/files.md)
+    * [Create, delete, copy, and move files and directories](/topics/filesystem/files.md)
+    * [Create hard and soft links](/topics/filesystem/files.md)
+    * [List, set, and change standard ugo/rwx permissions (symbolic AND numeric)](/topics/user_group_management/basic_perms.md)
     * Locate, read, and use system documentation including man, info, and files in /usr/share/doc 
 
 * Create simple shell scripts
@@ -19,11 +19,11 @@
     * all of these topics addressed here: [link](/topics/scripting/bash.md)
 
 * Operate running systems
-    * Boot, reboot, and shut down a system normally
-    * Boot systems into different targets manually
-    * Interrupt the boot process in order to gain access to a system
-    * Identify CPU/memory intensive processes and kill processes
-    * Adjust process scheduling
+    * [Boot, reboot, and shut down a system normally](/topics/boot/power.md)
+    * [Boot systems into different targets manually](/topics/boot/3-systemd.md)
+    * [Interrupt the boot process in order to gain access to a system](/topics/boot/troubleshooting.md)
+    * [Identify CPU/memory intensive processes and kill processes](/topics/resource_management/process_management.md)
+    * [Adjust process scheduling](/topics/resource_management/process_management.md)
     * Manage tuning profiles
     * Locate and interpret system log files and journals
     * Preserve system journals

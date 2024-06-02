@@ -294,3 +294,21 @@ AllowIsolate=yes
 ### Setting the default target
 * Type systemctl get-default to see the current default target 
 * use systemctl set-default to set the desired default target
+
+
+### User systemd processes
+* Having multiple `systemd` processes on a Linux system is normal and expected. Here are the primary reasons why you might see more than one `systemd` process:
+1. `systemd` as the Init System
+    * The main `systemd` process (PID 1) is the init system responsible for initializing and managing the system. This process is started by the kernel at boot and is the ancestor of all other processes on the system.
+2. User `systemd` Instances
+    * In addition to the system-wide `systemd` instance (PID 1), there can be user instances of `systemd` for managing user sessions. These user instances handle user-specific services and are started when a user logs into the system.
+
+* Example Scenario
+1. **Main `systemd` process**: This is the primary system `systemd` process with PID 1.
+2. **User `systemd` processes**: These are user session instances of `systemd`.
+
+* Checking the `systemd` Processes
+    * You can use `ps` to list the `systemd` processes and see their details:
+```bash
+ps -C systemd -o pid,ppid,user,cmd
+```

@@ -116,7 +116,7 @@
             - `|` (Alternation, in extended regular expressions with `grep -E`)
             - `()` (Grouping, in extended regular expressions with `grep -E`)
             - `{}` (Intervals, in extended regular expressions with `grep -E`)
-            - NOTE: No shorthand character classes are available like \d, \w, etc.
+            - Note: depending on your build shorthand character classes may or may not be available in extended regex
             
         * Pearl Compatible Regular Expressions (not on RHCSE)
           * pretty much full vocabulary of REGEX
@@ -155,17 +155,18 @@
             * grep "\bword\b" file.txt
                 * will return all occurance or word with non word character in front and back
                 * a non-word character is basically NOT alphanumeric (more or less)
-      
         - `\w` (Word character: matches any letter, digit, or underscore)
         - `\W` (Non-word character: matches any character that is not a word character)
-        - `\d` (Digit: matches any digit, equivalent to `[0-9]`)
-        - `\D` (Non-digit: matches any character that is not a digit)
         - `\s` (Whitespace: matches any whitespace character including spaces, tabs, and line breaks)
         - `\S` (Non-whitespace: matches any character that is not a whitespace character)
         - `\b` (Word boundary: matches the position between a word character and a non-word character)
         - `\B` (Non-word boundary: matches a position that is not a word boundary)
         - `\t` (Tab: matches a tab character)
         - `\n` (Newline: matches a newline character)
+
+        * These are additional character classes that don't work with grep -E
+        - `\d` (Digit: matches any digit, equivalent to `[0-9]`)
+        - `\D` (Non-digit: matches any character that is not a digit)
 
 
 

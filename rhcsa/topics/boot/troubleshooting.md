@@ -1,3 +1,9 @@
+### Boot
+* can view MBR: `dd if=/dev/sda bs=512 count=1 | hexdump -C`
+* view boot logs: 
+* view kernel boot command/kernel params from running system: `cat /proc/cmdline`
+
+
 * POST Hardware configuration 
     * (F2, Esc, F10, or another key). 
     * Replace hardware.

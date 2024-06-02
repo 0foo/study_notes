@@ -3,6 +3,14 @@
 * note: hardware initialization and udev is not on the rhcsa exam!
 
 
+### Set run profiles
+
+* tuned/tuned-adm
+    * can set different profiles for a system
+    * this will optimize performance for that system type
+
+
+
 ### locations
 
 * sysfs(/sys) vs devtmpfs(/dev)
@@ -65,6 +73,12 @@
         * lists all scsi devices
     * lscpu
         * Processor details
+        * show proc/core hardware info
+        * can view the number of cores in system
+
+
+
+## BELOW NOT ON RHCSA
 
 
 ### Network socket file locations

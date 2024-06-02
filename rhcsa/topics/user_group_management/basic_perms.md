@@ -244,14 +244,16 @@ newgrp
         * only allows linda to run useradd command as sudo with sudo command
 
 
-
-
-### chown
+### umask
 
 * The default permissions are calculated based on the umask. The default umask for root is 0022 and 0002 for regular users (the leading 0 has no significance). The pre-defined initial permissions are 666 for files and 777 for directories. The umask is subtracted from these initial permissions to obtain the default permissions. To change the default umask:
     ```shell
     umask 027
     ```
+
+
+
+### chown
 
 * Every file and directory has an owner. By default, the creator assumes ownership. The owner's group is assigned to a file or directory. To change the ownership of a file or directory:
     ```shell

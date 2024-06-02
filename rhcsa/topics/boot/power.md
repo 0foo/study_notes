@@ -6,7 +6,6 @@ $ ll /usr/sbin
 lrwxrwxrwx  1 root root  14 Apr  8 20:51 shutdown -> /bin/systemctl*
 ```
 
-
 * `shutdown` 
     * like poweroff but gracefully shuts off machine
     * can pass a time frame in minutes from now i.e. 5 minutes
