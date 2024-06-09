@@ -89,6 +89,8 @@
     * ps aux
         * show short summary of all process information
         * shows resource usage as well
+    * ps -efo pid,comm,ni,pri
+        * o: output specific columns
     * sort ps aux by column
         * `ps aux --sort=-%mem`
         * the minus sign(-) means most at the top

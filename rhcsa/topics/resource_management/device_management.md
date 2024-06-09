@@ -21,21 +21,11 @@
  
 
 * /dev directory 
-    * see directory)structure.md file
+    * see directory structure.md file
         
 
-* can view most devices in the /dev directory
-* `ls -l /dev`
-    * Output:
-        * Permissions
-        * Owner
-        * Group
-        * Major Device Number
-        * Minor Device Number
-        * Timestamp
-        * Device Name
 
-* Major/Minor Device Number
+* in `ls -v /dev` Major/Minor Device Number
     * The major sets the type of the device, usually the driver associated with it. 
     * The minor list the first, second, third, ... device of that type.
     * It is common for a driver to control several devices. the minor number provides a way for the driver to differentiate among them. 
@@ -57,6 +47,7 @@
 
     * p - pipe
         * Named pipes allow two or more processes to communicate with each other, these are similar to character devices, but instead of having output sent to a device, it's sent to another process. 
+        
     * s - socket
         * Socket devices facilitate communication between processes, similar to pipe devices but they can communicate with many processes at once.
 
@@ -69,12 +60,28 @@
         * lists all usb devices
     * lspci
         * lists all pci devices
+        * pass -k for co-oresponding kernel modules
     * lsscsi
         * lists all scsi devices
     * lscpu
         * Processor details
         * show proc/core hardware info
         * can view the number of cores in system
+    * `ls -l /dev`
+        * can view most devices in the /dev directory
+        * Output:
+            * Permissions
+            * Owner
+            * Group
+            * Major Device Number
+            * Minor Device Number
+            * Timestamp
+            * Device Name
+    * can view a ton of system info with dmidecode
+
+
+
+
 
 
 

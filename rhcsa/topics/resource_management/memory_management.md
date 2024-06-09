@@ -11,18 +11,18 @@ Swap Usage: The amount of swap space in use.
 
 ### Commands
 
-#### System
+#### System Wide Memory
 * `free -h`
 * `cat /proc/meminfo`
-#### Per process
+
+
+#### Per process Memory
 * `ps aux --sort=-%mem`
 * `top/htop`
 
 
 
-
 ### Monitoring and Optimization
-
 * Monitoring Memory Usage:
     * Regularly check memory usage using tools like free, vmstat, top, and htop.
     * Monitor swap usage to ensure it's not excessively used, which can indicate insufficient RAM.
