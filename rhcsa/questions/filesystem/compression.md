@@ -25,7 +25,7 @@
 25. How do you compress a file using `bzip2`?
 
 
-
+----
 
 1. The `-v` flag enables verbose mode, displaying detailed information about the process.
 2. The `-f` flag specifies the name of the archive to create or manipulate.
