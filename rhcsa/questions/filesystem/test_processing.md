@@ -60,7 +60,7 @@
 60. How do you match a specific number of the preceding character in `grep`?
 
 
-
+----
 
 1. Press `q`.
 2. Use a forward slash followed by the keyword: `/keyword`.
@@ -78,6 +78,7 @@
    This is line 2.
    This is line 3.
    EOF
+   ```
 11. 10 lines.
 12. Use tail -f.
 13. head -n 11 | tail -1.
