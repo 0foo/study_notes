@@ -90,7 +90,7 @@
         * -P: Pearl Compatible Regular Expressions (PCRE)
         * -E (extended regex (expressions ERE)
             * means that extended regex doesn't need to be escaped
-            * `grep 'cat\|dog' filename` vs `grep 'cat\|dog' filename`
+            * `grep 'cat\|dog' filename` vs `grep -E 'cat|dog' filename`
 
         * Basic Regular Expressions(BRE)
           * Types of grep regex:
