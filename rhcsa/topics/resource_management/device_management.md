@@ -3,13 +3,15 @@
 * note: hardware initialization and udev is not on the rhcsa exam!
 
 
-### Set run profiles
+### Set run profiles for performance management
 
 * tuned/tuned-adm
     * can set different profiles for a system
     * this will optimize performance for that system type
 
-
+* check active profile: `sudo tuned-adm active`
+* change active profile: `sudo tuned-adm profile laptop-battery-powersave`
+* list all profiles: `sudo tuned-adm list`
 
 ### locations
 

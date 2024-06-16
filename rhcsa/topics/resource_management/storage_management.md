@@ -9,6 +9,7 @@
         * of=file - Output file, write to a file instead of standard output
         * bs=bytes - Block size, it reads and writes this many bytes of data at a time. You can use different size metrics by        denoting the size with a k for kilobyte, m for megabyte, etc, so 1024 bytes is 1k
         * count=number - Number of blocks to copy.
+        * default block size on most OS's is 512, on newer drives being released it's being upgraded to 4096(also called 4k sectors)
 
 
 * lsusb

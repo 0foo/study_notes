@@ -9,14 +9,14 @@
     * [Create, delete, copy, and move files and directories](/rhcsa/topics/filesystem/files.md)
     * [Create hard and soft links](/rhcsa/topics/filesystem/files.md)
     * [List, set, and change standard ugo/rwx permissions (symbolic AND numeric)](/rhcsa/topics/user_group_management/basic_perms.md)
-    * Locate, read, and use system documentation including man, info, and files in /usr/share/doc 
+    * [Locate, read, and use system documentation including man, info, and files in /usr/share/doc](/rhcsa/topics/filesystem/documentation.md)
 
-* Create simple shell scripts
+* Create simple shell scripts-[link](/rhcsa/topics/scripting/bash.md)
     * Conditionally execute code (use of: if, test, [], etc.)
     * Use Looping constructs (for, etc.) to process file, command line input
     * Process script inputs ($1, $2, etc.)
     * Processing output of shell commands within a script
-    * all of these topics addressed here: [link](/rhcsa/topics/scripting/bash.md)
+
 
 * Operate running systems
     * [Boot, reboot, and shut down a system normally](/rhcsa/topics/boot/power.md)
@@ -24,11 +24,11 @@
     * [Interrupt the boot process in order to gain access to a system](/rhcsa/topics/boot/troubleshooting.md)
     * [Identify CPU/memory intensive processes and kill processes](/rhcsa/topics/resource_management/process_management.md)
     * [Adjust process scheduling](/rhcsa/topics/resource_management/process_management.md)
-    * Manage tuning profiles
-    * Locate and interpret system log files and journals
-    * Preserve system journals
-    * Start, stop, and check the status of network services
-    * Securely transfer files between systems
+    * [Manage tuning profiles](/rhcsa/topics/resource_management/device_management.md)
+    * [Locate and interpret system log files and journals](/rhcsa/topics/logging)
+    * [Preserve system journals](/rhcsa/topics/logging/journald.md)
+    * [Start, stop, and check the status of network services](rhcsa/topics/networking/basic_stuff.md)
+    * [Securely transfer files between systems](/rhcsa/topics/networking)
 
 * Configure local storage
     * List, create, delete partitions on MBR and GPT disks
@@ -49,7 +49,7 @@
 * Deploy, configure, and maintain systems
     * Schedule tasks using at and cron
     * Start and stop services and configure services to start automatically at boot
-    * Configure systems to boot into a specific target automatically
+    * Configure systems to boot into a specific target automatically(side note: also how to change targets on a  running system)
     * Configure time service clients
     * Install and update software packages from Red Hat Network, a remote repository, or from the local file system
     * Modify the system bootloader

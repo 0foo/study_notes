@@ -114,8 +114,6 @@
     * Temporary mount directory where sysadmins can mount filesystems.
 
 
-
-
 1. /etc :
     * Host-specific system-wide configuration files.
     * Contains configuration files required by all programs.
