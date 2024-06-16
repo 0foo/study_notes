@@ -3,7 +3,7 @@
     * [Use input-output redirection (>, >>, |, 2>, 2>&1, etc.)](/rhcsa/topics/filesystem/shell.md)
     * [Use grep and regular expressions to analyze text](/rhcsa/topics/filesystem/text_processing.md)
     * [Access remote systems using SSH](/rhcsa/topics/networking/ssh.md) 
-    * [Log in and switch users in multiuser targets](/rhcsa/topics/filesystem/shell.md)
+    * [Log in and switch users in multiuser targets](/rhcsa/topics/user_group_management/basic_perms.md)
     * [Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2](/rhcsa/topics/filesystem/compression.md)
     * [Create and edit text files](/rhcsa/topics/filesystem/files.md)
     * [Create, delete, copy, and move files and directories](/rhcsa/topics/filesystem/files.md)
