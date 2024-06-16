@@ -1,9 +1,9 @@
 * Understand and use essential tools
     * [Access a shell prompt and issue commands with correct syntax.](/rhcsa/essentials/shell.md)
-    * [Use input-output redirection (>, >>, |, 2>, 2>&1, etc.)](/rhcsa/essentials/shell.md)
+    * [Use input-output redirection (>, >>, |, 2>, 2>&1, etc.)](/rhcsa/topics/filesystem/shell.md)
     * [Use grep and regular expressions to analyze text](/rhcsa/topics/filesystem/text_processing.md)
     * [Access remote systems using SSH](/rhcsa/topics/networking/ssh.md) 
-    * [Log in and switch users in multiuser targets](/rhcsa/essentials/shell.md)
+    * [Log in and switch users in multiuser targets](/rhcsa/topics/filesystem/shell.md)
     * [Archive, compress, unpack, and uncompress files using tar, gzip, and bzip2](/rhcsa/topics/filesystem/compression.md)
     * [Create and edit text files](/rhcsa/topics/filesystem/files.md)
     * [Create, delete, copy, and move files and directories](/rhcsa/topics/filesystem/files.md)
