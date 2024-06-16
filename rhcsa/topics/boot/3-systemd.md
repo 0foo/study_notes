@@ -150,7 +150,7 @@
 * A target unit does not define it's members in it's unit files, the member unit's define their target in their own unit files
 
 
-### systemctl
+### systemctl command
 * systemctl enable
     * this ensures unit is automatically started when booting
     * will create a symlink from the service location to /etc/systemd/system/\<some target directory>
@@ -213,7 +213,7 @@
     * add units to targets
 
 
-### Isolated Target states
+### Isolated Target states, i.e. the large scale targets that entire systems change into
 * these are isolated targets
     * Isolatable targets contain everything a system needs to boot or change its current state.
     * essentially a complete state for a system
@@ -224,27 +224,57 @@
 
 * use `systemctl isolate` command to switch to a differnt isolated target
 
+* Targets
+    * emergency.target
+        * only minimal number of units is started, just enough to fix your system 
+    * rescue.target
+        * start all systems to get a fully functional linux system, but no non-essential unit
+    * multi-user.target
+        * default target a system starts in
+        * starts everything needed for full system functionality
+    * graphical.target
+        * starts all units needed for fully functional linux system, as well as graphics
 
-* emergency.target
-    * only minimal number of units is started, just enough to fix your system 
-* rescue.target
-    * start all systems to get a fully functional linux system, but no non-essential unit
-* multi-user.target
-    * default target a system starts in
-    * starts everything needed for full system functionality
-* graphical.target
-    * starts all units needed for fully functional linux system, as well as graphics
+    * co-orespond to legacy run levels
+        * poweroff.target runlevel 0
+        * rescue.target runlevel 1
+        * multi-user.target runlevel 3
+        * graphical.target runlevel 5
+        * reboot.target runlevel 6
 
-* co-orespond to legacy run levels
-    * poweroff.target runlevel 0
-    * rescue.target runlevel 1
-    * multi-user.target runlevel 3
-    * graphical.target runlevel 5
-    * reboot.target runlevel 6
+### Change targets manually
 
-* switch to a new isolated target with `systemctl isolate`
-    * can grep for grep Isolate *.target in `/usr/lib/systemd/system` to find all the units that allow isolation
-    * switch to the target with :`systemctl isolate rescue.target``
+* To boot a Linux system in a different target (runlevel), you can follow these steps:
+
+1. Check Current Target: 
+   `systemctl get-default`
+
+2. List Available Targets: 
+   `systemctl list-units --type=target`
+    * note: not all of these are able to be isolated
+
+3. Change Target Temporarily:
+   You can change the target for the current session without rebooting. This will not persist after a reboot.
+   `sudo systemctl isolate <target>`
+
+   For example, to change to the graphical target (equivalent to runlevel 5):
+   `sudo systemctl isolate graphical.target`
+
+4. Change Default Target:
+   To make the change persistent across reboots, set the default target:
+   `sudo systemctl set-default <target>`
+
+   For example, to set the multi-user target (equivalent to runlevel 3):
+   `sudo systemctl set-default multi-user.target`
+
+5. Reboot the System:
+   If you changed the default target and want to apply it immediately, you can reboot the system:
+   `sudo reboot`
+
+* Other notes: 
+    * can identify all isolatable targets:
+        * `systemctl list-units --type=target`
+        *  by grepping service files: `grep -r "AllowIsolate=yes" /usr/lib/systemd/system/*.target`
     * Interesting note: `systemctl isolate reboot.target` reboots computer
 
 
