@@ -32,11 +32,11 @@
 
 * Configure local storage
     * [List, create, delete partitions on MBR and GPT disks](topics/resource_management/storage_management.md)
-    * Create and remove physical volumes
-    * Assign physical volumes to volume groups
-    * Create and delete logical volumes
-    * Configure systems to mount file systems at boot by universally unique ID (UUID) or label
-    * Add new partitions and logical volumes, and swap to a system non-destructively
+    * [Create and remove physical volumes](/rhcsa/topics/resource_management/LVM.md)
+    * [Assign physical volumes to volume groups](/rhcsa/topics/resource_management/LVM.md)
+    * [Create and delete logical volumes](/rhcsa/topics/resource_management/LVM.md)
+    * [Configure systems to mount file systems at boot by ](/rhcsa/topics/resource_management/LVM.md)universally unique ID (UUID) or label](/rhcsa/topics/resource_management/LVM.md)
+    * [Add new partitions and logical volumes, and swap to a system non-destructively]()
 
 * Create and configure file systems
     * Create, mount, unmount, and use vfat, ext4, and xfs file systems
