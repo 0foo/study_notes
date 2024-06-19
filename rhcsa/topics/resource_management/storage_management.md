@@ -1,4 +1,4 @@
-### Storage
+## Storage
 * find your block size: `lsblk -o NAME,PHY-SeC`
 
 
@@ -20,8 +20,22 @@
     * lists all scsi devices
 
 
+* Logical Block Addressing
+    * abstracts away cylinders and heads and just allows accessing the harddrive in contiguous linear storage units
+    * block size
+    * block number 
+    * find your block size: `lsblk -o NAME,PHY-SeC`
+    * dd uses this with it's -bs(blocksize) paramter
 
-### Mounts
+
+* CHS is an earlier form of hard disk addressing. It stands for:
+    * C: cylinder, the valid range is between 0 and 1023 cylinders.
+    * H: Head, the valid range is between 0 and 254 heads (formerly 0-15).
+    * S: Sector, the valid range is between 1 and 63 sectors.
+
+
+
+## Mounts
 * Commands for managing mounts
     * View mounts
         * /proc/mounts directory
@@ -39,24 +53,8 @@
 
 
 
-### Storage
-* Logical Block Addressing
-    * abstracts away cylinders and heads and just allows accessing the harddrive in contiguous linear storage units
-    * block size
-    * block number 
-    * find your block size: `lsblk -o NAME,PHY-SeC`
-    * dd uses this with it's -bs(blocksize) paramter
 
-
-* CHS is an earlier form of hard disk addressing. It stands for:
-    * C: cylinder, the valid range is between 0 and 1023 cylinders.
-    * H: Head, the valid range is between 0 and 254 heads (formerly 0-15).
-    * S: Sector, the valid range is between 1 and 63 sectors.
-
-
-
-
-### Partition table
+## Partition table
 * view partition table info with:
     * `parted -l` 
     * `lsblk` (can pass -f to view file systems)
@@ -93,3 +91,98 @@
 4. **Partitioning and Data Structures**:
    - MBR: MBR uses a simple partition table format with a maximum of four entries, each describing a partition's starting and ending sectors, type, and boot flag.
    - GPT: GPT utilizes a more robust partition table format with a 64-byte partition entry for each partition, including attributes such as partition type GUID, partition GUID, starting and ending LBA (logical block address), partition name, and other metadata. This structure supports advanced features like data redundancy and partition GUIDs for improved identification.
+
+
+
+
+## Swap
+
+   Working with swap space is a critical part of managing memory in a Linux system, and it's an essential topic for the RHCSA (Red Hat Certified System Administrator) exam. Here's what you need to know:
+
+**1. Understanding Swap Space:**
+   - **Purpose:** Swap space is used when the physical RAM (Random Access Memory) is full. Inactive pages in memory are moved to the swap area to free up RAM for other processes.
+   - **Types of Swap:** Swap can be a dedicated swap partition or a swap file.
+
+**2. Creating and Enabling Swap Space:**
+   - **Creating a Swap Partition:**
+     - Use a partitioning tool like `fdisk`, `parted`, or `gdisk` to create a new partition of type `Linux swap` (type `82` in `fdisk`).
+     - Initialize the partition as swap space using `mkswap`.
+       ```bash
+       mkswap /dev/sdX1
+       ```
+     - Enable the swap partition.
+       ```bash
+       swapon /dev/sdX1
+       ```
+   - **Creating a Swap File:**
+     - Create an empty file using `dd` or `fallocate`.
+       ```bash
+       dd if=/dev/zero of=/swapfile bs=1M count=1024
+       # or
+       fallocate -l 1G /swapfile
+       ```
+     - Set the correct permissions for the swap file.
+       ```bash
+       chmod 600 /swapfile
+       ```
+     - Initialize the file as swap space.
+       ```bash
+       mkswap /swapfile
+       ```
+     - Enable the swap file.
+       ```bash
+       swapon /swapfile
+       ```
+
+**3. Making Swap Space Persistent:**
+   - To ensure the swap space is available after a reboot, add an entry to `/etc/fstab`.
+     ```bash
+     /dev/sdX1 none swap sw 0 0
+     # or
+     /swapfile none swap sw 0 0
+     ```
+
+**4. Managing Swap Space:**
+   - **Disabling Swap:**
+     - To temporarily disable swap space, use the `swapoff` command.
+       ```bash
+       swapoff /dev/sdX1
+       # or
+       swapoff /swapfile
+       ```
+   - **Removing Swap Space:**
+     - To permanently remove a swap partition or file, disable it and then remove its entry from `/etc/fstab`.
+     - For a swap file, also delete the file.
+       ```bash
+       rm /swapfile
+       ```
+
+**5. Monitoring Swap Usage:**
+   - Use commands like `swapon -s`, `free -m`, or `vmstat` to check the status and usage of swap space.
+     ```bash
+     swapon -s
+     free -m
+     vmstat
+     ```
+
+**6. Adjusting Swapiness:**
+   - **Swappiness:** This parameter controls the relative weight given to swapping out runtime memory, as opposed to dropping pages from the system page cache.
+   - **Checking Swappiness:**
+     ```bash
+     cat /proc/sys/vm/swappiness
+     ```
+   - **Setting Swappiness:**
+     - To change the swappiness value temporarily:
+       ```bash
+       sysctl vm.swappiness=10
+       ```
+     - To change it permanently, add or modify the entry in `/etc/sysctl.conf`.
+       ```bash
+       vm.swappiness = 10
+       ```
+
+**7. Best Practices:**
+   - Ensure swap space is sufficient but not excessive. The amount of swap space needed depends on the system's workload and RAM size.
+   - Regularly monitor swap usage to identify if adjustments are needed.
+
+Understanding these concepts and commands will help you effectively manage swap space on a Linux system and prepare for the RHCSA exam.
