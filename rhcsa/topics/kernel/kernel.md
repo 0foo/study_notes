@@ -166,6 +166,28 @@
         * in /etc/modprobe.d:
             * `options cdrom debug=1`
 
+## The `sysctl` Command
+
+The `sysctl` command in Linux is used to modify kernel parameters at runtime. These parameters can control various aspects of kernel operation and system behavior. The settings can be read from and written to the `/proc/sys` directory.
+
+## Common Usages of the `sysctl` Command
+
+### Displaying Kernel Parameters
+* To display all current kernel parameters: `sysctl -a`
+* To display a specific kernel parameter, such as the maximum number of open files: `sysctl fs.file-max`
+* To temporarily set a kernel parameter, use the `-w` option followed by the parameter and its new value: `sysctl -w net.ipv4.ip_forward=1`
+* To make kernel parameter changes permanent, add them to the `/etc/sysctl.conf` file or create a configuration file in the `/etc/sysctl.d/` directory. For example, to enable IP forwarding permanently, you would add the following line to one of these files: `net.ipv4.ip_forward=1`
+
+
+
+
+
+
+
+
+
+
+
 ## Sysctl.conf
 
 * The `sysctl.conf` file is a configuration file in Linux systems used to modify kernel parameters at runtime. These parameters control various aspects of the system’s behavior, such as networking, memory management, and file system performance. The `sysctl.conf` file allows administrators to set these parameters persistently, ensuring that the changes remain effective across system reboots.

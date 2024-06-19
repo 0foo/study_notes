@@ -164,7 +164,7 @@
    - Use commands like `swapon -s`, `free -m`, or `vmstat` to check the status and usage of swap space.
      ```bash
      swapon -s
-     free -m
+     free -h
      vmstat
      ```
 
