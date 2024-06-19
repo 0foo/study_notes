@@ -158,7 +158,7 @@
        ```
 
 **5. Monitoring Swap Usage:**
-   - View where swap is originating from
+   - View locations on storage medium where swap is originating from
     * `swapon -s` 
    - Use commands like `swapon -s`, `free -m`, or `vmstat` to check the status and usage of swap space.
      ```bash
