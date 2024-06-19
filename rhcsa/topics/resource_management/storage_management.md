@@ -57,7 +57,10 @@
 
 
 ### Partition table
-* view partition table info with: `parted -l` 
+* view partition table info with:
+    * `parted -l` 
+    * `lsblk` (can pass -f to view file systems)
+    * `gdisk -l <some /dev device>`
 * can view type of partition table mbr or gpt with `parted -l`
     * msdos == MBR
 

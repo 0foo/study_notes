@@ -31,7 +31,7 @@
     * [Securely transfer files between systems](/rhcsa/topics/networking)
 
 * Configure local storage
-    * List, create, delete partitions on MBR and GPT disks
+    * [List, create, delete partitions on MBR and GPT disks](topics/resource_management/storage_management.md)
     * Create and remove physical volumes
     * Assign physical volumes to volume groups
     * Create and delete logical volumes
