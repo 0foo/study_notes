@@ -104,7 +104,8 @@
    - **Types of Swap:** Swap can be a dedicated swap partition or a swap file.
 
 **2. Creating and Enabling Swap Space:**
-   - **Creating a Swap Partition:**
+* There are two separate ways to enable swap space
+  1. **Creating a Swap Partition:**
      - Use a partitioning tool like `fdisk`, `parted`, or `gdisk` to create a new partition of type `Linux swap` (type `82` in `fdisk`).
      - Initialize the partition as swap space using `mkswap`.
        ```bash
@@ -114,7 +115,7 @@
        ```bash
        swapon /dev/sdX1
        ```
-   - **Creating a Swap File:**
+  2. **Creating a Swap File:**
      - Create an empty file using `dd` or `fallocate`.
        ```bash
        dd if=/dev/zero of=/swapfile bs=1M count=1024
