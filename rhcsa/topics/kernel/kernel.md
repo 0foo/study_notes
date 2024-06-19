@@ -166,3 +166,37 @@
         * in /etc/modprobe.d:
             * `options cdrom debug=1`
 
+## Sysctl.conf
+
+* The `sysctl.conf` file is a configuration file in Linux systems used to modify kernel parameters at runtime. These parameters control various aspects of the system’s behavior, such as networking, memory management, and file system performance. The `sysctl.conf` file allows administrators to set these parameters persistently, ensuring that the changes remain effective across system reboots.
+
+* Key Points About `sysctl.conf`:
+
+1. **Location:**
+   - The `sysctl.conf` file is typically located at `/etc/sysctl.conf`.
+
+2. **Purpose:**
+   - It is used to configure kernel parameters that can be read and modified via the `/proc/sys/` directory. These parameters control system and kernel behavior.
+
+3. **Syntax:**
+   - The file consists of lines with the format:
+     ```bash
+     parameter = value
+     ```
+   - For example:
+     ```bash
+     vm.swappiness = 10
+     net.ipv4.ip_forward = 1
+     ```
+
+4. **Applying Changes:**
+   - Changes made to `sysctl.conf` are not automatically applied until the system is rebooted or the `sysctl` command is used to reload the settings.
+     ```bash
+     sysctl -p /etc/sysctl.conf
+     ```
+
+### Example `sysctl.conf` Entries:
+
+1. **Swappiness:**
+   ```bash
+   vm.swappiness = 10

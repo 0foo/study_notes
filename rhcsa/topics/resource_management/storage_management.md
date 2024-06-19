@@ -167,8 +167,18 @@
      vmstat
      ```
 
-**6. Adjusting Swapiness:**
-   - **Swappiness:** This parameter controls the relative weight given to swapping out runtime memory, as opposed to dropping pages from the system page cache.
+**6. Swapiness:**
+* Swappiness is a Linux kernel parameter that controls the relative weight given to swapping out runtime memory pages, as opposed to dropping pages from the system page cache. This parameter affects how aggressively the kernel uses swap space to free up RAM.
+
+* Default value: The default swappiness value is usually 60. This means the kernel will start to swap out pages when the system's free memory falls below 40% (100 - 60).
+
+* Range of Values 
+  * The swappiness parameter can be set between 0 and 100:
+      * 0: The kernel will avoid swapping as much as possible. It will prefer to drop pages from the page cache rather than using swap space.
+      * 100: The kernel will use swap space aggressively, even if there is still some free memory available.
+      * Low Swappiness (0-30): The system will be reluctant to use swap space and will prefer to use free memory and page cache. This is useful for systems with a lot of RAM and where performance is critical, such as databases or real-time applications.
+      * Medium Swappiness (30-60): This is the default range and balances between using swap and keeping data in RAM.
+      * High Swappiness (60-100): The system will use swap space more aggressively. This can be useful for systems with limited RAM where it is important to avoid running out of memory, such as virtual machines or systems running many applications.
    - **Checking Swappiness:**
      ```bash
      cat /proc/sys/vm/swappiness
