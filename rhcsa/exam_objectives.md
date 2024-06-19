@@ -35,7 +35,7 @@
     * [Create and remove physical volumes](/rhcsa/topics/resource_management/LVM.md)
     * [Assign physical volumes to volume groups](/rhcsa/topics/resource_management/LVM.md)
     * [Create and delete logical volumes](/rhcsa/topics/resource_management/LVM.md)
-    * [Configure systems to mount file systems at boot by universally unique ID (UUID) or label](/rhcsa/topics/resource_management/LVM.md)](/rhcsa/topics/resource_management/LVM.md)
+    * [Configure systems to mount file systems at boot by universally unique ID (UUID) or label](/rhcsa/topics/resource_management/LVM.md)
     * [Add new partitions and logical volumes, and swap to a system non-destructively]()
 
 * Create and configure file systems
