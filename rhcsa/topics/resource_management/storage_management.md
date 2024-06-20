@@ -36,7 +36,7 @@
 
 
 ## Mounts
-* Commands for managing mounts
+* mount filesystems 
     * View mounts
         * /proc/mounts directory
             * contains mount data
@@ -50,6 +50,7 @@
             * tree structure showing relationship between mounts
             * findmnt -A 
     * mount 
+* view all filesystems supported: /proc/filesystems
 
 
 
