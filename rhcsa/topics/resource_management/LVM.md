@@ -1,6 +1,6 @@
 The tasks listed are essential components of managing storage in a Linux environment, specifically related to the RHCSA (Red Hat Certified System Administrator) certification. Here's a detailed explanation of each task:
 
-**1. Create and remove physical volumes:**
+* Create and remove physical volumes:
    - **Physical Volume (PV):** A physical volume is the base storage unit in LVM (Logical Volume Manager). It can be a hard disk, a partition, or a RAID device.
    - **Create PV:** Use the `pvcreate` command to initialize a disk or partition for use by LVM.
      ```bash
@@ -11,7 +11,7 @@ The tasks listed are essential components of managing storage in a Linux environ
      pvremove /dev/sdX
      ```
 
-**2. Assign physical volumes to volume groups:**
+* Assign physical volumes to volume groups:
    - **Volume Group (VG):** A volume group combines multiple physical volumes into a single storage pool.
    - **Create VG:** Use the `vgcreate` command to create a volume group from one or more physical volumes.
      ```bash
@@ -22,7 +22,7 @@ The tasks listed are essential components of managing storage in a Linux environ
      vgextend myvg /dev/sdZ
      ```
 
-**3. Create and delete logical volumes:**
+* Create and delete logical volumes:
    - **Logical Volume (LV):** Logical volumes are created from the storage pool provided by volume groups.
    - **Create LV:** Use the `lvcreate` command to create a logical volume.
      ```bash
@@ -33,7 +33,7 @@ The tasks listed are essential components of managing storage in a Linux environ
      lvremove /dev/myvg/mylv
      ```
 
-**4. Configure systems to mount file systems at boot by universally unique ID (UUID) or label:**
+*  Configure systems to mount file systems at boot by universally unique ID (UUID) or label:
    - **UUID and Label:** UUID is a unique identifier assigned to a filesystem, while a label is a human-readable name.
    - **Get UUID and Label:** Use `blkid` to retrieve UUID and label.
      ```bash
@@ -46,7 +46,7 @@ The tasks listed are essential components of managing storage in a Linux environ
      LABEL=mydata /mnt/mydata ext4 defaults 0 2
      ```
 
-**5. Add new partitions and logical volumes, and swap to a system non-destructively:**
+* Add new partitions and logical volumes, and swap to a system non-destructively:
    - **New Partitions:** Use tools like `fdisk`, `gdisk`, or `parted` to create new partitions without destroying existing data.
      ```bash
      fdisk /dev/sdX
@@ -62,4 +62,5 @@ The tasks listed are essential components of managing storage in a Linux environ
      swapon /dev/sdX2
      ```
 
-These tasks are fundamental for managing storage in a Linux system, and proficiency in these areas is crucial for the RHCSA certification.
+* Resize Logical Volumes
+  * `lvreduce -L -size /dev/vgname/lvname`

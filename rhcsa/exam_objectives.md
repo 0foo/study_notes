@@ -39,12 +39,12 @@
     * [Add new partitions and logical volumes, and swap to a system non-destructively](/rhcsa/topics/resource_management/storage_management.md)
 
 * Create and configure file systems
-    * Create, mount, unmount, and use vfat, ext4, and xfs file systems
-    * Mount and unmount network file systems using NFS
-    * Configure autofs
-    * Extend existing logical volumes
-    * Create and configure set-GID directories for collaboration
-    * Diagnose and correct file permission problems
+    * [Create, mount, unmount, and use vfat, ext4, and xfs file systems](/rhcsa/topics/filesystem/file_system.md)
+    * [Mount and unmount network file systems using NFS](/rhcsa/topics/filesystem/file_system.md)
+    * [Configure autofs](/rhcsa/topics/networking/mounting_network_storage.md)
+    * [Extend existing logical volumes](/rhcsa/topics/resource_management/LVM.md)
+    * [Create and configure set-GID directories for collaboration](/rhcsa/topics/user_group_management/special_perms.md)
+    * [Diagnose and correct file permission problems](/rhcsa/topics/user_group_management)
 
 * Deploy, configure, and maintain systems
     * Schedule tasks using at and cron

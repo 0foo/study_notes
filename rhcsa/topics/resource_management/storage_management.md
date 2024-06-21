@@ -168,6 +168,8 @@
      free -h
      vmstat
      ```
+**6. Add SWAP to /etc/fstab**
+  * `/dev/sdXn swap swap defaults 0 0`
 
 **6. Swapiness:**
 * Swappiness is a Linux kernel parameter that controls the relative weight given to swapping out runtime memory pages, as opposed to dropping pages from the system page cache. This parameter affects how aggressively the kernel uses swap space to free up RAM.

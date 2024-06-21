@@ -116,6 +116,8 @@ struct inode {
 
 
 
+## File system management
+
 ### Configure systems to mount file systems at boot by universally unique ID (UUID) or label:**
    - **UUID and Label:** UUID is a unique identifier assigned to a filesystem, while a label is a human-readable name.
    - **Get UUID and Label:** Use `blkid` or `lsblk -f` to retrieve UUID and label.
@@ -123,9 +125,45 @@ struct inode {
      blkid /dev/sdX1
      lsblk -f 
      ```
-   - **Edit `/etc/fstab`:** To mount a filesystem at boot, add an entry to `/etc/fstab` using UUID or label.
+   - **Edit `/etc/fstab`:** To mount a filesystem at boot, add an entry to `/etc/fstab` using UUID or label or device.
      ```bash
      UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
      # or
      LABEL=mydata /mnt/mydata ext4 defaults 0 2
+     # or
+     /dev/sdXn /mnt/mountpoint ext4 defaults 0 2
      ```
+
+
+
+### Add a file system to a partition or volume
+ * `mkfs -t vfat /dev/sdXn`
+
+
+ ### Mount/Unmount file system manually
+ * `mount /dev/sdXn /mnt/mountpoint`
+ * `umount /mnt/mountpoint`
+
+ ### Check file systems
+
+* ext4: `e2fsck /dev/sdXn`
+* xfs: `xfs_repair /dev/sdXn`
+
+### resize file system
+* ext: `resize2fs /dev/sdXn <size>`
+    * leave size blank to fill all available space in partition
+    * can shrink file system with this as well by putting in a smaller number
+* xfs: `xfs_growfs /mnt/mountpoint`
+    * note XFS can't be reduced only grown
+
+* AFTER reducing file system need to reduce partitions size.
+* BEFORE increasing file system size need to increase partition size.
+
+### Label a file system
+* ext4: `e2label /dev/sdXn new_label`
+* xfs: `xfs_admin -L new_label /dev/sdXn1`
+
+### List file system info
+* `df -h`
+* view much info including UUID: `lsblk -f`
+* view UUID's: `blkid`
