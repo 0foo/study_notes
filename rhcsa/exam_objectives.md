@@ -55,16 +55,16 @@
     * [Modify the system bootloader](/rhcsa/topics/boot/1-GRUB.md)
 
 * Manage basic networking
-    * Configure IPv4 and IPv6 addresses
-    * Configure hostname resolution
-    * Configure network services to start automatically at boot
-    * Restrict network access using firewall-cmd/firewall
+    * [Configure IPv4 and IPv6 addresses](/rhcsa/topics/networking/basic_stuff.md)
+    * [Configure hostname resolution](/rhcsa/topics/networking/basic_stuff.md)
+    * [Configure network services to start automatically at boot](/rhcsa/topics/networking/basic_stuff.md)
+    * [Restrict network access using firewall-cmd/firewall](/rhcsa/topics/networking/firewalld.md)
 
 * Manage users and groups
-    * View, Create, delete, and modify local user accounts
-    * Change passwords and adjust password aging for local user accounts
-    * View, Create, delete, and modify local groups and group memberships
-    * Configure superuser access
+    * [View, Create, delete, and modify local user accounts](/rhcsa/topics/user_group_management/basic_perms.md)
+    * [Change passwords and adjust password aging for local user accounts](/rhcsa/topics/user_group_management/basic_perms.md)
+    * [View, Create, delete, and modify local groups and group memberships](/rhcsa/topics/user_group_management/basic_perms.md)
+    * [Configure superuser access](/rhcsa/topics/user_group_management/basic_perms.md)
 
 
 * Manage security(Firewalld, ACL's/umask, SSH, SELinux)
