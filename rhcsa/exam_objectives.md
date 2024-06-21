@@ -47,12 +47,12 @@
     * [Diagnose and correct file permission problems](/rhcsa/topics/user_group_management)
 
 * Deploy, configure, and maintain systems
-    * Schedule tasks using at and cron
-    * Start and stop services and configure services to start automatically at boot
-    * Configure systems to boot into a specific target automatically(side note: also how to change targets on a  running system)
-    * Configure time service clients
-    * Install and update software packages from Red Hat Network, a remote repository, or from the local file system
-    * Modify the system bootloader
+    * [Schedule tasks using at and cron](/rhcsa/topics/scheduled_tasks)
+    * [Start and stop services and configure services to start automatically at boot](topics/boot/3-systemd.md)
+    * [Configure systems to boot into a specific target automatically(side note: also how to change targets on a  running system)](/rhcsa/topics/boot/3-systemd.md)
+    * [Configure time service clients](/rhcsa/topics/networking/time.md)
+    * [Install and update software packages from Red Hat Network, a remote repository, or from the local file system]()
+    * [Modify the system bootloader](/rhcsa/topics/boot/1-GRUB.md)
 
 * Manage basic networking
     * Configure IPv4 and IPv6 addresses

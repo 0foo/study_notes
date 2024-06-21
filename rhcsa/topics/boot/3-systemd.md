@@ -151,7 +151,7 @@
 
 
 ### systemctl command
-* systemctl enable
+* systemctl enable/disable/is-enabled
     * this ensures unit is automatically started when booting
     * will create a symlink from the service location to /etc/systemd/system/\<some target directory>
     * \[Install\] section determines which folder this symlink is created
@@ -164,7 +164,7 @@
     ``` 
  
 
-  * systemctl start, stop, status, enable(start at boot), disable
+  * systemctl start, stop, status, enable(start at boot), disable, isolate
   * status info:
     * can get state: Active(running, exited, waiting), Inactive(dead)"
     * enabled/disabled

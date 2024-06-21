@@ -14,3 +14,4 @@ you completely forget to enable it as well.
 * Run mandb to update the man pages for quicker access
 
 
+* If you have a task at hand and you know the executable name but that's it then you can use yum provides to find how to install it, rpm -qd I believe will give you the documentation for the package, rpm -qc should list the config files if I'm not mistaken, mandb to update the man pages database (I think this happens daily by default and should be in the cron folder if you've forgotten the command), man -k or apropos if you have already forgotten what you need to be searching for, and if you're in a tight spot then 'rpm -ql' will list everything from the installed package for you too - good for figuring out executables or services when you only remember the package name.
