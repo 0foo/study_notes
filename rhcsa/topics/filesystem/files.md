@@ -57,7 +57,7 @@
         ```
 
 
-### File Attributes
+## File Attributes
 * chattr
     * A set : The atime record is not updated.
     * S set : The changes are updated synchronously on the disk.
@@ -72,7 +72,7 @@
     * list attributes
 
 
-### Hard/Soft link 
+## Hard/Soft link 
 * softlink:
     * A soft link associates one file with another. 
     * If the original file is removed the soft link will point to nothing.
@@ -104,7 +104,7 @@
     ln file1 hardlink
     ``` 
 
-### directory navigation
+## directory navigation
 
 * ls
     * -h (human readable)
@@ -129,10 +129,8 @@
 
 
 
-## Exam Objectives
 
-
-### Create and edit text files
+## Create and edit text files
 
 * **Using `vi`/`vim`**:
   * **Open/Create a File**:
@@ -171,7 +169,17 @@
     * `touch filename`: Creates an empty file or updates the timestamp if it exists.
 
 
-### Create, delete, copy, and move files and directories
+### An interesting user permissions error trying to echo with sudo:
+* This doesn't work: `sudo echo 'Hello World!' > /home/test.txt`
+  * the redirect isn't being run with sudo permissions
+* solutions:
+  * `echo 'Hello World!' | sudo tee /home/test.txt`
+  * `sudo bash -c "echo 'Hello World!' > test.txt"`
+
+* https://www.adamsdesk.com/posts/sudo-echo-permission-denied/
+
+
+## Create, delete, copy, and move files and directories
 
 * **Creating Files**:
   * **Using `touch`**:
@@ -223,7 +231,12 @@
     * `rm -r mydir`
 
 
-### Create hard and soft links
+
+
+
+
+
+## Create hard and soft links
 
 * **Creating Hard Links**:
   * **Using `ln`**:
