@@ -128,8 +128,6 @@
     * - (last directory)
 
 
-
-
 ## Create and edit text files
 
 * **Using `vi`/`vim`**:
@@ -229,9 +227,6 @@
     * `rm example_backup.txt`
   * **Delete the directory `mydir` and its contents**:
     * `rm -r mydir`
-
-
-
 
 
 

@@ -134,11 +134,8 @@ struct inode {
      /dev/sdXn /mnt/mountpoint ext4 defaults 0 2
      ```
 
-
-
 ### Add a file system to a partition or volume
  * `mkfs -t vfat /dev/sdXn`
-
 
  ### Mount/Unmount file system manually
  * `mount /dev/sdXn /mnt/mountpoint`
