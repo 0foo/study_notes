@@ -45,3 +45,4 @@ Thumbs.db
 .idea
 .vagrant
 *.ovpn
+*.vdi

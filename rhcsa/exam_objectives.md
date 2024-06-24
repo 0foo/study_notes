@@ -32,9 +32,9 @@
 
 * Configure local storage
     * [List, create, delete partitions on MBR and GPT disks](topics/resource_management/storage_management.md)
-    * [Create and remove physical volumes](/rhcsa/topics/resource_management/LVM.md)
-    * [Assign physical volumes to volume groups](/rhcsa/topics/resource_management/LVM.md)
-    * [Create and delete logical volumes](/rhcsa/topics/resource_management/LVM.md)
+    * [Create and remove physical volumes](/rhcsa/topics/resource_management/storage_management.md)
+    * [Assign physical volumes to volume groups](/rhcsa/topics/resource_management/storage_management.md)
+    * [Create and delete logical volumes](/rhcsa/topics/resource_management/storage_management.md)
     * [Configure systems to mount file systems at boot by universally unique ID (UUID) or label](/rhcsa/topics/filesystem/file_system.md)
     * [Add new partitions and logical volumes, and swap to a system non-destructively](/rhcsa/topics/resource_management/storage_management.md)
 
@@ -42,7 +42,7 @@
     * [Create, mount, unmount, and use vfat, ext4, and xfs file systems](/rhcsa/topics/filesystem/file_system.md)
     * [Mount and unmount network file systems using NFS](/rhcsa/topics/filesystem/file_system.md)
     * [Configure autofs](/rhcsa/topics/networking/mounting_network_storage.md)
-    * [Extend existing logical volumes](/rhcsa/topics/resource_management/LVM.md)
+    * [Extend existing logical volumes](/rhcsa/topics/resource_management/storage_management.md)
     * [Create and configure set-GID directories for collaboration](/rhcsa/topics/user_group_management/special_perms.md)
     * [Diagnose and correct file permission problems](/rhcsa/topics/user_group_management)
 
@@ -88,3 +88,8 @@
     * Run a service inside a container
     * Configure a container to start automatically as a systemd service
     * Attach persistent storage to a container
+
+
+
+* Practice questions
+* https://github.com/chlebik/rhcsa-practice-questions/tree/master/questions
