@@ -163,6 +163,19 @@
 ## nmcli
  * Configure IPv4 and IPv6 addresses using `nmcli`
 
+ * Very important: In nmcli, a single network device can typically only be associated with one active connection profile at a time. This behavior is by design and aligns with how network management generally works in Linux systems.
+
+
+- `nmcli con show --active`
+* very important because `nmcli con show` doesn't have a field to show if a conn is active or not
+
+- Enable connection on boot
+```bash
+nmcli con mod OLD_ACTIVE_CONNECTION connection.autoconnect no     # disable the old connection from starting on reboot 
+nmcli con up MY_CONNECTION connection.autoconnect yes # automatically switch to new connection on reboot 
+```
+
+
   **1. Basic `nmcli` Commands:**
 - `nmcli` is a command-line tool for managing NetworkManager and can be used to create, display, edit, delete, activate, and deactivate network connections.
 
@@ -240,17 +253,17 @@ nmcli con show --active
   **10. Example Workflow:**
 - Add a new Ethernet connection with static IPv4 and IPv6 addresses:
 ```bash
-nmcli con add type ethernet con-name eth0 ifname eth0 ip4 192.168.1.100/24 gw4 192.168.1.1
-nmcli con mod eth0 ipv4.dns "8.8.8.8 8.8.4.4"
-nmcli con mod eth0 ipv6.method manual ipv6.addresses "2001:db8::1/64" ipv6.gateway "2001:db8::fffe"
-nmcli con mod eth0 ipv6.dns "2001:4860:4860::8888 2001:4860:4860::8844"
+nmcli con add type ethernet con-name test-eth0 ifname eth0 ip4 192.168.1.100/24 gw4 192.168.1.1
+nmcli con mod test-eth0 ipv4.dns "8.8.8.8 8.8.4.4"
+nmcli con mod test-eth0 ipv6.method manual ipv6.addresses "2001:db8::1/64" ipv6.gateway "2001:db8::fffe"
+nmcli con mod test-eth0 ipv6.dns "2001:4860:4860::8888 2001:4860:4860::8844"
 nmcli con up eth0
 ```
 
   **11. Verification:**
 - Check the connection details to ensure the settings are applied correctly:
 ```bash
-nmcli con show eth0
+nmcli con show test-eth0
 ```
 
 By mastering these `nmcli` commands, you can effectively manage network configurations on your Linux system, both for IPv4 and IPv6.
