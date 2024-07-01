@@ -21,7 +21,6 @@
 * The default action is deny. If an SELinux policy rule does not exist to allow access, such as for a process opening a file, access is denied. 
 
 
-
 ### SELinux modes
 * three modes: enforcing, persmissive, disabled
     * enforcing mode: enforcing all SELinux policies
@@ -97,18 +96,21 @@
 * chcon
     * `chcon -v -t <some context>  <somefile>`
     * `chcon -v -t httpd_sys_content_t test_file.html`
-    * write new context to selinux database but does NOT write to the filesystem which is persistent
-    * if a file system is re-labeled you will lose the changes
-    * easily overwritten
-    * do not use this command
+    * this will associate a file or other resource with a new type
+    * This is only stored on the file's extended attributes and not in a policy in the selinux database 
+    * so upon relabel this file will take the inherited context of it's parent directory
+        * which if it has the context you're looking for this is great
+        * i.e. if you move a file into an http directory such as /var/log/www
+
 
 
 * semanage
     * ex: `semanage fcontext  -a –t httpd_sys_content_t   “/rhcelab/customwebroot(/.*)?”`
-    * will add the permanant labels(contexts) to the label database for this directory
-    * need to run restorecon afterwards because semanage just writes the policy and this will write to files
+    * will add the permanant labels(contexts) to the selinux label database for this directory
+    * need to run restorecon afterwards because semanage just writes the selinux policy database and this will write to files
         * `restorecon –R –i /rhcelab/customwebroot/`
-    * Any contexts added through the semanage command are placed in `/etc/selinux/targeted/contexts/files/file_contexts.local` file
+    * selinux database is located here: `/etc/selinux/targeted/contexts/files/file_contexts.local` file
+        * Any contexts added through the `semanage fcontext` command are placed here
 
 * can use `man semanage-fcontext` to see these commands and type /example
 
@@ -123,55 +125,6 @@
     * `semanage port -l | grep http`
     * `semanage port -a -t http_port_t -p tcp 9980`
 
-### There are policies(rules) that map contexts(i.e. labels) to other contexts(i.e. labels)
-* a policy(rule) could allow apache process with label httpd_t to access files/directories with label httpd_sys_content_t but not tmp_t
-    * limits access to a compromosed web server
-
-
-
-* Here's a simplified example of an SELinux policy file snippet:
-
-```te
-module mymodule 1.0;
-
-require {
-    type httpd_t;
-    type httpd_sys_content_t;
-    class file { read write };
-}
-
-# Allow httpd_t processes to read and write to files labeled with httpd_sys_content_t
-allow httpd_t httpd_sys_content_t:file { read write };
-
-```
-* Typically the SOURCES aren't installed.
-* SELinux policy source files, such as the example module, are typically located in:
-
-- `/etc/selinux/targeted/src/policy/` (if the policy sources are installed).
-
-* Individual policy modules can also be loaded and managed using tools like `semodule`, which operates on compiled modules in:
-
-- `/etc/selinux/targeted/modules/active/modules/`.
-
-
-* add a policy with: `selocal -a "allow nsh_t nsh_t:memprotect mmap_zero;" -Lb`
-
-* When the enhancements are frequent, it is better to create a SELinux policy module ourselves that contains the rule(s) and load it:
-
-```bash
-root #vim mynsh.te
-
-policy_module(mynsh, 1.0)
-
-gen_require(`
-  type nsh_t;
-')
-
-allow nsh_t nsh_t:memprotect mmap_zero;
-
-root #make -f /usr/share/selinux/strict/include/Makefile mynsh.pp
-root #semodule -i mynsh.pp
-```
 
 
 ### Relabel filesystem
@@ -220,6 +173,8 @@ root #semodule -i mynsh.pp
 
 
 ### Logging part 2
+* via this aweseome reddit thread: [link](https://old.reddit.com/r/linuxadmin/comments/lwwgyv/why_its_time_to_stop_setting_selinux_to/)
+
 * journalctl and dmesg will typically heavily format SELinux errors in the logs to make them blaringly obvious, and tools like setroubleshoot and audit2allow make it very easy to identify possible fixes or to ask SELinux "please permenantly allow the thing you just blocked".
 
 * Here's what a common SELinux error might be :
@@ -263,21 +218,75 @@ Turn on full auditing
 * `auditctl -w /etc/shadow -p w`
 Try to recreate AVC. Then execute
 * `ausearch -m avc -ts recent`
-````
-    If you see PATH record check ownership/permissions on file, and fix it, otherwise report as a bugzilla.
 
-    *****  Plugin catchall (1.66 confidence) suggests   **************************
-    If you believe that plugin-containe should have the dac_override capability by default.
-    Then you should report this as a bug.
-    You can generate a local policy module to allow this access.
-    Do
-    allow this access for now by executing:
-    * `ausearch -c 'plugin-containe' --raw | audit2allow -M my-plugincontaine`
-    * `semodule -X 300 -i my-plugincontaine.pp`
+If you see PATH record check ownership/permissions on file, and fix it, otherwise report as a bugzilla.
+
+*****  Plugin catchall (1.66 confidence) suggests   **************************
+If you believe that plugin-containe should have the dac_override capability by default.
+Then you should report this as a bug.
+You can generate a local policy module to allow this access.
+Do
+allow this access for now by executing:
+* `ausearch -c 'plugin-containe' --raw | audit2allow -M my-plugincontaine`
+* `semodule -X 300 -i my-plugincontaine.pp`
+
+
+
+
+### Policies: There are policies(rules) that map contexts(i.e. labels) to other contexts(i.e. labels)
+* There is a giant database of default policies the selinux team has created so that selinux works out of the box
+* I don't think much policy managment is on the RHCSA
+* a policy(rule) could allow apache process with label httpd_t to access files/directories with label httpd_sys_content_t but not tmp_t
+    * limits access to a compromosed web server
+
+
+* Here's a simplified example of an SELinux policy file snippet:
+
+```te
+module mymodule 1.0;
+
+require {
+    type httpd_t;
+    type httpd_sys_content_t;
+    class file { read write };
+}
+
+# Allow httpd_t processes to read and write to files labeled with httpd_sys_content_t
+allow httpd_t httpd_sys_content_t:file { read write };
+
+```
+* Typically the SOURCES aren't installed.
+* SELinux policy source files, such as the example module, are typically located in:
+
+- `/etc/selinux/targeted/src/policy/` (if the policy sources are installed).
+
+* Individual policy modules can also be loaded and managed using tools like `semodule`, which operates on compiled modules in:
+
+- `/etc/selinux/targeted/modules/active/modules/`.
+
+
+* add a policy with: `selocal -a "allow nsh_t nsh_t:memprotect mmap_zero;" -Lb`
+
+* When the enhancements are frequent, it is better to create a SELinux policy module ourselves that contains the rule(s) and load it:
+
+```bash
+root #vim mynsh.te
+
+policy_module(mynsh, 1.0)
+
+gen_require(`
+  type nsh_t;
+')
+
+allow nsh_t nsh_t:memprotect mmap_zero;
+
+root #make -f /usr/share/selinux/strict/include/Makefile mynsh.pp
+root #semodule -i mynsh.pp
 ```
 
-* via this aweseome reddit thread: [link](https://old.reddit.com/r/linuxadmin/comments/lwwgyv/why_its_time_to_stop_setting_selinux_to/)
-----
+
+
+## Clutter
 
 
 
