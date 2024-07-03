@@ -374,3 +374,5 @@ root #semodule -i mynsh.pp
 
 
     * https://www.computernetworkingnotes.com/linux-tutorials/selinux-explained-with-examples-in-easy-language.html
+
+    * https://wiki.gentoo.org/wiki/SELinux/Tutorials
