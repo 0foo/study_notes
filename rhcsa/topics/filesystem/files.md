@@ -228,9 +228,6 @@
   * **Delete the directory `mydir` and its contents**:
     * `rm -r mydir`
 
-
-
-
 ## Create hard and soft links
 
 * **Creating Hard Links**:

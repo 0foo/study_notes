@@ -1,71 +1,24 @@
-## Cron
+### Cron
+* `crontab -l`
+* `crontab -e`
+* `crontab -r`
+* `crontab -l -u username`
+* `crontab -e -u username`
+* `crontab -r -u username`
+* `cat /etc/crontab`
+* `ls /etc/cron.d`
+* `man 5 crontab` shows cron configuration
+
+### At
+* `at 5:00 PM`
+* `atq`
+* `atrm job_number`
+* `at -c job_number`
+* `at now + 1 minute`
 
 
-* crond timer runs every minute
-    * has a minute resolution
-* default linux tasks that run on crond
-    * logrotate
 
-* systemctl status crond -l
-
-* `man 5 crontab `shows cron configuration
-
-* cron configuratio file is /etc/crontab
-    * not to be modified
-
-* to add root user crons, add files (names don't matter) to:
-    * /etc/cron.d
-    * /etc/cron.hourly, daily, weekly, monthly
-        * bash scripts go in this that are executed at this period
-        * these periodic cron uses /etc/anacron file for config
-
-* crontab -e
-    * crontab -e -u <username>
-    * creates a cron file for each user in /var/spool/cron
-
-### vieiwing a list of all cron jobs
-* not easy to get a list of all scheduled cron's
-* crontab -l 
-    * only lists for the current user or specified user or root 
-
-### Cron security
-* can limit cron with:
-    * /etc/cron.allow
-    * /etc/cron.deny
-* the user MUST be listed in allow if it exists 
-* the user must NOT be listed in deny if it exists
-    * cron.deny exists by default
-* both files should not exist at the same time
-* only root can use cron if neither files exist
-
-
-### Definition
-* Minute(0-59) Hour(0-23) Day(1-31) Month (1-12 or jan-dec) DayOfWeek(0-6 or sun-sat)
-* Asterisk means EVERY!
-
-* The Cron Job `* 7 * * * /path/to/command` Means:
-    * The command will run every minute during the 7 AM hour, every day, regardless of the day of the month or the month of the year.
-
-* ranges
-    * can use dash to specify a range
-    * for example 0-23 means every hour
-
-* step values
-    * Following a range with "/<number>" specifies skips of the number's value through the range.  For example, "0-23/2" can be used in the 'hours' field to specify command execution for every other hour
-
-### Special strings
-* Instead of specifying the exact time, you can use special strings:
-    * `@reboot`    Run at startup.
-    * `@yearly`    Run once a year, i.e., `0 0 1 1 *`.
-    * `@annually`  (same as @yearly)
-    * `@monthly`   Run once a month, i.e., `0 0 1 * *`.
-    * `@weekly`    Run once a week, i.e., `0 0 * * 0`.
-    * `@daily`     Run once a day, i.e., `0 0 * * *`.
-    * `@midnight`  (same as @daily)
-    * `@hourly`    Run once an hour, i.e., `0 * * * *`.
-
-
-### Test Questions
+### Cron test
 ### Cron Job Definition Test Questions
 
 1. **What time does the following cron job run?**

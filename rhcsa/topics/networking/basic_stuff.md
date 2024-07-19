@@ -1,23 +1,3 @@
-## Topics
-* Configure IPv4 and IPv6 addresses
-  - Understand the `ip` command to display routing, devices, policy routing, and tunnels.
-  - Use `nmtui` or `nmcli` for network configuration.
-  - Know how to configure static IP addresses in `/etc/sysconfig/network-scripts/ifcfg-<interface>`.
-  - Be familiar with DHCP configuration.
-  - Configure IPv6 addresses using the same tools, ensuring to understand the differences in address formats and configuration files.
-
-* Configure hostname resolution
-  - Edit the `/etc/hosts` file to map IP addresses to hostnames.
-  - Configure the `/etc/resolv.conf` file to define DNS servers.
-  - Use the `hostnamectl` command to set the system's hostname.
-  - Understand how the `nsswitch.conf` file influences name resolution.
-
-* Configure network services to start automatically at boot
-  - Enable and start services using `systemctl enable <service>` and `systemctl start <service>`.
-  - Verify service status with `systemctl status <service>`.
-  - Know how to configure network-related services such as `NetworkManager`, `firewalld`, and `sshd`.
-
-
 ## Network Basics
 * ip
     * ip addr : configure/monitor network addresses
@@ -154,7 +134,6 @@
         For each network interface, there is a corresponding interface configuration script. Each of these files provide information specific to a particular network interface. See Section 11.2, “Interface Configuration Files” for more information on this type of file and the directives it accepts. 
     * /etc/nsswitch.conf
         * https://tldp.org/LDP/solrhe/Securing-Optimizing-Linux-RH-Edition-v1.3/chap6sec71.html
-
 
 
 

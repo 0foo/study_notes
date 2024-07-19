@@ -1,5 +1,4 @@
 ## Rsyslogd
-
 * classic logging system whereas journald is a subsystem of systemd
 * stores log in plain text typically in /var/log
 * can be configured in depth over formatting routing and filtering and more
@@ -29,7 +28,6 @@
     * modules: can add modular functionality  to enhance rsyslogd
     * global parameters: specify global parameters like timestamp format and more
     * rule: what needs to be logged to what location
-
 
 ### Configuring rsyslog
 * to specify what needs to be logged where rsyslogd uses facilities, priorities, and destinations

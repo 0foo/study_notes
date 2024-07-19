@@ -151,8 +151,6 @@
 * available_modules=$(find /lib/modules/$(uname -r) -type f -name '*.ko' | sed 's/.*\///;s/\.ko//')
 
 
-
-
 ### Locations
 * mod files located in /lib/modules
 * can create files in these dir's to load modules not auto loaded by udev system:
@@ -177,14 +175,6 @@ The `sysctl` command in Linux is used to modify kernel parameters at runtime. Th
 * To display a specific kernel parameter, such as the maximum number of open files: `sysctl fs.file-max`
 * To temporarily set a kernel parameter, use the `-w` option followed by the parameter and its new value: `sysctl -w net.ipv4.ip_forward=1`
 * To make kernel parameter changes permanent, add them to the `/etc/sysctl.conf` file or create a configuration file in the `/etc/sysctl.d/` directory. For example, to enable IP forwarding permanently, you would add the following line to one of these files: `net.ipv4.ip_forward=1`
-
-
-
-
-
-
-
-
 
 
 

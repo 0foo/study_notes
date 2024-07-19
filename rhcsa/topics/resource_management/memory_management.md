@@ -21,7 +21,6 @@ Swap Usage: The amount of swap space in use.
 * `top/htop`
 
 
-
 ### Monitoring and Optimization
 * Monitoring Memory Usage:
     * Regularly check memory usage using tools like free, vmstat, top, and htop.

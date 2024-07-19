@@ -83,8 +83,6 @@
 
 
 
-
-
 ### users
 
 * view all users in the system

@@ -21,12 +21,9 @@
 * /sys directory
     * see directory_structure.md file
  
-
 * /dev directory 
     * see directory structure.md file
         
-
-
 * in `ls -v /dev` Major/Minor Device Number
     * The major sets the type of the device, usually the driver associated with it. 
     * The minor list the first, second, third, ... device of that type.

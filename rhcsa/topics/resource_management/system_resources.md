@@ -3,8 +3,6 @@
 * strace <command>
     * can see all system calls a command makes
 
-
-
 ### System resources
 
 * Memory

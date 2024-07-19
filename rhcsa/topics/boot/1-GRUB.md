@@ -1,5 +1,14 @@
 ## GRUB
 
+### Bootloader
+* Bootloader takes control
+    * GRUB on linux
+    * Can do operating system selection on dual boot machines by EITHER looking at bootloader files or looking at partition table
+    * GRUB looks at it's configuration/or the UI selection menu 
+    * Grub will then put together kernel params + kernel + initramfs file system
+
+
+
 ### purpose
 
 * Linux bootloader's main task is to find the kernel image (vmlinuz) and the initramfs archive, and to provide command-line options to the kernel – which contain the root partition's name in Linux syntax, such as root=/dev/sda2 or root=UUID=XYZ-ABC.
@@ -29,7 +38,7 @@ Other Tasks:
 * Grub functional config
     * Some times in UEFI systems will have multiple grub.cfg
     * For example on Ubuntu:
-        * `/efi/EFI/ubuntu/grub.cfg` is `grub.cfg` is typically only a few lines and points to the main `/grub/grub.cfg`
+        * `/efi/EFI/ubuntu/grub.cfg` is `grub.cfg` is typically only a few lines and inside points to the main `/boot/grub/grub.cfg`
     ```
         /grub/grub.cfg
         /efi/EFI/ubuntu/grub.cfg

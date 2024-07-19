@@ -13,3 +13,6 @@
     * at noon
 * a shell will open up and you can input a series of commands to be executed a specific time
 * a -l flag will allow inputting a system load which means no at job will be started if the system load is above this number
+* exit the command definitions with control + D
+
+* at now + 1 minute

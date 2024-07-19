@@ -38,7 +38,7 @@
                 * can't disable with this
             * this will be lost at reboot!!!
     * persistent set of status/mode
-        * set in: /etc/sysconfig/selinux
+        * set in: `/etc/sysconfig/selinux` which is a symlink to `/etc/selinux/config`
         * SELINUX=enforcing
             * enforcing, disabled, permissive
         * requires reboot for this to take effect!!!
@@ -84,12 +84,12 @@
         * context for files and directories normally found in webserver folders: httpd_sys_content_t
         * web port: http_port_t
 
-* theres a huge database of mappings of file locations to contexts so when a file is created this database is consulted with the files location and the context for that location is applied to the new file
+* theres a huge database of default mappings of file locations to contexts so when a file is created this database is consulted with the files location and the context for that location is applied to the new file
     * can view in `/etc/selinux/targeted/contexts/files`
-    * can view with: `semanage fcontext -l`
-    * Note: Many of these are defaul
+    * can view all mappings with: `semanage fcontext -l`
+    * Note: Many of these are default
 
-* if you move a file it will still have the context from it's original location
+* if you move a file it will still have the context from it's original location so will need to relabel
 
 * new processes, new files, etc. all inherit context's from their parents
 
@@ -102,29 +102,24 @@
         * which if it has the context you're looking for this is great
         * i.e. if you move a file into an http directory such as /var/log/www
 
-
-
 * semanage
     * ex: `semanage fcontext  -a –t httpd_sys_content_t   “/rhcelab/customwebroot(/.*)?”`
     * will add the permanant labels(contexts) to the selinux label database for this directory
     * need to run restorecon afterwards because semanage just writes the selinux policy database and this will write to files
         * `restorecon –R –i /rhcelab/customwebroot/`
-    * selinux database is located here: `/etc/selinux/targeted/contexts/files/file_contexts.local` file
+    * all custom modifications to selinux database are located here: `/etc/selinux/targeted/contexts/files/file_contexts.local` file
         * Any contexts added through the `semanage fcontext` command are placed here
 
 * can use `man semanage-fcontext` to see these commands and type /example
-
 
 * The most difficult part of setting file type context is finding right context. And the easiest solution of this problem is looking in default document root. For example, to find out the right context for web server we looked in the default document root of web server (/var/www/html). 
     * SELinux stores all contexts in /etc/selinux/targeted/contexts directory.
     * And the easiest solution of this problem is looking in default document root. For example, to find out the right context for web server we looked in the default document root of web server (/var/www/html).
         * run `ls -laZ` in the default directory for the application
 
-
 * Port labels
     * `semanage port -l | grep http`
     * `semanage port -a -t http_port_t -p tcp 9980`
-
 
 
 ### Relabel filesystem
@@ -153,6 +148,7 @@
 ### Logging
 * SELinux messages can be stored on several locations for examples: -
     * If auditd daemon is running, SELinux will log the messages in /var/log/audit/audit.log file.
+        * `sudo systemctl status auditd.service`
         * query with audit log tool ausearch
         * `ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent`
             * -m flag is an OR operation and will return entries matching any of those types
@@ -255,7 +251,7 @@ require {
 allow httpd_t httpd_sys_content_t:file { read write };
 
 ```
-* Typically the SOURCES aren't installed.
+* Typically the SOURCES aren't installed, they're typically already compiled into selinux
 * SELinux policy source files, such as the example module, are typically located in:
 
 - `/etc/selinux/targeted/src/policy/` (if the policy sources are installed).

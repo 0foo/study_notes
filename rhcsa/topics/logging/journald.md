@@ -1,6 +1,68 @@
 ### Journald
 
 
+### Quick reference
+```
+# View all logs
+journalctl
+
+# Follow new log entries
+journalctl -f
+
+# View logs for the current boot
+journalctl -b
+
+# View logs for a specific boot
+journalctl -b -1
+
+# Filter by time
+journalctl --since "2023-07-11 10:00:00" --until "2023-07-11 11:00:00"
+
+# Filter by priority
+journalctl -p err
+
+# Filter by service
+journalctl -u sshd.service
+
+# Filter by user
+journalctl _UID=1000
+
+# Show logs in reverse order
+journalctl -r
+
+# Limit the number of displayed entries
+journalctl -n 50
+
+# Export logs to a file
+journalctl > /path/to/output.log
+
+# Show kernel messages
+journalctl -k
+
+# Persistent storage of logs
+sudo mkdir -p /var/log/journal
+sudo systemctl restart systemd-journald
+
+# Query specific fields
+journalctl _PID=1
+
+# View system logs from the last 15 minutes
+journalctl --since "15 minutes ago"
+
+# Check logs related to a service crash
+journalctl -u nginx.service --since "2023-07-11" --until "2023-07-12"
+
+# Diagnose boot issues by viewing logs from the previous boot
+journalctl -b -1
+
+# Monitor logs in real-time with specific priority
+journalctl -f -p warn
+
+# Show explanations for log entries
+journalctl -x
+```
+
+
 * new logging, tightly integrated with systemd
 * It centralizes logs from various sources, including system logs, kernel logs, and application logs.
 * listens on UDP on /dev/log
