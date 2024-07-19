@@ -91,5 +91,9 @@
 
 
 
+* good reference
+* https://github.com/jdelgit/rhcsa-notes/tree/master
+
+
 * Practice questions
 * https://github.com/chlebik/rhcsa-practice-questions/tree/master/questions

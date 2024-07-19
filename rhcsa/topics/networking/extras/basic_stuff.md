@@ -22,7 +22,7 @@
     * netstat
         * netstat -tulanep
     * note: use sudo with these
-
+sp
     * if proc is listening on localhost loopback @ 127.0.0.1 
         * cannot be accessed by machines off network
         * completely on localmachine
