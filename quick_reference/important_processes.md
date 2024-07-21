@@ -155,3 +155,21 @@
 * To set the default target to multi-user target: `systemctl set-default multi-user.target`
 * Type systemctl get-default to see the current default target 
 * use systemctl set-default to set the desired default target
+
+
+
+### Swap
+1. create a new partition or a new lvm or new file
+    * lvcreate
+    * parted
+    * dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile
+2. mkswap
+3. swapon/swapoff
+* need to add to fstab to make persistent after reboot: /dev/sdX1 none swap sw 0 0
+* can remove by swapoff then delete file or partition
+* swapon --show (or -s)
+* free -h
+* important note: for lvm swap may be reported with swapon --show as a mapped drive with the name dm-<something> 
+    * can coorelate this to lv's by: `ls -l /dev/mapper`
+
+

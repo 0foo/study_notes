@@ -30,7 +30,7 @@
     * [Configure systems to mount file systems at boot by universally unique ID (UUID) or label](/rhcsa/topics/filesystem/file_system.md)
     * [Add new partitions and logical volumes, and swap to a system non-destructively](/rhcsa/topics/resource_management/storage_management.md)
     * [Create, mount, unmount, and use vfat, ext4, and xfs file systems](/rhcsa/topics/filesystem/file_system.md)
-    * [Mount and unmount network file systems using NFS](/rhcsa/topics/filesystem/file_system.md)
+    * [Mount and unmount network file systems using NFS](/rhcsa/topics/networking/NFS.md)
     * [Configure autofs](/rhcsa/topics/networking/mounting_network_storage.md)
     * [Extend existing logical volumes](/rhcsa/topics/resource_management/storage_management.md)
 
