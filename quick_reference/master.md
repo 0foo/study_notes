@@ -1,3 +1,7 @@
+### Man
+* use section 5 for files
+* use regular man for commands
+
 ## user,groups 
 * useradd, usermod, userdel, adduser, /etc/passwd
 * groupadd, groupmod, groupdel, gpasswd, /etc/group, make a sudo account: usermod -aG wheel <username>

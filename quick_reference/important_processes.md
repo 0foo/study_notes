@@ -34,32 +34,39 @@
     * nothing has to be added manually
 
 
-
-### Resetting root password
-1. GRUB 2 boot menu-> press e
+### Boot into emergency shell
+1. at start -> press any key to enter into grub mena 
+1. GRUB 2 boot menu-> press e on the OS of your choice
 1. enter rd.break kernel param
     * `linux /boot/vmlinuz-xxxx-generic root=UUID=xxxx ro quiet splash rd.break`
 1. this drops into initrams at end of initramfs boot step
+1. `lsblk` to find the root file system
+    * Look for the device that corresponds to your root filesystem 
+    * typically it will be something like /dev/mapper/VolGroup-lv_root or /dev/sda1
 1. mount -o remount,rw /sysroot
     * get access to disk operating system
     * remounts root as read writable
-
 1. chroot /sysroot
     * make /sysroot the new root /
-    
-1. `passwd` command as usual
-
-1. The SELinux context will be messed up now two options:
+1. make your changes!!!
+1. 1. The SELinux context will be messed up now two options:
     1. create file in root directory:   /.autorelabel
         * force SELinux to relable file system
         * note: this is easier but can cause relabeling issue
 
-    1. SELinux context change on /etc/shadow
+    2. SELinux context change on /etc/shadow
         * more targetted approach
         * SELinux not started at this step of the boot process
         * load_policy -i to start SELinux
         * manually set the correct context type to /etc/shadow. To do this, type chcon -t shadow_t /etc/shadow
         * reboot
+
+### Resetting root password
+1. Boot into emergency shell as described above 
+1. `passwd` command as usual
+1. reset selinux context as described above
+
+
 
 ### Modify GRUB config
 * grub config files are located at /etc/default/grub and at /etc/grub.d/ 
@@ -155,7 +162,6 @@
 * To set the default target to multi-user target: `systemctl set-default multi-user.target`
 * Type systemctl get-default to see the current default target 
 * use systemctl set-default to set the desired default target
-
 
 
 ### Swap
