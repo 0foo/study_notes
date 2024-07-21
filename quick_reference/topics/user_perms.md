@@ -41,3 +41,11 @@
 * `lastlog`
 * `su - username`
 * `whoami`
+
+
+## commands
+* useradd, usermod, userdel
+* groupadd, groupmod, groupdel
+* passwd, chage
+* chown, chmod, umask
+* id, whoami, lastlog, su

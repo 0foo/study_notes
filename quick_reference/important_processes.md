@@ -145,14 +145,13 @@
         *  by grepping service files: `grep -r "AllowIsolate=yes" /usr/lib/systemd/system/*.target`
     * Interesting note: `systemctl isolate reboot.target` reboots computer
 
-### Viewing targets
+### Working with systemd targets
 * systemctl --type=target
     * see a list of targets currently active on the computer
 * systemctl --type=target --all
     * see all targets available active and inactive
 * can grep for grep Isolate *.target in `/usr/lib/systemd/system` to find all the units that allow isolation
-
-
-### Setting the default target
+* check current target: `systemctl get-default`
+* To set the default target to multi-user target: `systemctl set-default multi-user.target`
 * Type systemctl get-default to see the current default target 
 * use systemctl set-default to set the desired default target
