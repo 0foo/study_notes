@@ -4,13 +4,12 @@
 * passwd, chage, /etc/shadow, visudo
 * chown, chmod, umask
 * id, whoami, lastlog, su
-
+* set: guid, suid, sticky bit
 
 ## compression
 * tar, xz/unxz, bzip2/bunzip2, gzip/gunzip, zip/unzip
 
-
-###  File system managment
+###  File system/Storage managment
 * mkfs
 * mount,umount
 * mkswap,swapon,swapoff
@@ -22,23 +21,26 @@
 * blkid,lsblk, df -h, mount
 * in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
 
+### NFS
+* `sudo mount -t nfs servername:/exported/share /mnt/nfs`
+* in `/etc/fstab`
+    * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
+
+### autofs
+* in `/etc/auto.master`
+    * define mount point and mount config file-> `/mnt/nfs /etc/auto.nfs`
+* in `/etc/auto.nfs`
+    * `nfs    -rw,soft    servername:/exported/share`
+* can navigate to the folder or ls the folder and it will mount
 
 ### File system navigation
 * ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
 
-
-### File system attributes
-* chattr,lsattr
-
-
 ### firewalld
 * firewall-cmd
 
-
 ### Logging
 * journalctl, ausearch
-
-
 
 ### Swap
 1. create a new partition or a new lvm or new file
