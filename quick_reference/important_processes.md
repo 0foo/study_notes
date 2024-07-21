@@ -64,7 +64,7 @@
 ### Resetting root password
 1. Boot into emergency shell as described above 
 1. `passwd` command as usual
-1. reset selinux context as described above
+1. reset selinux context as described abovecc
 
 
 
