@@ -56,10 +56,6 @@
     * [Modify the system bootloader](/rhcsa/topics/boot/1-GRUB.md)
 
 
-
-
-
-
 ### Networking
 * Manage basic networking
     * [Configure IPv4 and IPv6 addresses](/rhcsa/topics/networking/basic_stuff.md)
@@ -100,7 +96,6 @@
     * Run a service inside a container
     * Configure a container to start automatically as a systemd service
     * Attach persistent storage to a container
-
 
 
 
