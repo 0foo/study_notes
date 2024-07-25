@@ -67,7 +67,6 @@
 1. reset selinux context as described abovecc
 
 
-
 ### Modify GRUB config
 * grub config files are located at /etc/default/grub and at /etc/grub.d/ 
 * edit this file and run a grub transpiler
@@ -179,3 +178,39 @@
     * can coorelate this to lv's by: `ls -l /dev/mapper`
 
 
+### Creating Persistent Logs: 
+* If a system administrator wants to ensure logs are stored persistently, they can:
+* create the /var/log/journal directory and if Storage setting in journald.conf `Storage=auto` this will start persistent logging just with the directory being created
+* adjust the journald configuration (/etc/systemd/journald.conf) to specify the storage behavior.
+* in /etc/systemd/journald.conf a setting `Storage=`
+    * `auto`: journal written to /var/log/journal IF this directory exists
+        * this is the default
+        * be sure this directory is also owned by root:systemd-journal and 2755 permission with guid set
+    * `volatile`: never persist to /var/log/journal is wiped every restart
+    * `persistent`: will create /var/log/journal for you and always save the data
+    * `none`: will never write to the journal but forwarding to other targets still works
+
+* commands:
+Simple:
+```
+mkdir /var/log/journal
+echo "SystemMaxUse=50M" /etc/systemd/journald.conf
+grep SystemMaxUse /etc/systemd/journald.conf
+systemctl restart systemd-journal
+
+```
+
+```
+sudo mkdir -p /var/log/journal
+sudo systemctl restart systemd-journald
+```
+
+
+```
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journalctl
+sudo chown root:systemd-journal /var/log/journal
+sudo chmod 2755 /var/log/journal
+sudo systemctl restart systemd-journald
+ls -l /var/log/journal  # verify via log existence
+journalctl --disk-usage  # verify via disk usage

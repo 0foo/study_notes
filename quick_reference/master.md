@@ -73,3 +73,97 @@
 * pgrep/pkill (both are regex, use pgrep first)
 * top/htop
 * kill / 
+
+### process priority
+* chrt -r <priority> <command>
+* chrt -r -p 5 1234
+* `nice\renice`
+* `nice -n 19 sleep 500 &`
+* `renice -n 10 -p 1234`
+
+### performance profiles
+* sudo tuned-adm list
+* sudo tuned-adm active
+* sudo tuned-adm profile <profile>
+* tuned-adm recommend
+* sudo tuned-adm profile laptop-battery-powersave
+
+
+### journald
+* journalctl
+
+* Flags:
+    * -f: Follow new log entries
+    * -b: View logs for the current boot
+    * -b -1: View logs for a specific boot
+    * --since "2023-07-11 10:00:00" --until "2023-07-11 11:00:00": Filter by time
+    * -p err: Filter by priority
+    * -u sshd.service: Filter by service
+    * _UID=1000: Filter by user
+    * -r: Show logs in reverse order
+    * -n 50: Limit the number of displayed entries
+    * > /path/to/output.log: Export logs to a file
+    * -k: Show kernel messages
+    * _PID=1: Query specific fields
+    * --since "15 minutes ago": View system logs from the last 15 minutes
+    * -u nginx.service --since "2023-07-11" --until "2023-07-12": Check logs related to a service crash
+    * -f -p warn: Monitor logs in real-time with specific priority
+    * -x: Show explanations for log entries
+
+### scp
+* scp <remote-user>@<host/ip>:/remote/path/to/source /local/path/destination
+* scp /loca/path/source <remote-user>@<host/ip>:/remote/path/to/destination
+
+
+
+### at
+*  at <runtime> at> <command-to-run> at> <EOT>
+*  at <time> -f <script-filename>
+* atq
+* atrm <#job>
+
+
+### cron
+* crontab -e
+    * <time> <script-path>
+    * Edit user-specific cron
+
+* user vs root crontabs
+    * crontab -u <user> -e
+    * crontab -l / sudo crontab -l
+
+```
+/etc/
+ ├── cron.d  
+ ├── cron.daily  
+ ├── cron.deny  
+ ├── cron.hourly   
+ ├── cron.monthly  
+ ├── crontab 
+ └── cron.weekly
+
+```
+
+* reading cron configuraion
+    * do a `man /etc/crontab` to get a printout of all the cron settings
+    * the key to remember is that * asterisk is every single item in that period
+    * so by adding a number you will limit/filter the periodicity
+
+
+### important systemctl commands
+* enable/disable
+* reload
+* restart
+* start/stop
+* status
+* systemctl cat <service name>
+    * view service file
+* systemctl edit <service name>
+    * edit service file
+* systemctl list-dependencies <service>
+* mask/unmask
+    * makes it completely impossible to start a service either manually or automatically
+    * note disable just stops it from starting at boot but can be started manually
+* isolate
+* get-default/set-default
+* systemctl list-units --type target

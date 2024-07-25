@@ -69,6 +69,63 @@
 * cannot be managed by administrators with standard tools
 
 ### Change Process priority
+* two concepts: priority/scheduling policy
+
+* process by default start with policy of SCHED_OTHER
+* this is the standard type of policy for normal processes that share the CPUs
+* if you need real time processing can change the scheduling policy(see below)
+    * SCHED_FIFO
+    * SCHED_RR
+* you can set prioirty of real time processing via the chrt command
+* for SCHED_OTHER you set priority using the nice command
+
+### Process Schedule Policy
+* They're basically the same
+    * both give the process uninterruptable access to the CPU
+
+* Round Robin will share CPU amongst equal priority process whereas FIFO will monopolize the CPU
+
+
+* SCHED_FIFO (First-In, First-Out)
+
+    * Characteristics:
+        * Priority-Based: Processes are scheduled strictly based on their priority. Higher priority processes always preempt lower priority ones.
+        * Non-Preemptive: Once a process starts running, it will continue to run until it either voluntarily yields the CPU, is blocked (e.g., waiting for I/O), or is preempted by a higher priority process.
+        * No Time Slicing: There is no time slicing among processes with the same priority. If a process does not yield the CPU, it can monopolize it, potentially causing starvation of lower priority processes.
+
+    * Use Cases:
+        * Suitable for tasks that require uninterrupted execution until completion or voluntary yielding.
+        * Ideal for real-time applications where tasks need to run to completion once started, such as data acquisition systems.
+
+* SCHED_RR (Round-Robin)
+
+    * Characteristics:
+        * Priority-Based: Similar to SCHED_FIFO, processes are scheduled based on priority. Higher priority processes preempt lower priority ones.
+        * Preemptive with Time Slicing: Among processes with the same priority, the scheduler uses a round-robin mechanism, giving each process a fixed time slice (quantum) to run.
+        * Fair CPU Distribution: Ensures that all processes with the same priority get a fair share of CPU time, preventing any single process from monopolizing the CPU.
+
+    * Use Cases:
+        * Suitable for real-time applications that require guaranteed CPU time while also ensuring that no single process can monopolize the CPU.
+        * Ideal for tasks that need periodic execution, such as multimedia processing or periodic polling tasks.
+
+
+### chrt
+* priority is 0-99
+* default is 0
+* use -r for RR and -f for FIFO
+* start a process with an RR policy (use -f instead of -r for FIFO policy)
+    * chrt -r <priority> <command>
+
+
+* change a running process to a certain policy
+    * chrt -r -p 5 1234
+    * chrt -f -p 10 1234
+
+
+
+### Nice 
+* priority is -20 to 19
+* default is 0
 * `nice\renice`
 * `nice -n 19 sleep 500 &`
 * `renice -n 10 -p 1234`
@@ -79,6 +136,9 @@
 * the lower the niceness the higher priority
 * note: increasing priority of one proc will take time away from other procs
 * for normal processes PR (priority) = 20 + NI (NI is nice and ranges from -20 to 19)
+
+
+
 
 
 ### List/Search Processes
