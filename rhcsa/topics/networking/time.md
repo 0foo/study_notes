@@ -166,7 +166,6 @@ Drift File
         * Sets the current time to 3 minutes past 4 p.m.
         * note:this only sets the SOFTWARE time i.e. system time hardware clock is different
 
-
 ### hwclock
 * work with the actual hardware clock
 * hwclock --systohc: Synchronizes current system time to the hardware clock
@@ -176,7 +175,6 @@ Drift File
     1. ensure an ntp daemon running and working on system(timedated, chronyd, ntpd)
     3. sync SYSTEM time to NTP (see check system sync with NTP to ensure it's syncing)
     4. sync hardware clock time to systemtime with `hwclock --systohc` command
-
 
 ### set timezone
 * 3 ways to set it systemwide:
@@ -188,3 +186,5 @@ Drift File
 
 * can set Timezone per user
 * Append the line: `TZ='America/Denver'; export TZ` to the file '.profile' in your home directory
+
+

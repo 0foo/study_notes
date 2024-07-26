@@ -42,6 +42,7 @@
 
 ### firewalld
 * firewall-cmd
+* https://github.com/jdelgit/rhcsa-notes/blob/master/07.%20Manage%20Basic%20Networking.md#restrict-network-access-using-firewall-cmdfirewall
 
 ### Logging
 * journalctl, ausearch
@@ -167,3 +168,115 @@
 * isolate
 * get-default/set-default
 * systemctl list-units --type target
+
+
+### Time
+
+* timedatectl
+    * set-time
+    * list-timezones
+    * set-timezone
+    * Display system time
+* `/etc/systemd/timesyncd.conf`
+* timedatectl set-ntp 1 or sudo timedatectl set-ntp true
+    * switch on NTP use
+    * it does this via chrony daemon
+* force ntp update by restarting systemd service
+    * `sudo systemctl restart systemd-timesyncd`
+
+
+
+* chrony 
+    * install with dnf
+    * start with systemd: chronyd
+    * verify:
+        * chronyc sources -v (to check the sources Chrony is using)
+        * chronyc tracking 
+    * add to chrony.conf file
+    ```
+    /etc/chrony.conf
+    server ntp1.example.com iburst
+    server ntp2.example.com iburst
+    ```
+* ntp
+    * install with dnf
+    * start with systemd: ntpd
+    * add to /etc/ntp.conf file
+    ```
+    server ntp1.example.com iburst
+    server ntp2.example.com iburst
+    ```
+* don't forget to add to firewall
+sudo firewall-cmd --add-service=ntp --permanent
+sudo firewall-cmd --reload
+
+
+
+
+### DNF
+dnf
+    list <pattern> - List packages matching pattern
+    repoinfo - Show info on used repositories
+    info <package> - Show info for specific package
+    install <package> - Install specific package
+    localinstall <path-to-package> - Install package from rpm file
+    remove <package> - Remove specific package
+    provides "*/bin/sh" - Find out which package provides specific file
+    groups list - List available package groups
+    group install "<group-name>" - Install package group
+    group remove "<group-name>" - Remove package group
+    history list - View dnf history
+    history undo <id> - Undo action
+    history redo <id> - Redo previous action
+    config-manager
+
+* /etc/dnf/dnf.conf
+* `man 5 dnf.conf`
+
+* repo's
+    * /etc/yum.repos.d 
+
+    ```
+    [BaseOS_RHEL_9]
+    name= RHEL 9 base operating system components
+    baseurl=file:///mnt/BaseOS
+    enabled=1
+    gpgcheck=0
+    ```
+    ```
+    [BaseOS_RHEL_9]
+    name= RHEL 9 base operating system components
+    baseurl=file:///mnt/BaseOS
+    enabled=1
+    gpgcheck=1
+    gpgkey=http://example.com/remote/repo/RPM-GPG-KEY
+    ```
+* managing repos
+    sudo vi /etc/yum.repos.d/myrepo.rep
+    sudo dnf --enablerepo=myrepo install <package>
+    sudo dnf --disablerepo=myrepo install <package>
+    sudo dnf repolist all - List available repositories
+    sudo dnf repoinfo myrepo
+
+* creating a local repo
+    sudo createrepo /path/to/local/repo
+
+
+### basic networking
+
+* nmcli connection [ show | up | up <connection name> | down <connection name> ]
+* nmcli device [ status | show | show <device>  | delete ]
+* nmcli connection add <connection-name> ifname <interface> type <ethernet/wireless>  ipv4 <IP address>/24 gw4 <GatewayIP>
+    * Use ipv6 and gw6 if configuring IPv6 otherwise same command
+* nmcli connection modify <connection-name> <setting> <value> 
+    * then take it down and up again!
+* disable dhcp: nmcli connection modify <connection-name> ipv4.method manual 
+* nmcli connection modify <connection-name> connection.autoconnect yes
+
+
+### hostname
+* hostname [ -s | -f ]
+* /etc/resolve.conf
+* /etc/hosts
+* nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>" #  nmcli connection reload #  systemctl restart NetworkManager
+* 
