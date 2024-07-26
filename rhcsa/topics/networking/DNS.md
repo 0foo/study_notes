@@ -23,7 +23,7 @@
 
 
 ## DNS resolvers
-* set DNS resolvers
+* set DNS resolvers per connection basis
     * NEVER edit /etc/resolve.conf directly as will be overrwritten when restart neworkmanager
     * use nmcli: `nmcli connection modify my-connection ipv4.dns "8.8.8.8 8.8.4.4"`    
     * NetworkManager  stores DNS-resolver info in:

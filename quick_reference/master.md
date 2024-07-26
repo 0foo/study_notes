@@ -211,8 +211,6 @@ sudo firewall-cmd --add-service=ntp --permanent
 sudo firewall-cmd --reload
 
 
-
-
 ### DNF
 dnf
     list <pattern> - List packages matching pattern
@@ -261,22 +259,26 @@ dnf
 * creating a local repo
     sudo createrepo /path/to/local/repo
 
-
 ### basic networking
-
-* nmcli connection [ show | up | up <connection name> | down <connection name> ]
-* nmcli device [ status | show | show <device>  | delete ]
+* nmcli 
+    * connection [ show | up | up <connection name> | down <connection name> ]
+    * device [ status | show | show <device>  | delete ]
 * nmcli connection add <connection-name> ifname <interface> type <ethernet/wireless>  ipv4 <IP address>/24 gw4 <GatewayIP>
     * Use ipv6 and gw6 if configuring IPv6 otherwise same command
 * nmcli connection modify <connection-name> <setting> <value> 
     * then take it down and up again!
 * disable dhcp: nmcli connection modify <connection-name> ipv4.method manual 
-* nmcli connection modify <connection-name> connection.autoconnect yes
 
+* make a connection autoconnect when it detects
+    * nmcli connection modify <connection-name> connection.autoconnect yes
 
 ### hostname
-* hostname [ -s | -f ]
+* hostnamectl
+
+### resolvers
+* never modify /etc/resolv.conf directly!
+* nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>"  
+    * nmcli connection reload 
+    * systemctl restart NetworkManager
 * /etc/resolve.conf
 * /etc/hosts
-* nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>" #  nmcli connection reload #  systemctl restart NetworkManager
-* 
