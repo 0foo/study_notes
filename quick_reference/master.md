@@ -282,3 +282,24 @@ dnf
     * systemctl restart NetworkManager
 * /etc/resolve.conf
 * /etc/hosts
+
+
+### SELINUX
+* sestatus
+* /etc/sysconfig/selinux symlink to /etc/selinux/config
+    * SELINUX=
+    * reboot
+* kernel param: selinux=0, enforcing=0
+* ls -Z
+* semanage fcontext -l 
+* /etc/selinux/targeted/contexts/files
+* /etc/selinux/targeted/contexts/files/file_contexts.local
+* `chcon -v -t <some context>  <somefile>`
+* `chcon -v -t httpd_sys_content_t test_file.html`
+* `semanage fcontext  -a –t httpd_sys_content_t   “/rhcelab/customwebroot(/.*)?”`
+* `restorecon –R –i /rhcelab/customwebroot/`
+* `man semanage-fcontext`
+* Port labels
+    * `semanage port -l | grep http`
+    * `semanage port -a -t http_port_t -p tcp 9980`
+* `fixfiles -F onboot` creates -> `.autorelabel` which calls -> `restorecon -p -r` 

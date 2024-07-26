@@ -5,7 +5,6 @@
 * essentially a white listing tool
 * apparmor is another MAC but is a blacklisting tool
 
-
 ### DAC vs. MAC
 * Discretionary Access Control(DAC): standard historical linux access control with chmod, chown, etc.
     * With DAC, files and processes have owners. You can have the user own a file, a group own a file, or other, which can be anyone else. Users have the ability to change permissions on their own files.
@@ -64,7 +63,7 @@
 
 
 ### Context (also known as Labels) (also known as type)
-* Every system resource(file, port, process etc.) has a label called an SELinux context. 
+* Every system resource(file, port, process etc.) has a label *also called an SELinux context). 
 * On most file systems, SELinux labels are stored as extended attributes. This is not always the case though - some file systems do not support extended attributes. In these cases, all files on the file system get assigned the same context, usually provided through the mount option of the file system. 
 
 
