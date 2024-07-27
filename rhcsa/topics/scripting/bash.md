@@ -257,6 +257,43 @@ esac
     ```    
 
 
+### Substitution
+* Command Substitution ($(...))
+    * Purpose: Captures the output of a command and replaces the $(...) expression with that output.
+    * Usage: Typically used to assign the output of a command to a variable or to inline the output within another command.
+    * Example:
+
+    ```sh
+    # Assign output to a variable
+    current_date=$(date)
+    echo "Current date and time: $current_date"
+
+    # Inline the output within another command
+    echo "The current directory is $(pwd)"
+    ```
+
+    * Behavior: The command within $(...) runs in a subshell, and its output is captured and substituted into the command or variable assignment.
+
+
+* Process Substitution (<(...) and >(...))
+
+    * Purpose: Provides a way to treat the output of a command as a file. This file can be read by another command that expects a file as input or written to by another command.
+    * Usage: Commonly used with commands that require file inputs or outputs, such as diff, comm, or commands that process input line by line.
+    * Example:
+```sh
+# Compare the output of two commands as if they were files
+diff <(ls /dir1) <(ls /dir2)
+
+# Use the output of a command as input to a loop
+while read line; do
+echo "Processing: $line"
+done < <(ls)
+```
+    * Behavior: The command within <(...) or >(...) runs in a subshell, and its output is made available as a file-like stream (named pipe or temporary file).
+
+
+
+
 
 ### Troubleshooting
 * If a script does not do what you expect it to do, try starting it as an argument to the bash -x command.

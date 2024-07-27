@@ -151,7 +151,25 @@
     * so by adding a number you will limit/filter the periodicity
 
 
-### important systemctl commands
+### systemd service files
+* /etc/systemd/system/<service-files>
+
+```
+[Unit]
+Description=<decription>
+Want=<wanted-services>
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start <container-name>
+ExecStop=/usr/bin/podman stop -t 2 <container-name>
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+### Systemctl
 * enable/disable
 * reload
 * restart
@@ -168,6 +186,8 @@
 * isolate
 * get-default/set-default
 * systemctl list-units --type target
+
+
 
 
 ### Time
@@ -321,7 +341,7 @@ dnf
 ```
 # Read a file line by line
 while read line; do
-    echo "Read: $line"
+    echo "$line"
 done < input_file.txt
 ```
 
@@ -340,5 +360,64 @@ else
 fi
 ```
 
+* pipe to while loop
+```
+ls | while read file; do
+  echo "File: $file"
+done
+```
+* note: the while loop is in a subshell so subshell free version:
+```
+count=0
+while read line; do
+  echo "Processing: $line"
+  count=$((count + 1))
+done < <(ls)
+```
+
+```
+IFS=$'\n'; for i in $(ls -d1 */); do echo "$here/$i"; cd "$here/$i"; ls; cd $here; done;
+```
+
+```
+for i in $(ls); do echo "LOCATION: $here/$i"; test -d "$here/$i" && cd "$here/$i"; ls; cd ~; done;
+```
+
 ### Find all keyword in all bash scripts on the system
 find / -iname "*.sh" -exec fgrep -H -n -A3 -B3 -- "case" {} \; 2>/dev/null | less
+
+### containers
+* podman
+    * build -t my-apache .
+    * run -d -p 8080:80 --name apache-container -v /path/to/local/directory:/path/in/container my-apache
+    * ps
+    * stop apache-container
+    * rm apache-container
+    * pull <image>
+    * logs <container_id>
+    * exec -it <container_id> /bin/bash
+    * rmi <image_id>
+    * images
+    * rm $(ps -a -q)
+    * rmi $(images -f "dangling=true" -q)
+
+* setup podman search
+    * unqualified-search-registries=["registry.access.redhat.com", "registry.fedoraproject.org", "docker.io"]
+    * cat /etc/containers/registries.conf
+
+* Configure a container to start automatically as a systemd service
+* /etc/systemd/system/<service-files>
+
+```
+[Unit]
+Description=<decription>
+Want=<wanted-services>
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start <container-name>
+ExecStop=/usr/bin/podman stop -t 2 <container-name>
+
+[Install]
+WantedBy=multi-user.target
+```
