@@ -99,9 +99,9 @@
 
 
 
-* good reference
+* good references
 * https://github.com/jdelgit/rhcsa-notes/tree/master
-
+* https://github.com/aggressiveHiker/rhcsa9/blob/main/study_notes/bash_scripting.md
 
 * Practice questions
 * https://github.com/chlebik/rhcsa-practice-questions/tree/master/questions

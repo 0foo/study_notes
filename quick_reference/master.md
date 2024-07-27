@@ -284,7 +284,7 @@ dnf
 * /etc/hosts
 
 
-### SELINUX
+### selinux
 * sestatus
 * /etc/sysconfig/selinux symlink to /etc/selinux/config
     * SELINUX=
@@ -303,3 +303,42 @@ dnf
     * `semanage port -l | grep http`
     * `semanage port -a -t http_port_t -p tcp 9980`
 * `fixfiles -F onboot` creates -> `.autorelabel` which calls -> `restorecon -p -r` 
+
+
+### selinux booleans
+* getsebool -a
+* getsebool boolean_name
+* setsebool boolean_name on|off
+* sudo setsebool -P boolean_name on|off
+* semanage boolean -l
+
+
+### bash scripting
+
+* for loop, read command, conditional, test
+
+
+```
+# Read a file line by line
+while read line; do
+    echo "Read: $line"
+done < input_file.txt
+```
+
+```
+if [ "$str1" = "$str2" ]; then
+  echo "Strings are equal."
+else
+  echo "Strings are not equal."
+fi
+
+# double brackets allow regex/pattern matching
+if [[ "$str" == hello* ]]; then
+  echo "String starts with 'hello'."
+else
+  echo "String does not start with 'hello'."
+fi
+```
+
+### Find all keyword in all bash scripts on the system
+find / -iname "*.sh" -exec fgrep -H -n -A3 -B3 -- "case" {} \; 2>/dev/null | less
