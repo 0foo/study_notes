@@ -249,6 +249,48 @@ By mastering these `nmcli` commands, you can effectively manage network configur
 
 
 
+### Create a New interface
+
+* `ip link add name eth0.1 link eth0 type macvlan mode bridge`
+
+
+macvlan is a Linux network driver that allows you to create multiple virtual network interfaces on a single physical interface. Each virtual interface has its own unique MAC address, which makes it appear as a separate physical device on the network. This can be useful for network virtualization, container networking, and scenarios where you need to isolate network traffic between different virtual interfaces.
+
+Here's a brief overview of how macvlan works and its different modes:
+
+### How macvlan Works
+
+macvlan enables you to create virtual interfaces that are tied to a single physical interface but operate independently. Each macvlan interface has its own MAC address and can be configured with its own IP address. This allows the virtual interfaces to communicate with each other and with other devices on the network as if they were separate physical interfaces.
+
+### macvlan Modes
+
+- **Bridge Mode**: The virtual interfaces can communicate with each other and other devices on the same network segment. This mode is useful when you want to create multiple virtual interfaces that share the same network.
+
+- **Private Mode**: The virtual interfaces are isolated from each other. They cannot communicate with each other but can still communicate with other devices on the network. This mode is useful for isolating network traffic between virtual interfaces.
+
+- **VEPA Mode (Virtual Ethernet Port Aggregator)**: The virtual interfaces can communicate with each other through an external switch. This mode requires support from the physical switch.
+
+- **Passthru Mode**: A single virtual interface is created, and it directly forwards packets to the physical interface. This mode is useful for scenarios where you want to dedicate the physical interface to a single virtual interface.
+
+### Example Commands
+
+Here are the commands to create a new macvlan interface and configure it:
+
+    ip link add name eth0.1 link eth0 type macvlan mode bridge
+
+This command creates a new macvlan interface eth0.1 attached to the physical interface eth0 in bridge mode.
+
+    ip link set dev eth0.1 up
+
+This command brings up the new macvlan interface eth0.1.
+
+    ip addr add 192.168.1.101/24 dev eth0.1
+
+This command assigns the IP address 192.168.1.101 to the new macvlan interface eth0.1.
+
+By using macvlan, you can efficiently create multiple isolated or bridged virtual interfaces on a single physical interface, providing flexibility in network configuration and management.
+
+
 
 ### Can a NIC Have More Than One Interface?
 

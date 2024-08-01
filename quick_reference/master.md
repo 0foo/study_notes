@@ -259,7 +259,7 @@ dnf
     name= RHEL 9 base operating system components
     baseurl=file:///mnt/BaseOS
     enabled=1
-    gpgcheck=0
+    gpgcheck=0zzz
     ```
     ```
     [BaseOS_RHEL_9]
@@ -283,8 +283,9 @@ dnf
 * nmcli 
     * connection [ show | up | up <connection name> | down <connection name> ]
     * device [ status | show | show <device>  | delete ]
-* nmcli connection add <connection-name> ifname <interface> type <ethernet/wireless>  ipv4 <IP address>/24 gw4 <GatewayIP>
-    * Use ipv6 and gw6 if configuring IPv6 otherwise same command
+* create new connection:
+    * nmcli connection add  con-name <connection-name> ifname <interface> type <ethernet/wireless>  
+* Use ipv6 and gw6 if configuring IPv6 otherwise same command
 * nmcli connection modify <connection-name> <setting> <value> 
     * then take it down and up again!
 * disable dhcp: nmcli connection modify <connection-name> ipv4.method manual 
@@ -421,3 +422,5 @@ ExecStop=/usr/bin/podman stop -t 2 <container-name>
 [Install]
 WantedBy=multi-user.target
 ```
+
+
