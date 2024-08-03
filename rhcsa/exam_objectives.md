@@ -102,6 +102,7 @@
 * good references
 * https://github.com/jdelgit/rhcsa-notes/tree/master
 * https://github.com/aggressiveHiker/rhcsa9/blob/main/study_notes/bash_scripting.md
+* https://chatgpt.com/c/a76da3d4-d5a6-4199-a5a5-0076becf4294
 
 * Practice questions
 * https://github.com/aggressiveHiker/rhcsa9/tree/main/exam_prep

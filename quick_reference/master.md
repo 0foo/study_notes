@@ -1,6 +1,24 @@
+### Misc
+* create a file `fallocate -l 100M`
+
+### text wrangling
+```
+cat <<EOF > file.txt
+This is line 1.
+This is line 2.
+This is line 3.
+EOF
+```
+
 ### Man
 * use section 5 for files
 * use regular man for commands
+* man -K
+    * searches for a keyword
+    * -w is case sensitive
+* catman
+    * updates all manual pages
+* catman && man -K
 
 ## user,groups 
 * useradd, usermod, userdel, adduser, /etc/passwd
@@ -293,6 +311,14 @@ dnf
 * make a connection autoconnect when it detects
     * nmcli connection modify <connection-name> connection.autoconnect yes
 
+* con create
+    * con-name
+    * ifname
+    * type
+    * ipv4.method
+    * ipv4.address
+
+
 ### hostname
 * hostnamectl
 
@@ -424,3 +450,9 @@ WantedBy=multi-user.target
 ```
 
 
+
+
+### useful
+* `file` command to tell which type of file it is
+* `tar -cvzf tar-file-name.tar.gz  the-file-to-compress`
+* 
