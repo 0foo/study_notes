@@ -10,6 +10,15 @@ This is line 3.
 EOF
 ```
 
+### ssh
+* host an ssh session
+    * add key to authorized_hosts on the account .ssh folder
+* access an ssh session
+    * ssh_keygen
+    * `ssh-copy-id`
+    * ssh with account creds
+
+
 ### Man
 * use section 5 for files
 * use regular man for commands
@@ -44,9 +53,28 @@ EOF
 * in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
 
 ### NFS
-* `sudo mount -t nfs servername:/exported/share /mnt/nfs`
-* in `/etc/fstab`
-    * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
+
+* host an nfs share
+```
+sudo yum install nfs-utils -y   # For RHEL/CentOS
+sudo apt-get install nfs-kernel-server -y   # For Ubuntu/Debian
+sudo mkdir -p /srv/nfs/shared
+sudo chown nobody:nogroup /srv/nfs/shared   # Adjust as needed for your security requirements
+sudo chmod 755 /srv/nfs/shared
+sudo nano /etc/exports
+/srv/nfs/shared 192.168.1.0/24(rw,sync,no_subtree_check)
+sudo exportfs -a
+sudo systemctl start nfs-server
+sudo systemctl enable nfs-server
+sudo firewall-cmd --permanent --add-service=nfs
+sudo firewall-cmd --reload
+showmount -e localhost
+```
+
+* access NFS share
+    * `sudo mount -t nfs servername:/exported/share /mnt/nfs`
+    * in `/etc/fstab`
+        * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
 
 ### autofs
 * in `/etc/auto.master`
@@ -79,11 +107,9 @@ EOF
 * important note: for lvm swap may be reported with swapon --show as a mapped drive with the name dm-<something> 
     * can coorelate this to lv's by: `ls -l /dev/mapper`
 
-
 ### Shutdown/reboot
 * shutdown -r now
 * shutdown -h now
-
 
 ### Processes
 * kill
