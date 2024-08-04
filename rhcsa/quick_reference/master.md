@@ -36,6 +36,7 @@ EOF
 * chown, chmod, umask
 * id, whoami, lastlog, su
 * set: guid, suid, sticky bit
+* getent: literally just cat's /etc/passwd and /etc/group
 
 ## compression
 * tar, xz/unxz, bzip2/bunzip2, gzip/gunzip, zip/unzip
@@ -52,36 +53,48 @@ EOF
 * blkid,lsblk, df -h, mount
 * in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
 
+* tips
+    * estimate minimum size filesystem can be shrunk: `resize2fs -P /dev/sda1`
+    * get block size of the filesystem: `blockdev --getbsz /dev/sdX`
+    * can use awk to calculate the total size: `echo | awk "{print 4 * 2}"
+
+
+
 ### NFS
 
 * host an nfs share
 ```
 sudo yum install nfs-utils -y   # For RHEL/CentOS
-sudo apt-get install nfs-kernel-server -y   # For Ubuntu/Debian
 sudo mkdir -p /srv/nfs/shared
 sudo chown nobody:nogroup /srv/nfs/shared   # Adjust as needed for your security requirements
 sudo chmod 755 /srv/nfs/shared
 sudo nano /etc/exports
 /srv/nfs/shared 192.168.1.0/24(rw,sync,no_subtree_check)
-sudo exportfs -a
+sudo exportfs -r   (or exportfs -a ??)
 sudo systemctl start nfs-server
 sudo systemctl enable nfs-server
-sudo firewall-cmd --permanent --add-service=nfs
+firewall-cmd --add-service=mountd --add-service=rpc-bind --add-service=mountd --zone=public --permanent
 sudo firewall-cmd --reload
-showmount -e localhost
+verify: showmount -e localhost
+verify: exportfs 
 ```
 
 * access NFS share
+    * `showmount -e <remote nfs server>`
     * `sudo mount -t nfs servername:/exported/share /mnt/nfs`
     * in `/etc/fstab`
         * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
 
 ### autofs
+* `dnf install autofs`
 * in `/etc/auto.master`
-    * define mount point and mount config file-> `/mnt/nfs /etc/auto.nfs`
+    * define mount point and mount config file-> `/mnt /etc/auto.nfs`
 * in `/etc/auto.nfs`
     * `nfs    -rw,soft    servername:/exported/share`
+    * will mount at /mnt/nfs, (first field in both files)
+* `systemctl [reload|restart] autofs`
 * can navigate to the folder or ls the folder and it will mount
+* note: if no file system type declared in config files, then nfs is the default
 
 ### File system navigation
 * ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
@@ -377,6 +390,9 @@ dnf
     * `semanage port -a -t http_port_t -p tcp 9980`
 * `fixfiles -F onboot` creates -> `.autorelabel` which calls -> `restorecon -p -r` 
 
+* `chcon -R --reference=/var/www/html /path/to/target/folder`
+    *  sets the SELinux context of /path/to/target/folder (and all files and directories within it, due to the -R flag) to match the context of /var/www/html.
+    * quick shortcut
 
 ### selinux booleans
 * getsebool -a
