@@ -53,7 +53,7 @@
     * Increase the timeout using GRUB_TIMEOUT=10
     * Add the following line: GRUB_TIMEOUT_STYLE=hidden
     * Add quiet to the end of the GRUB_CMDLINE_LINUX line
-* be able to reset root password at boot time
+* be able to reset root password at boot time via grub menu
 
 
 
