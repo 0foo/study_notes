@@ -393,6 +393,8 @@ dnf
 * `chcon -R --reference=/var/www/html /path/to/target/folder`
     *  sets the SELinux context of /path/to/target/folder (and all files and directories within it, due to the -R flag) to match the context of /var/www/html.
     * quick shortcut
+* One easy way to tell which SELinux related configuration has to be done, is through sealert command. This command is used to diagnose SELinux denials and attempts to provide user friendly explanations for a SELinux denial and recommendations for how one might adjust the system to prevent the denial in the future.
+    * sealert -a /var/log/audit/audit.log
 
 ### selinux booleans
 * getsebool -a
