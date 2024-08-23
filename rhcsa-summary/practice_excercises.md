@@ -34,10 +34,14 @@
 ### one offs
 * at/cron
     * Create a job using at to write "This task was easy!" to /coolfiles/at_job.txt in 10 minutes.
-    * Create a job using cron to write "Wow! I'm going to pass this test!" every Tuesday at 3pm to /var/log/messages.
-* set a merged tuned profile using the the powersave and virtual-guest profiles
-* start one stress-ng process with the niceness value of 19. Adjust the niceness value of the stress process to 10. Kill the stress process.
+    * Create a job using cron to write "Wow! I'm going to pass this test!" every Tuesday at 3:30pm to /var/log/messages.
+
+* check the active tuned profiles then set the tuned profile to powersave then to the recommended profile
+
+* start one stress-ng process with the niceness value of 19. View the niceness level of the process. Adjust the niceness value of the stress process to 10. Kill the stress process.
+
 * Configure NTP synchronization on both servers. Point them to us.pool.ntp.org
+
 * compress/archive stuff 
     * On server1 create a tar w/gzip archive of /etc called etc_archive.tar.gz in the /archives directory.
 * symlinks
@@ -54,6 +58,7 @@
 ### searching/find/grep
 * grep in files, find files
 * Find all setuid files on server1 and save the list to /root/suid.txt.
+* find all files in logs modified within the last 5 minutes
 * Find all files larger than 3MB in the /etc directory on server1 and copy them to /largefiles
 
 ### Bash scripting
@@ -103,9 +108,6 @@ dba_admin: SOFTWARE, SERVICES, PROCESSES
 dba_intern: MESSAGES
 ```
 *  Switch to the various users using su and test their privileges.
-
-
-
 
 
 ---TBI

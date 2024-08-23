@@ -15,7 +15,7 @@
 * `atrm job_number`
 * `at -c job_number`
 * `at now + 1 minute`
-
+* use ctrl + D to exit
 
 ### Cron test
 ### Cron Job Definition Test Questions
