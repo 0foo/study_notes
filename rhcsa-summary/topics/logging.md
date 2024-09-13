@@ -1,9 +1,6 @@
 ### Rsyslogd
 
 
-### 
-
-
 ### Journald
 * `journalctl`
 * `journalctl -f`

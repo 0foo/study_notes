@@ -3,7 +3,7 @@
 * an empty zone is a deny all of all traffic
 * add services, ports, rich rules, to allow access
 
-
+* `sudo firewall-cmd --list-all`
 
 ### zones
 * default zone is the catchall zone for any interface not specifically mapped to a zone

@@ -1,21 +1,26 @@
+## Part 1
 ### Init
 * setup root password on all boxes
 
 ### Network/SSH setup
 * delete all the connection from eth1 interface on all the boxes so that eth1 had NO connections attached to it(nmcli)
 * configure all the boxes so they can communicate with each other (nmcli)
-* change the hostnames on all the boxes
+* change the hostnames on all the boxes to this or something you like
     * box1->vagrant-server
     * box2->vagrant-client1
     * box3->vagrant-client2
 * setup ssh so that client1 and client2 can ssh into the server
 
 ### Yum
-* setup the yum repo in /repo on vagrant-server so that the other machines can access it
-* setup the repo file on client1 to use this yum repo to update
+* setup the yum repo located in /repo on vagrant-server so that the other machines can access it via http and update the server
+    * will need to figure out a way to create the repo for one of the repos
+    * will need to install web server + open firewall + selinux
+* setup the repo file on client1 to use these yum repos and update 
 * scp this file from client1 to server and scp this file down to client2 
-* configure client2 to use this file  
+* configure client2 to use this file and update
 
+
+## Part 2
 ### LVM/partitions/swap/labels
 * on vagrant-server configure only one of the unused volumes with gpt partition and add it to a volume group and create an logical volume from this
 * create an ext4 file system on this new logical volume

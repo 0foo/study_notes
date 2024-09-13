@@ -1,6 +1,9 @@
 ### Misc
 * create a file `fallocate -l 100M`
 
+
+
+
 ### text wrangling
 ```
 cat <<EOF > file.txt
@@ -68,7 +71,7 @@ sudo yum install nfs-utils -y   # For RHEL/CentOS
 sudo mkdir -p /srv/nfs/shared
 sudo chown nobody:nogroup /srv/nfs/shared   # Adjust as needed for your security requirements
 sudo chmod 755 /srv/nfs/shared
-sudo nano /etc/exports
+sudo nano /etc/exports (if not present, create)
 /srv/nfs/shared 192.168.1.0/24(rw,sync,no_subtree_check)
 sudo exportfs -r   (or exportfs -a ??)
 sudo systemctl start nfs-server
@@ -370,31 +373,21 @@ dnf
 * /etc/hosts
 
 
-### selinux
-* sestatus
-* /etc/sysconfig/selinux symlink to /etc/selinux/config
-    * SELINUX=
-    * reboot
-* kernel param: selinux=0, enforcing=0
-* ls -Z
-* semanage fcontext -l 
-* /etc/selinux/targeted/contexts/files
-* /etc/selinux/targeted/contexts/files/file_contexts.local
-* `chcon -v -t <some context>  <somefile>`
-* `chcon -v -t httpd_sys_content_t test_file.html`
-* `semanage fcontext  -a –t httpd_sys_content_t   “/rhcelab/customwebroot(/.*)?”`
-* `restorecon –R –i /rhcelab/customwebroot/`
-* `man semanage-fcontext`
-* Port labels
-    * `semanage port -l | grep http`
-    * `semanage port -a -t http_port_t -p tcp 9980`
-* `fixfiles -F onboot` creates -> `.autorelabel` which calls -> `restorecon -p -r` 
+### firewalld
+* primary commands
+    * `sudo firewall-cmd --list-all`
+    * `sudo firewall-cmd --add-service=http --permanent --zone=public`
 
-* `chcon -R --reference=/var/www/html /path/to/target/folder`
-    *  sets the SELinux context of /path/to/target/folder (and all files and directories within it, due to the -R flag) to match the context of /var/www/html.
-    * quick shortcut
-* One easy way to tell which SELinux related configuration has to be done, is through sealert command. This command is used to diagnose SELinux denials and attempts to provide user friendly explanations for a SELinux denial and recommendations for how one might adjust the system to prevent the denial in the future.
-    * sealert -a /var/log/audit/audit.log
+### selinux
+* Primary commands
+    * `sestatus`
+    * `setenforce 1` or `0`
+    * `ls -Z`
+    * `sudo semanage fcontext -a -t httpd_sys_content_t "/repo-write(/.*)?"`
+    * `sudo restorecon -R /repo-write`
+    * `sudo chcon -R -t httpd_sys_content_t /repo-write`
+    * can run `man semanage-fcontext` and search `/example`to see examples
+
 
 ### selinux booleans
 * getsebool -a
@@ -405,7 +398,6 @@ dnf
 
 
 ### bash scripting
-
 * for loop, read command, conditional, test
 
 

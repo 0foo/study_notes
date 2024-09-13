@@ -21,7 +21,6 @@
 * `sudo chage -W 7 username`
 * `sudo chage -l username`
 
-
 ### Basic file perm's
 * `sudo chown user:group filename`
 * `sudo chmod 755 filename`

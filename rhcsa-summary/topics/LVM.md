@@ -4,7 +4,6 @@
     * `pvremove /dev/sdXn`
 
 
-
 * Volume group
     * `vgcreate myvg /dev/sdXn`
     * `vgs`, `vgscan`, `vgdisplay`
