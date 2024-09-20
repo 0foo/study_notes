@@ -1,3 +1,6 @@
+* tar, xz/unxz, bzip2/bunzip2, gzip/gunzip, zip/unzip
+
+
 * Compress files with gzip
     * `gzip filename`
     * `gunzip filename.gz`

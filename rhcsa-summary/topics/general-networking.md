@@ -18,7 +18,25 @@
 * nmcli connection modify <connection_name> ipv4.method manual
 * nmcli connection down MyWiFiNetwork
 * nmcli connection up MyWiFiNetwork
+* nmcli 
+    * connection [ show | up | up <connection name> | down <connection name> ]
+    * device [ status | show | show <device>  | delete ]
+* create new connection:
+    * nmcli connection add  con-name <connection-name> ifname <interface> type <ethernet/wireless>  
+* Use ipv6 and gw6 if configuring IPv6 otherwise same command
+* nmcli connection modify <connection-name> <setting> <value> 
+    * then take it down and up again!
+* disable dhcp: nmcli connection modify <connection-name> ipv4.method manual 
 
+* make a connection autoconnect when it detects
+    * nmcli connection modify <connection-name> connection.autoconnect yes
+
+* con create
+    * con-name
+    * ifname
+    * type
+    * ipv4.method
+    * ipv4.address
 
 ### Man
 * can use man cli and search(/) for examples

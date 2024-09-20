@@ -1,3 +1,28 @@
+* tips
+    * estimate minimum size filesystem can be shrunk: `resize2fs -P /dev/sda1`
+    * get block size of the filesystem: `blockdev --getbsz /dev/sdX`
+    * can use awk to calculate the total size: `echo | awk "{print 4 * 2}"
+
+
+* General File system navigation
+	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
+
+
+
+
+
+* mkfs
+* mount,umount
+* mkswap,swapon,swapoff
+* e2fsck,xfs_repair
+* resize2fs, xfs_growfs
+* tune2fs
+* e2label /dev/sdXn new_label
+* xfs_admin -L new_label /dev/sdXn1
+* blkid,lsblk, df -h, mount
+* in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
+
+
 * Create a file system
     * `mkfs -t ext4 /dev/sdXn`
 
@@ -31,6 +56,19 @@
     * view much info including UUID: `lsblk -f`
     * view UUID's: `blkid`
 
+### Swap
+1. create a new partition or a new lvm or new file
+    * lvcreate
+    * parted
+    * dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile
+2. mkswap
+3. swapon/swapoff
+* need to add to fstab to make persistent after reboot: /dev/sdX1 none swap sw 0 0
+* can remove by swapoff then delete file or partition
+* swapon --show (or -s)
+* free -h
+* important note: for lvm swap may be reported with swapon --show as a mapped drive with the name dm-<something> 
+    * can coorelate this to lv's by: `ls -l /dev/mapper`
 
 
 ## Files

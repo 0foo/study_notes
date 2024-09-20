@@ -1,5 +1,29 @@
-### Rsyslogd
+### journald
+* journalctl
 
+* Flags:
+    * -f: Follow new log entries
+    * -b: View logs for the current boot
+    * -b -1: View logs for a specific boot
+    * --since "2023-07-11 10:00:00" --until "2023-07-11 11:00:00": Filter by time
+    * -p err: Filter by priority
+    * -u sshd.service: Filter by service
+    * _UID=1000: Filter by user
+    * -r: Show logs in reverse order
+    * -n 50: Limit the number of displayed entries
+    * > /path/to/output.log: Export logs to a file
+    * -k: Show kernel messages
+    * _PID=1: Query specific fields
+    * --since "15 minutes ago": View system logs from the last 15 minutes
+    * -u nginx.service --since "2023-07-11" --until "2023-07-12": Check logs related to a service crash
+    * -f -p warn: Monitor logs in real-time with specific priority
+    * -x: Show explanations for log entries
+
+
+
+
+### Rsyslogd
+* ???
 
 ### Journald
 * `journalctl`

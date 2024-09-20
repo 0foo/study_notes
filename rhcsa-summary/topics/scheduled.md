@@ -1,3 +1,12 @@
+
+### Essentials/tips
+
+* cron
+    * cat /etc/crontab
+    * view files in /etc/cron.* for examples
+    * crontab
+
+
 ### Cron
 * `crontab -l`
 * `crontab -e`
@@ -9,13 +18,52 @@
 * `ls /etc/cron.d`
 * `man 5 crontab` shows cron configuration
 
+* crontab -e
+    * <time> <script-path>
+    * Edit user-specific cron
+
+* user vs root crontabs
+    * crontab -u <user> -e
+    * crontab -l / sudo crontab -l
+
+```
+/etc/
+ ├── cron.d  
+ ├── cron.daily  
+ ├── cron.deny  
+ ├── cron.hourly   
+ ├── cron.monthly  
+ ├── crontab 
+ └── cron.weekly
+
+```
+
+* reading cron configuraion
+    * do a `man /etc/crontab` to get a printout of all the cron settings
+    * the key to remember is that * asterisk is every single item in that period
+    * so by adding a number you will limit/filter the periodicity
+
+
 ### At
+
+### at
+*  at <runtime> at> <command-to-run> at> <EOT>
+*  at <time> -f <script-filename>
+* atq
+* atrm <#job>
+
+s
+
 * `at 5:00 PM`
+* `at 4:00 PM + 3 days` (run at 4pm 3 days from now)
 * `atq`
+    * gives job list
 * `atrm job_number`
+    * remove item from job list
 * `at -c job_number`
+    * display what the
 * `at now + 1 minute`
-* use ctrl + D to exit
+* use ctrl + D to exit!!!
 
 ### Cron test
 ### Cron Job Definition Test Questions

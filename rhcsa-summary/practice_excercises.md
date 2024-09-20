@@ -1,3 +1,7 @@
+## Intro/fundamentals
+* practice your ps commands, sorting, custom outputs (-O vs -o)
+
+
 ## Part 1
 ### Init
 * setup root password on all boxes
@@ -45,7 +49,8 @@
 
 * start one stress-ng process with the niceness value of 19. View the niceness level of the process. Adjust the niceness value of the stress process to 10. Kill the stress process.
 
-* Configure NTP synchronization on both servers. Point them to us.pool.ntp.org
+* Configure NTP synchronization on both servers. 
+* Point them to us.pool.ntp.org
 
 * compress/archive stuff 
     * On server1 create a tar w/gzip archive of /etc called etc_archive.tar.gz in the /archives directory.
