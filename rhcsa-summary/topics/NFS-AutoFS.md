@@ -24,12 +24,13 @@ verify: exportfs
         * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
 
 ### autofs
-* `dnf install autofs`
-* in `/etc/auto.master`
-    * define mount point and mount config file-> `/mnt /etc/auto.nfs`
-* in `/etc/auto.nfs`
-    * `nfs    -rw,soft    servername:/exported/share`
-    * will mount at /mnt/nfs, (first field in both files)
-* `systemctl [reload|restart] autofs`
-* can navigate to the folder or ls the folder and it will mount
+* in /etc/auto.master: `/mnt/nfs /etc/auto.nfs`
+* in `/etc/auto.nfs`: `some_directory server:/path/to/nfs/export`
+* restart autofs service
+* `server:/path/to/nfs`  will be mounted at `/mnt/nfs/some_directory`
 * note: if no file system type declared in config files, then nfs is the default
+* ls or navigate will mount
+
+
+
+

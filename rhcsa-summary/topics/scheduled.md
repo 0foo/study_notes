@@ -2,7 +2,8 @@
 ### Essentials/tips
 
 * cron
-    * cat /etc/crontab
+    * cat /etc/crontab for cron formatting
+    * don't need username for non-root jobs as they're already run by a user
     * view files in /etc/cron.* for examples
     * crontab
 

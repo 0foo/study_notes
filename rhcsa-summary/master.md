@@ -1,11 +1,30 @@
 ### Misc
-* create a file: `fallocate -l 100M`
+* create a file: 
+  * allocate space, no writing, faster: `fallocate -l 100M`
+  * allocate space and write to file, slower`dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile`
+
 * backslash before command \rm will use an unaliased command
 * find out if a command is an alias: type <command>
 * Always use visudo to edit the sudoers file
 * sudo will not run any alias or function even root as it does not include any env context
 * get all aliases with `alias` command
 * `file` command to tell which type of file it is
+* use `zcat` or `zless` to read zipped files!
+* math: 
+  * integers: `expr 56276 + 73768` (+,-,/ works but have to escape * in this)
+  * doubles: `echo "4.2 * 2" | bc` or just use `bc`/ quit or cntrl+d to exit
+* `mkdir -p`  will recursive create directories!
+* shortcuts:
+  * `cntl+c`: sigint: terminate process
+  * `cntr+z`: SIGTSTP: pauses and puts in backgroup 
+  * `cntrl+d`:EOF - End of File to interactive session, can typically use instead of typing quit or exit
+* dollar sign args:
+  * $0(name of script file)
+  * $1..., - single arguments passed to function
+  * $*, $@ - full argument list passed to function
+  * $?, - exit status of last command
+  * $$ - proc id of the current shell
+* `lsof /some/dir/ectory` : find out what procs are using this directory(delve more into sometime)
 
 * text block via cli
 ```
@@ -16,56 +35,28 @@ This is line 3.
 EOF
 ```
 
-### Man
-* use section 5 for files
-* use regular man for commands
-* man -K
-    * searches for a keyword
-    * -w is case sensitive
-* catman
-    * updates all manual pages
-* catman && man -K
+* binary vs decimal system
+  * Binary system (Mebibyte - MiB, Gibibyte - GiB, etc.):
+      * 1 MiB = 1,048,576 bytes
+      * 1 GiB = 1,073,741,824 bytes
 
-
-
-### access
-
-
+  * Decimal system (Megabyte - MB, Gigabyte - GB, etc.):
+      * 1 MB = 1,000,000 bytes
+      * 1 GB = 1,000,000,000 bytes
 
 
 
 ### NFS/AutoFS
 * show all remote mounts for a server
 * mount an nfs share via cli
-* mount an remote fs permanantly via file
+* mount an remote fs permanantly in fstab
 * mount an remote fs permanantly via autofs
+* Configure autofs(chatgpt what is needed for this: this is from exam objective)
+* Mount and unmount network file systems using NFS
+
 
 ### Logging
 * journald, journalctl, ausearch
-
-### File system
-* create swap
-* create file system
-* adjust file system size
-* mount file system
-* format a volume
-* permanantly mount existing volume
-* LVM
-
-### Shutdown/reboot
-* shutdown -r now
-* shutdown -h now
-
-### processes
-* search processes
-* kill processes
-* set process priority
-* set process niceness
-
-### scp
-* scp <remote-user>@<host/ip>:/remote/path/to/source /local/path/destination
-* scp /loca/path/source <remote-user>@<host/ip>:/remote/path/to/destination
-
 
 
 ### Systemd
@@ -73,32 +64,25 @@ EOF
     * enable, mask, isolate, get-default/set-default
 * /etc/systemd/system/
 * list all target units
+* list all service units
+* Boot systems into different targets manually
+* 
 
 ### journald
 * TBI
 
-### time
-* add ntp servers
-    * remember after updating chrony.conf to restart
-* enable/disable ntp with timedatectl
-* change timezone with timedatectl and symlink in /etc
-
 ### DNF
-* repo files @ /etc/yum/yum.repos.d
-* 
-
+* example repo files @ /etc/yum/yum.repos.d
 
 ### general-networking
 * hostnamectl
-
-### resolvers
-* never modify /etc/resolv.conf directly!
-* nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>"  
-    * nmcli connection reload 
-    * systemctl restart NetworkManager
-* /etc/resolve.conf
-* /etc/hosts
-
+* resolvers
+    * never modify /etc/resolv.conf directly!
+    * nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>"  
+        * nmcli connection reload 
+        * systemctl restart NetworkManager
+    * /etc/resolve.conf
+    * /etc/hosts
 
 ### selinux
 * Primary commands
@@ -110,63 +94,19 @@ EOF
     * `sudo chcon -R -t httpd_sys_content_t /repo-write`
     * can run `man semanage-fcontext` and search `/example`to see examples
 
-
-### selinux booleans
-* getsebool -a
-* getsebool boolean_name
-* setsebool boolean_name on|off
-* sudo setsebool -P boolean_name on|off
-* semanage boolean -l
-
+* selinux booleans
+  * getsebool -a
+  * getsebool boolean_name
+  * setsebool boolean_name on|off
+  * sudo setsebool -P boolean_name on|off
+  * semanage boolean -l
 
 ### bash scripting
 * for loop, read command, conditional, test
-
-
-```
-# Read a file line by line
-while read line; do
-    echo "$line"
-done < input_file.txt
-```
-
-```
-if [ "$str1" = "$str2" ]; then
-  echo "Strings are equal."
-else
-  echo "Strings are not equal."
-fi
-
-# double brackets allow regex/pattern matching
-if [[ "$str" == hello* ]]; then
-  echo "String starts with 'hello'."
-else
-  echo "String does not start with 'hello'."
-fi
-```
-
+* Read a file line by line
 * pipe to while loop
-```
-ls | while read file; do
-  echo "File: $file"
-done
-```
-* note: the while loop is in a subshell so subshell free version:
-```
-count=0
-while read line; do
-  echo "Processing: $line"
-  count=$((count + 1))
-done < <(ls)
-```
+* text block via while loop
 
-```
-IFS=$'\n'; for i in $(ls -d1 */); do echo "$here/$i"; cd "$here/$i"; ls; cd $here; done;
-```
-
-```
-for i in $(ls); do echo "LOCATION: $here/$i"; test -d "$here/$i" && cd "$here/$i"; ls; cd ~; done;
-```
 
 ### Find all keyword in all bash scripts on the system
 find / -iname "*.sh" -exec fgrep -H -n -A3 -B3 -- "case" {} \; 2>/dev/null | less
@@ -211,10 +151,7 @@ WantedBy=multi-user.target
 
 
 
-
-### firewalld
-* firewall-cmd
-* https://github.com/jdelgit/rhcsa-notes/blob/master/07.%20Manage%20Basic%20Networking.md#restrict-network-access-using-firewall-cmdfirewall
-* primary commands
-    * `sudo firewall-cmd --list-all`
-    * `sudo firewall-cmd --add-service=http --permanent --zone=public`
+### SYSTEM FLOWS
+* Interrupt the boot process in order to gain access to a system
+* preserve system journals
+* Modify the system bootloader

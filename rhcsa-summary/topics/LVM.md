@@ -1,21 +1,64 @@
-* Physical volume
-    * `pvcreate /dev/sdXn`
-    * `pvs`, `pvscan`, `pvdisplay`
-    * `pvremove /dev/sdXn`
+### essentials
+* command prefixes: `lv`, `pv`, `vg`
+* command suffixes : `s`, `display`, `create`, `remove`, `scan`
+* can tack on a -`-units h` for marginal help
 
+### Physical volume
+* this literally just configures/formats the volume or partition to be acceptable to LVM
+* this is pretty simple
+* `pvcreate /dev/sdXn`
+* `pvs`, `pvscan`, `pvdisplay`
+* `pvremove /dev/sdXn`
 
-* Volume group
+### Volume group
+* this adds the configured devices to a group to be used by logical volumes
+* this is pretty simple as well
+* commands
+    * `vgcreate`, `vgextend`, `vgreduce`, `vgremove`
     * `vgcreate myvg /dev/sdXn`
-    * `vgs`, `vgscan`, `vgdisplay`
-    * `vgextend`, `vgreduce`
     * `vgextend myvg /dev/sdYn`
     * `vgremove myvg`
 
+* viewing
+    * `vgdisplay -v` is extremely useful and the only way to get full info about the group
+        * can limit by adding a specific volume group at the end
+    * `vgs` doesn't have the volumes in the group UNLESS those volumes are mapped to a logical volume
 
-* Logical volume
-    * `lvcreate -L 10G -n mylv myvg`
-    * `lvs`, `lvscan`, `lvdisplay`
-    * `lvextend`/`lvreduce` or `lvresize`
-    * `lvresize -L [+|-][Size] <vgname>/<lvname>`
-    * `lvextend -L +10G /dev/myvg/mylv` + `resize2fs /dev/myvg/mylv`
-    * `lvremove /dev/myvg/mylv`
+### Logical volume
+* create the logical volume to be able to hold data
+
+* view:
+    * best command is: `vgdisplay -v` because it gives both lv and vg info
+
+* create:
+    * standard form: `lvcreate -L 10G -n mylv myvg`
+    * can use `-l +100%FREE` to create with all available space in volume group
+
+*reducing/expanding
+    * volume: `lvresize`
+    * file system: `resize2fs/xfs_growfs`
+
+* reducing:
+    * option 1:
+        * resize fs:`resize2fs /dev/mapper/some_volume 500M` 
+            * does not support changing by an amount have to change to the final amount
+        * resize volume to specific amount: `lvresize -L 500M /dev/my_volume_group/my_logical_volume` 
+        * resize volume by specific amount: `lvresize -L -500M /dev/my_volume_group/my_logical_volume` 
+
+    * option 2:
+        * resize fs and volume to specific amount: `lvresize --resizefs -L 500M /dev/my_volume_group/my_logical_volume` 
+        * resize fs and volume by specific amount 500M: `lvresize --resizefs -L -500M /dev/my_volume_group/my_logical_volume`
+
+    * can't shrink xfs file systems, have to reformat!!
+    
+* expanding
+    * extend to specific amount of space: `lvresize --resizefs -L 500M /dev/my_volume_group/my_logical_volume`
+    * extend by specific amount of space: `lvresize --resizefs -L +500M /dev/my_volume_group/my_logical_volume`
+    * extend to all available vg space: `lvresize --resizefs -l +100%FREE /dev/my_volume_group/my_logical_volume`
+
+* commands:
+* `lvs`, `lvscan`, `lvdisplay`
+* `lvextend`/`lvreduce` or `lvresize`
+* `lvresize -L [+|-][Size] <vgname>/<lvname>`
+* `lvextend -L +10G /dev/myvg/mylv` + `resize2fs /dev/myvg/mylv`
+* `lvremove /dev/myvg/mylv`

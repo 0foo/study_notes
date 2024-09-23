@@ -2,7 +2,10 @@
 * change info
     * useradd/usermod/userdel (can see all the options with help)
     * groupadd/groupmod/groupdel (can see all the options with help)
-    * usermod -aG groupname username, to add to a group
+    * gpasswd: add/remove user from group
+    * alternative add/remove user from group
+        * usermod -aG groupname username
+        * usermod -G <all groups minus one to remove>
     
 * view info
     * groups username, to view groups a user is in
@@ -14,7 +17,6 @@
         * `sudo chage -M days username`
         * for all existing users will have to use a for loop
     * can edit /etc/login.defs to change it for any new users, but this will not change any retroactively
-
 
 
 

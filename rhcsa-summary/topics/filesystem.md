@@ -8,9 +8,6 @@
 	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
 
 
-
-
-
 * mkfs
 * mount,umount
 * mkswap,swapon,swapoff
@@ -25,6 +22,11 @@
 
 * Create a file system
     * `mkfs -t ext4 /dev/sdXn`
+
+
+* remove file system:
+	* `sudo wipefs -a /dev/sdXn`
+
 
 * Mount a file system
     * `mount /dev/sdXn /mnt`
@@ -45,6 +47,27 @@
     * ext: `resize2fs /dev/sdXn <size>`
     * xfs: `xfs_growfs /mnt/mountpoint`
 
+
+### Swap
+1. partition based:
+	* `mkswap /dev/some_volume`
+	* `swapon /dev/some_volume`
+	* view: `swapon` or totals: `free -h`
+		* lvm volumes will be reported as: `/dev/dm-<something>` 
+			* can coorelate this to lv's by: `ls -l /dev/mapper`
+	* don't forget to add to fstab
+
+
+2. file based:
+	* `mkswap /swapfile`
+	* `chmod 600 /swapfile`
+	* `swapon /swapfile`
+	* don't forget to add to fstab
+
+
+
+
+## Non rhcsa
 * Adjust tunable file system parameters on ext2/ext3/ext4
     * `tune2fs -c 20 /dev/sdXn`
 
@@ -56,59 +79,25 @@
     * view much info including UUID: `lsblk -f`
     * view UUID's: `blkid`
 
-### Swap
-1. create a new partition or a new lvm or new file
-    * lvcreate
-    * parted
-    * dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile
-2. mkswap
-3. swapon/swapoff
-* need to add to fstab to make persistent after reboot: /dev/sdX1 none swap sw 0 0
-* can remove by swapoff then delete file or partition
-* swapon --show (or -s)
-* free -h
-* important note: for lvm swap may be reported with swapon --show as a mapped drive with the name dm-<something> 
-    * can coorelate this to lv's by: `ls -l /dev/mapper`
-
+* Fully Cleaning a drive
+	* Overwrite with random data: `sudo dd if=/dev/urandom of=/dev/sdX bs=1M`
+	* Overwrite with zeros: `sudo dd if=/dev/zero of=/dev/sdX bs=1M`
+	* `sudo shred -v -n 3 /dev/sdX` (verbose overwrites 3 times)
+	* can shred single file: `shred -u filename`
 
 ## Files
-	* `mkdir directory`
-	* `cd directory`
-	* `pwd`
-	* `rmdir directory`
-	* `cp source destination`
-	* `rm file`
-	* `rm -rf directory`
-	* `ls`
-	* `ln target linkname`
-	* `ln -s target linkname`
-	* `cp -R source destination`
-	* `cp -a source destination`
-	* `cp /etc/hosts /tmp/`
-	* `file <filename>`
-	* `touch file`
-	* `cat > newfile`
-	* `vi file`
-	* `mkdir directory`
-	* `mv item1 item2`
-	* `cp item1 item2`
-	* `rm file`
-	* `rmdir directory`
-	* `rm -r directory`
-	* `chattr +A file`
-	* `chattr +S file`
-	* `chattr +a file`
-	* `chattr +i file`
-	* `chattr +j file`
-	* `chattr +t file`
-	* `chattr +d file`
-	* `chattr +u file`
-	* `lsattr -l`
-	* `ln -s file1 softlink`
-	* `ln file1 hardlink`
-	* `ls -h`
-	* `ls -a`
-	* `ls -l`
-	* `ls -lt`
-	* `ls -ltr`
-	* `ls -R`
+`mkdir`
+`cd`
+`pwd`
+`rmdir`
+`cp`
+`rm`
+`ls`
+`ln`
+`touch`
+`cat`
+`vi`
+`mv`
+`chattr`
+`lsattr`
+

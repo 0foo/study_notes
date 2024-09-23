@@ -25,3 +25,10 @@ sudo systemctl restart sshd
 * SSH into a server 
     * `ssh username@server`
 
+
+
+### SCP
+* scp <remote-user>@<host/ip>:/remote/path/to/source /local/path/destination
+* scp /loca/path/source <remote-user>@<host/ip>:/remote/path/to/destination
+
+

@@ -1,3 +1,19 @@
+### Just know this for the test
+* firewall-cmd
+* primary commands
+    * `sudo firewall-cmd --list-all`
+    * `sudo firewall-cmd --add-service=http --permanent --zone=public`
+
+
+
+* `sudo firewall-cmd --zone=home --change-interface=eth0`
+* `sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent`
+
+
+## more info:
+* https://github.com/jdelgit/rhcsa-notes/blob/master/07.%20Manage%20Basic%20Networking.md#restrict-network-access-using-firewall-cmdfirewall
+
+
 ### basics
 * firewalld is a mapping of "network interfaces" to "zones"
 * an empty zone is a deny all of all traffic
