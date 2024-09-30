@@ -1,9 +1,9 @@
-
-
 Manage security
         Configure firewall settings using firewall-cmd/firewalld
         Manage default file permissions
         Configure key-based authentication for SSH
+
+        -- SELinux
         Set enforcing and permissive modes for SELinux
         List and identify SELinux file and process context
         Restore default file contexts

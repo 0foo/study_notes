@@ -10,10 +10,18 @@
 * `sudo chmod +t directory`
 * `sudo chmod u+s filename`
 * `sudo chmod g+s directory`
-
-
 * chmod, chattr, chown
 * set: guid, suid, sticky bit
+
+
+
+### umask EXAM OBJECTIVE
+* files default = 666
+* directory default = 777
+* subtract umask from this
+* note: cannot set files to execute with umask!!! (only manually)
+* execute on directory mean can navigate to them
+
 
 ### Set guid: EXAM OBJECTIVE
 * anyone who creates new files/directories will create them with the group of the directory instead of their default user group

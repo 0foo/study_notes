@@ -1,4 +1,10 @@
 
+### Test info
+* `/etc/hosts`
+* `/etc/resolv.conf`
+* `nmcli connection modify my_network ipv4.dns "1.1.1.1 8.8.8.8"`
+
+
 #### DNS
 * resolvectl status
 * sudo resolvectl dns 1.1.1.1 8.8.8.8
