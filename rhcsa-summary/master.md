@@ -45,6 +45,10 @@ EOF
       * 1 GB = 1,000,000,000 bytes
 
 
+### Manual
+* `mandb` to update database then `apropos <search term>`
+* 
+
 
 ### NFS/AutoFS
 * show all remote mounts for a server

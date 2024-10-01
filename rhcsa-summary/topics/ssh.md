@@ -1,5 +1,10 @@
 
 ### server
+* /etc/ssh/ssh_config
+* permitrootlogin
+* authorized_keys
+
+
 * host ssh sessions
     * ensure sshd service is running and firewall is open 
 
@@ -13,7 +18,13 @@ sudo systemctl restart sshd
    * add key to authorized_hosts on the USERS ACCOUNT .ssh folder
 * `echo "your-public-key" >> /home/username/.ssh/authorized_keys` 
 
+
+
 ### user
+* ssh_keygen
+* ssh-copy-id
+* ssh
+
 
 * generate ssh key
     * ssh_keygen

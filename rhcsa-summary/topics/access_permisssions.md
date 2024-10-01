@@ -6,6 +6,23 @@
 * `chmod u+rwx,g+rx,o+r filename`
 * `chmod u-s,g-s,o-s directory`
 
+
+### Perms
+* file:
+    * read-can read file
+    * write-can write to file
+    * execute-can execute file
+* dir
+    * read-can list contents
+        * note: if read only directory, will only be able to see file names and NOT permissions or anything else
+    * write-means nothing
+    * write + execute-can create files in the dir
+    * execute-can navigate to the dir
+
+* 4-read
+* 2-write
+* 1-execute
+
 ### Special permissions
 * `sudo chmod +t directory`
 * `sudo chmod u+s filename`
@@ -20,8 +37,9 @@
 * directory default = 777
 * subtract umask from this
 * note: cannot set files to execute with umask!!! (only manually)
+    * WILL ROUND DOWN (i.e. umask of 055 is 044 for files)
 * execute on directory mean can navigate to them
-
+* put in /etc/profile and reboot to make permanant
 
 ### Set guid: EXAM OBJECTIVE
 * anyone who creates new files/directories will create them with the group of the directory instead of their default user group

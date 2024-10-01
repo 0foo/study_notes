@@ -1,3 +1,33 @@
+### summary
+getenforce
+setenforce
+sestatus
+ /etc/selinux/config
+ kernel param: selinux=0, enforcing=0
+---
+ ls -Z
+ ps -eZ | grep process_name
+---
+chcon -R -t httpd_sys_content_t /repo-write
+restorecon /path/to/file_or_directory
+restorecon -Rv /var/www/html
+---
+man semanage-fcontext
+semanage fcontext -a -t httpd_sys_content_t "/repo-write(/.*)?"
+---
+man semanage-port
+semanage port -l
+semanage port -a -t http_port_t -p tcp 8080
+semanage port -d -t http_port_t -p tcp 8080
+---
+ getsebool -a
+ setsebool boolean_name on
+ setsebool -P boolean_name on
+ ---
+ ausearch -m avc 
+ cat /var/log/audit/audit.log | grep denied
+ sealert -a /var/log/audit/audit.log
+
 ### Primary commands
 * setenforce 1 or 0
 * sestatus
