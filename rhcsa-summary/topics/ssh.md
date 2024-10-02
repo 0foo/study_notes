@@ -37,6 +37,10 @@ sudo systemctl restart sshd
     * `ssh username@server`
 
 
+### Can run a command instead of ssh in
+ssh root@192.168.1.1 hostname
+some_host.example.com
+
 
 ### SCP
 * scp <remote-user>@<host/ip>:/remote/path/to/source /local/path/destination

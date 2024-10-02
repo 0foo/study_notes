@@ -1,32 +1,54 @@
 ### summary
+---
+
+
+
+ausearch -m avc 
+    * raw search of audit logs
+journalctl -t setroubleshoot
+    * note: may not persist between boots if not configured
+
+sealert -a /var/log/audit/audit.log
+    * gives human readable selinux info
+grep 'SELinux' /var/log/messages
+    * great output, does setroubleshoot package need to be installed?
+
+ cat /var/log/audit/audit.log | grep denied
+
+
+
+
+
+
+
+
 getenforce
 setenforce
 sestatus
- /etc/selinux/config
- kernel param: selinux=0, enforcing=0
----
+
+* if either of these is disabled selinux is disabled
+    * /etc/selinux/config
+    * kernel param: selinux=0, enforcing=0
+        *  /etc/default/grub
+        * also:           grubby --update-kernel ALL --args selinux=0 
+
  ls -Z
  ps -eZ | grep process_name
----
+
+/etc/selinux/targeted/contexts/files/file_contexts.local
+
 chcon -R -t httpd_sys_content_t /repo-write
 restorecon /path/to/file_or_directory
 restorecon -Rv /var/www/html
----
-man semanage-fcontext
-semanage fcontext -a -t httpd_sys_content_t "/repo-write(/.*)?"
----
-man semanage-port
-semanage port -l
-semanage port -a -t http_port_t -p tcp 8080
-semanage port -d -t http_port_t -p tcp 8080
----
- getsebool -a
- setsebool boolean_name on
- setsebool -P boolean_name on
- ---
- ausearch -m avc 
- cat /var/log/audit/audit.log | grep denied
- sealert -a /var/log/audit/audit.log
+
+selinux files: man semanage-fcontext
+selinux ports: man semanage-port
+
+getsebool -a
+setsebool boolean_name on
+setsebool -P boolean_name on (permanant)
+
+
 
 ### Primary commands
 * setenforce 1 or 0

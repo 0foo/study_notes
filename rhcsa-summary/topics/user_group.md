@@ -19,6 +19,11 @@
     * can edit /etc/login.defs to change it for any new users, but this will not change any retroactively
 
 
+* change accounts
+    * use su
+    * to switch to root use either: `sudo -i` or `su -`
+        * sudo -i uses your passworks and su - uses the root password
+
 
 ### General
 * useradd, usermod, userdel, adduser, /etc/passwd

@@ -1,3 +1,9 @@
+### At start of exam
+* setup ssh instead of using VM terminal
+* dnf -y install setroubleshoot
+* maybe: dnf install screen
+
+
 ### Misc
 * create a file: 
   * allocate space, no writing, faster: `fallocate -l 100M`
@@ -43,11 +49,6 @@ EOF
   * Decimal system (Megabyte - MB, Gigabyte - GB, etc.):
       * 1 MB = 1,000,000 bytes
       * 1 GB = 1,000,000,000 bytes
-
-
-### Manual
-* `mandb` to update database then `apropos <search term>`
-* 
 
 
 ### NFS/AutoFS

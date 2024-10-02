@@ -7,7 +7,8 @@
 * catman
     * updates all manual pages
 * catman && man -K
-
+* `mandb` to update database then 
+* `apropos <search term>`
 
 ## user,groups 
 * add, remove, modify, search for a user: 

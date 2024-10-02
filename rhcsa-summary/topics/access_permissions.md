@@ -7,7 +7,7 @@
 * `chmod u-s,g-s,o-s directory`
 
 
-### Perms
+### Permissions meanings
 * file:
     * read-can read file
     * write-can write to file

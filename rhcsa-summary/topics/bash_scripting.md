@@ -1,5 +1,31 @@
+### for loops
 
 
+### test
+
+* test 1 -lt 2; echo $?
+* [ 4 -lt 2 ] && echo "sup" || echo "aw"
+
+
+### if
+* if [ 4 -lt 2 ]; then echo "sup"; else  echo "aw"; fi
+* if [ 4 -lt 2 ]; then echo "sup"; elif [ 1 -lt 2 ]; then  echo "aw yeah"; fi
+
+```
+systemctl is-active psacct > /dev/null 2>&1
+[user@host ~]$ if [ $? -ne 0 ]; then
+> sudo systemctl start psacct
+> else
+> sudo systemctl stop psacct
+> fi
+```
+
+### for
+* iterates over items separated by: spaces, tabs, or newlines
+* for EVEN in $(seq 2 2 10); do echo "$EVEN"; done
+
+
+### Other interesting options
 ```
 # Read a file line by line
 while read line; do
