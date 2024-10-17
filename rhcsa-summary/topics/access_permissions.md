@@ -63,8 +63,10 @@
     * add nopasswd tag to not require entering a password
 
 
-
 ### ACL
+* `ls -l`
+    * if have a plus after it means ACL's are configured
+    
 * View
     * `getfacl filename`
 * Set/Remove

@@ -31,16 +31,6 @@
   * $?, - exit status of last command
   * $$ - proc id of the current shell
 * `lsof /some/dir/ectory` : find out what procs are using this directory(delve more into sometime)
-
-* text block via cli
-```
-cat <<EOF > file.txt
-This is line 1.
-This is line 2.
-This is line 3.
-EOF
-```
-
 * binary vs decimal system
   * Binary system (Mebibyte - MiB, Gibibyte - GiB, etc.):
       * 1 MiB = 1,048,576 bytes

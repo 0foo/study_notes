@@ -66,6 +66,29 @@ s
 * `at now + 1 minute`
 * use ctrl + D to exit!!!
 
+
+
+
+
+
+
+
+
+### Side notes: not on rhcsa
+* anacron
+    * Anacron, which is a service used to schedule periodic tasks on systems that are not always running (such as laptops). Unlike cron, which expects the system to be running continuously, Anacron is designed to ensure that scheduled tasks still get executed even if the system was powered off or suspended when the task was supposed to run.
+
+
+
+
+
+
+
+
+
+
+
+
 ### Cron test
 ### Cron Job Definition Test Questions
 

@@ -1,6 +1,3 @@
-### for loops
-
-
 ### test
 
 * test 1 -lt 2; echo $?
@@ -8,22 +5,36 @@
 
 
 ### if
+* if test 1 -lt 2; then echo "sup"; fi
 * if [ 4 -lt 2 ]; then echo "sup"; else  echo "aw"; fi
 * if [ 4 -lt 2 ]; then echo "sup"; elif [ 1 -lt 2 ]; then  echo "aw yeah"; fi
 
 ```
 systemctl is-active psacct > /dev/null 2>&1
-[user@host ~]$ if [ $? -ne 0 ]; then
-> sudo systemctl start psacct
-> else
-> sudo systemctl stop psacct
-> fi
+
+if [ $? -ne 0 ]; then
+  sudo systemctl start psacct
+elif [sometest]; then
+  something
+else
+  sudo systemctl stop psacct
+fi
 ```
+
+### variable names
+* can use either:
+  * ${HOST}
+  * $HOST
+* use braces if need to concatenate inside a string
 
 ### for
 * iterates over items separated by: spaces, tabs, or newlines
 * for EVEN in $(seq 2 2 10); do echo "$EVEN"; done
+* for x in $(ls -d */); do echo "$x"; done
 
+
+### exit codes
+* returns exit code of last command by default
 
 ### Other interesting options
 ```

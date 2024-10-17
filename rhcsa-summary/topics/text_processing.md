@@ -8,6 +8,8 @@ This is line 3.
 EOF
 ```
 
+### 
+
 
 
 ### seq
@@ -30,6 +32,16 @@ EOF
 
 
 ### regex
+
+* man grep has regex explanation!!!
+
+* Square brackets ([]) in grep are for SINGLE characters.
+    * grep "[aeiou]" filename
+* To match multiple strings or words, use alternation (|) with the -E option for extended regular expressions.
+    * grep -E 'test|test2' filename
+
+* ignore blank lines= grep '^$'
+
 * ^cat$
 * c[aou]t
 * c.t
