@@ -40,6 +40,8 @@
       * 1 MB = 1,000,000 bytes
       * 1 GB = 1,000,000,000 bytes
 
+* run endless process: `sha1sum /dev/zero`
+
 
 ### NFS/AutoFS
 * show all remote mounts for a server

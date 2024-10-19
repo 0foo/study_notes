@@ -3,9 +3,16 @@
 
 * cron
     * cat /etc/crontab for cron formatting
+    * dash is range and slash is interval
     * don't need username for non-root jobs as they're already run by a user
-    * view files in /etc/cron.* for examples
-    * crontab
+
+
+* at
+    * at <runtime> at> <command-to-run> at> <EOT>
+    * at <time> -f <script-filename>
+    * atq
+    * atrm <#job>
+
 
 
 ### Cron
@@ -46,15 +53,6 @@
 
 
 ### At
-
-### at
-*  at <runtime> at> <command-to-run> at> <EOT>
-*  at <time> -f <script-filename>
-* atq
-* atrm <#job>
-
-s
-
 * `at 5:00 PM`
 * `at 4:00 PM + 3 days` (run at 4pm 3 days from now)
 * `atq`

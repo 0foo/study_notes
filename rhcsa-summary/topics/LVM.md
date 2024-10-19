@@ -1,7 +1,16 @@
+### Know
+* create, remove, extend, display: physical,logical, and volume groups
+
 ### essentials
 * command prefixes: `lv`, `pv`, `vg`
 * command suffixes : `s`, `display`, `create`, `remove`, `scan`
 * can tack on a -`-units h` for marginal help
+* `vgdisplay -v` is best way to view  the whole thing
+* `lvcreate -L 10G, -l +100%FREE` 
+    * -L to indicate megabyte size not extents
+    * -l with +100%FREE to take up all the available space in volume group
+* `lvresize`, `resize2fs/xfs_growfs`, `--resizefs` will also resize file system
+* `vgextend` to extend the volume group with more
 
 ### Physical volume
 * this literally just configures/formats the volume or partition to be acceptable to LVM
@@ -37,6 +46,11 @@
 *reducing/expanding
     * volume: `lvresize`
     * file system: `resize2fs/xfs_growfs`
+    * `pvmove /dev/sdb1`
+        * No logical volumes or data will remain on /dev/sdb1.
+        * The physical volume (/dev/sdb1) will be empty and unused. 
+        * it will still be in volume group and usable though!
+    * `vgreduce` will remove from volume group
 
 * reducing:
     * option 1:

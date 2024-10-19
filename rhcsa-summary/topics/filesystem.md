@@ -56,16 +56,24 @@
 		* lvm volumes will be reported as: `/dev/dm-<something>` 
 			* can coorelate this to lv's by: `ls -l /dev/mapper`
 	* don't forget to add to fstab
+    * mkswap adds a swap signature
+    * add to fstab and systemctl daemon-reload
+    * Use `swapon` with the device as a parameter
+    * use `swapon -a` to activate all the swap spaces listed in `/etc/fstab`
 
 
 2. file based:
 	* `mkswap /swapfile`
 	* `chmod 600 /swapfile`
 	* `swapon /swapfile`
-	* don't forget to add to fstab
+	* don't forget to add to fstab and systemctl daemon-reload
 
 
-
+* Priority
+    * By default, the system uses swap spaces in series, meaning that the kernel uses the first activated swap space until it is full, then it starts using the second swap space.
+    * To set the priority, use the pri= option in /etc/fstab. The kernel uses the swap space with the highest priority first. The default priority is -2
+    * When swap spaces have the same priority, the kernel writes to them in a round-robin fashion.
+    * can view priority with `swapon`
 
 ## Non rhcsa
 * Adjust tunable file system parameters on ext2/ext3/ext4

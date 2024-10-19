@@ -1,3 +1,13 @@
+### Essentials/tips
+* man nice/renice
+* man chrt
+* ps -ef or ps aux
+* pgrep/pkill
+* ps -eO [x] --sort +[x]
+* ps u $(pgrep sha1sum)
+
+
+
 ### Processes
 * kill
 * ps aux, ps -eF, ps fax (tree)
@@ -14,6 +24,8 @@
     * find/kill a proc by name/regex instead of proc id
     * (both are regex, use pgrep first)
 
+* individual processes use `ps u <process id's>`
+    * ps u $(pgrep sha1sum)
 
 ### process scheduling
 * view current scheduling info: `chrt -p <PID>`

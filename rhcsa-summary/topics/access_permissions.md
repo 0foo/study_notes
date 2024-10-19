@@ -1,3 +1,9 @@
+### Essentials/Tips
+* New files never get execute
+permission.
+* FACLs: a whole fucking thing
+
+
 ### Basic file perm's
 * `sudo chown user:group filename`
 * `sudo chmod 755 filename`
@@ -35,11 +41,15 @@
 ### umask EXAM OBJECTIVE
 * files default = 666
 * directory default = 777
+* note: umask of 000 on files means: rw-rw-rw- (666)
+    * NO EXECUTE!!
 * subtract umask from this
 * note: cannot set files to execute with umask!!! (only manually)
     * WILL ROUND DOWN (i.e. umask of 055 is 044 for files)
 * execute on directory mean can navigate to them
 * put in /etc/profile and reboot to make permanant
+
+
 
 ### Set guid: EXAM OBJECTIVE
 * anyone who creates new files/directories will create them with the group of the directory instead of their default user group
@@ -64,6 +74,52 @@
 
 
 ### ACL
+
+* Essentials
+    * setfacl -m 
+    * setfacl -x
+    * getfacl
+    * use X
+    * ACL mask
+    * default, user, group, owner, other
+
+
+
+
+* ls -l (+) means there's ACL's
+* FACL overwrite standard permissions
+* Mask settings show the maximum permissions possible for all users and groups
+    * does not restrict the permissions of the file owner or other users
+* getfacl shows an effective comment beside entries that are restricted by a mask setting.
+* delete ALL facls: `setfacl -b file`
+* use capital X for execute permissions insteaad of lower X
+    * This is how the capital "X" behaves—it gives execute permission to directories and only to files that already had execute permission.
+    * lower case x will make ALL FILES EXECUTABLE
+
+```
+# file: .
+# owner: user
+# group: operators
+# flags: -s-
+user::rwx
+user:consultant3:---
+user:1005:rwx
+group::rwx
+group:consultant1:r-x
+group:2210:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:user:consultant3:---
+default:group::rwx
+default:group:consultant1:r-x
+default:mask::rwx
+default:other::---
+```
+* default: are directory only and specifiy what permissions happen when a new file or directory is created inside
+* Mask settings show the maximum permissions possible for all users and groups
+
+
 * `ls -l`
     * if have a plus after it means ACL's are configured
     
