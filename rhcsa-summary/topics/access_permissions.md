@@ -1,14 +1,15 @@
 ### Essentials/Tips
-* New files never get execute
-permission.
-* FACLs: a whole fucking thing
-
+* New files never get execute permission.
+* FACLs: a whole fucking thing see below
+* standard perms: a whole fucking thing
+* special perm's: see below
+* attributes
+* umask
 
 ### Basic file perm's
 * `sudo chown user:group filename`
 * `sudo chmod 755 filename`
 * `sudo chmod -R 755 directory`
-* `umask 022`
 * `chmod u+rwx,g+rx,o+r filename`
 * `chmod u-s,g-s,o-s directory`
 
@@ -35,7 +36,6 @@ permission.
 * `sudo chmod g+s directory`
 * chmod, chattr, chown
 * set: guid, suid, sticky bit
-
 
 
 ### umask EXAM OBJECTIVE

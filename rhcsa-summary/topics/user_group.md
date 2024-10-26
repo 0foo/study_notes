@@ -22,9 +22,11 @@
 * change accounts
     * use su
     * to switch to root use either: `sudo -i` or `su -`
-        * sudo -i uses your passworks and su - uses the root password
+        * sudo -i uses your passwords and su - uses the root password
+    * when use a - with su will run all logins scripts just like the user had logged in them selves (login shell)
+    * without - will maintain all the variables and login shell of current user just with new privileges of su user
 
-
+    
 ### General
 * useradd, usermod, userdel, adduser, /etc/passwd
 * groupadd, groupmod, groupdel, gpasswd, /etc/group, make a sudo account: usermod -aG wheel <username>

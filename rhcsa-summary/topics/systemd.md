@@ -1,3 +1,9 @@
+### ESsentials/Tips
+* list available targets to boot into: `systemctl list-unit-files --type=target`
+* `systemctl isolate`, `systemctl get-default`, `systemctl set-default`
+* `systemctl status service`: will have location of service file 
+* `loginctl enable-linger <username>` and `~/.config/systemd/user/` and `systemctl --user <command>`
+
 ### dealing with services
 * systemctl list-units --type service
 * enable/disable
@@ -17,10 +23,11 @@
 ### Boot systems into different targets manually
 * list available targets: `systemctl list-unit-files --type=target`
     * targets with `enabled` status can typically be isolated
+    * can only isolate targets that have AllowIsolate=yes set in their unit files
 * check current target: `systemctl get-default`
 * temporarily switch to different target while system is running: `sudo systemctl isolate target_name.target`
 * set a default target for boot: `sudo systemctl set-default target_name.target`
-
+* list all target based dependencies: `systemctl list-dependencies graphical.target | grep target`
 
 ### systemd service files
 * /etc/systemd/system/<service-files>
@@ -51,3 +58,8 @@ WantedBy=multi-user.target
    - `systemd.unit=emergency.target` for emergency mode.
 
 4. Press `Ctrl + X` or `F10` to boot with the modified options.
+
+
+### Login linger
+* The command loginctl enable-linger <username> is used to allow a user’s systemd user services to run even when that user is not logged in.
+* user specific unit files located in: `~/.config/systemd/user/` 

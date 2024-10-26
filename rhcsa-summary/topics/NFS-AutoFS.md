@@ -1,4 +1,12 @@
-### NFS
+### Essentials/Tips
+* `showmount -e <remote nfs server>`
+* `mount -t nfs ....`
+* `man nfs` for fstab examples
+* /etc/auto.master: `base_mount_point base_mount_file`
+* in `/etc/auto.nfs`: `some_directory server:/path/to/nfs/export`
+* restart autofs service
+
+
 
 * host an nfs share
 ```
@@ -24,13 +32,18 @@ verify: exportfs
         * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
 
 ### autofs
-* in /etc/auto.master: `/mnt/nfs /etc/auto.nfs`
+* /etc/auto.master: `base_mount_point base_mount_file`
+    * /etc/auto.master: `/mnt/nfs /etc/auto.nfs`
 * in `/etc/auto.nfs`: `some_directory server:/path/to/nfs/export`
 * restart autofs service
 * `server:/path/to/nfs`  will be mounted at `/mnt/nfs/some_directory`
 * note: if no file system type declared in config files, then nfs is the default
 * ls or navigate will mount
+* mount point in auto.master must be present 
+* mount points in auto.nfs DO NOT need to be present
 
+* direct mounts: manage all mounts in a single file with direct map: `/- /etc/auto.nfs`
+    * note: all directories in /etc/auto.nfs must be present
 
-
-
+* wildcard mounts: will mount the remote directory name locally so don't have to specify
+    * `*   -rw,sync   serverb:/shares/&`

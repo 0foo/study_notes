@@ -2,6 +2,7 @@
 * setup ssh instead of using VM terminal
 * dnf -y install setroubleshoot
 * maybe: dnf install screen
+* run `mandb &`
 
 
 ### Misc
@@ -41,7 +42,9 @@
       * 1 GB = 1,000,000,000 bytes
 
 * run endless process: `sha1sum /dev/zero`
-
+* `ls -d [ei]*`
+  * pass -d to not descend into subdirectories when ls encounters a directory
+  * should be default!
 
 ### NFS/AutoFS
 * show all remote mounts for a server

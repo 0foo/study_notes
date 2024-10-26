@@ -8,15 +8,40 @@ This is line 3.
 EOF
 ```
 
-### 
+### redirection
+* >  output stout
+* 2> output sterr
+* `cat file > /dev/null 2>&1`  output both same as `cat file &> /dev/null`
+* `| tee`
 
+### shell pattern matching (also known as globbin)
+* `man glob`
+* character classes for things like upper, whitespace, lower, etc.
+    * `man glob` 
+    * be sure to put the character classes in another bracket [[:upper:]]
+* * Any string of zero or more characters.
+* ? Any single character.
+* [abc...] Any one character in the enclosed class (between the square brackets).
+* [!abc...] Any one character not in the enclosed class.
+* [^abc...] Any one character not in the enclosed class.
 
+* `ls *a` : files that end with a
+* `ls *a*`: files with a in them
+* 
+
+### expansion 
+* replace code with strings
+* avoid expansion with backslash i.e. \$HOME
+* Use double quotation marks to suppress globbing and shell expansion, but still allow command and variable substitution
+* Use single quotation marks to interpret all text literally.
 
 ### seq
 * echo $(seq 2 2 10)
 
 
 ### brace expansion
+* `echo {Sunday,Monday,Tuesday,Wednesday}.log`
+* `echo file{1..3}.txt`
 - Numeric Range: `{1..5}` → `1 2 3 4 5`
 - Alphabetic Range: `{a..e}` → `a b c d e`
 - Comma-Separated: `{apple,banana,grape}` → `apple banana grape`
@@ -26,9 +51,15 @@ EOF
 - Step: `{1..10..2}` → `1 3 5 7 9`
 
 
+### variable expansion
+* `VARIABLENAME=value`
+* `echo $VARIABLENAME` or `echo ${VARIABLENAME}`
+    * To help avoid mistakes due to other shell expansions, you can put the name of the variable in curly braces
 
-### shell pattern matching (also known as globbin)
-* tbd
+
+### Command substitution
+* `echo $(some command)`
+
 
 
 ### regex
@@ -100,3 +131,19 @@ B C D E F G H I J K L M N O P Q R S T U V W X Y Z.
 -e With multiple -e options used is logical OR.
 * grep -e 'pam_unix' -e 'user root' -e 'Accepted publickey'
 * grep -v '^[#;]' /etc/ethertypes
+
+
+### Navigating man, less, etc.
+* Spacebar Scroll forward (down) one screen
+* PageDown Scroll forward (down) one screen
+* PageUp Scroll backward (up) one screen
+* DownArrow Scroll forward (down) one line
+* UpArrow Scroll backward (up) one line
+* D Scroll forward (down) one half-screen
+* U Scroll backward (up) one half-screen
+* /string Search forward (down) for string in the man page
+* N Repeat previous search forward (down) in the man page
+* Shift+N Repeat previous search backward (up) in the man page
+* G Go to start of the man page
+* Shift+G Go to end of the man page
+* Q Exit man and return to the command shell prompt

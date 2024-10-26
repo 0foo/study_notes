@@ -1,4 +1,5 @@
 * tips
+    * `man 7 hier` or `man file-hierarchy`
     * estimate minimum size filesystem can be shrunk: `resize2fs -P /dev/sda1`
     * get block size of the filesystem: `blockdev --getbsz /dev/sdX`
     * can use awk to calculate the total size: `echo | awk "{print 4 * 2}"
@@ -7,6 +8,7 @@
 * General File system navigation
 	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
 
+* find out where a file and is manpages are located with `whereis` 
 
 * mkfs
 * mount,umount
@@ -18,6 +20,9 @@
 * xfs_admin -L new_label /dev/sdXn1
 * blkid,lsblk, df -h, mount
 * in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
+
+* find out if two files are hard linke
+    * `ls -i`  or `stat <filename>`: the two files will have same inode numbers
 
 
 * Create a file system
