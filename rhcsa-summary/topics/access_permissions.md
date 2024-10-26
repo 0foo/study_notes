@@ -12,9 +12,12 @@
 * `sudo chmod -R 755 directory`
 * `chmod u+rwx,g+rx,o+r filename`
 * `chmod u-s,g-s,o-s directory`
-
+* +,-,a,o,u,g
 
 ### Permissions meanings
+* +,-,a,o,u,g
+* always use capital X on directory!!!
+* `chmod g+X`
 * file:
     * read-can read file
     * write-can write to file
@@ -25,7 +28,6 @@
     * write-means nothing
     * write + execute-can create files in the dir
     * execute-can navigate to the dir
-
 * 4-read
 * 2-write
 * 1-execute
@@ -50,7 +52,6 @@
 * put in /etc/profile and reboot to make permanant
 
 
-
 ### Set guid: EXAM OBJECTIVE
 * anyone who creates new files/directories will create them with the group of the directory instead of their default user group
 1. Create a directory: `mkdir /path/to/directory`
@@ -58,11 +59,14 @@
 3. Set the set-GID bit on the directory: `chmod g+s /path/to/directory`
 4. Verify that the set-GID bit is set (look for 's' in the group permissions): `ls -ld /path/to/directory`
 
+### Sudo
+* One additional benefit to using sudo is that all commands executed are logged by default to /var/log/secure
+* all members of the wheel group can use sudo to run commands as any user, including root
 
-### Configure SUDO EXAM OBJECTIVE
+#### Configure SUDO EXAM OBJECTIVE
 * always use visudo to edit
 * format of file entries:
-    * `<user> <hosts>=(<runas>) <tag>: <commands>`
+    * `<user/group> <hosts>=(<runas>) <tag>: <commands>`
 * `vagrant ALL=(ALL) ALL`
     * can run all commans from all hosts as all users
 * `vagrant ALL=(ALL) ls,pwd`
@@ -71,7 +75,8 @@
     * run commands as another user
 * `vagrant ALL=(ALL) NOPASSWD: ALL`
     * add nopasswd tag to not require entering a password
-
+* `%wheel ALL=(ALL) ALL`
+    * % means group
 
 ### ACL
 

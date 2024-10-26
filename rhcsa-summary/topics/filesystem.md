@@ -9,6 +9,7 @@
 	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
 
 * find out where a file and is manpages are located with `whereis` 
+* get info about files: `type`, `stat`, `file`, `whereis`, `which`
 
 * mkfs
 * mount,umount
@@ -23,7 +24,6 @@
 
 * find out if two files are hard linke
     * `ls -i`  or `stat <filename>`: the two files will have same inode numbers
-
 
 * Create a file system
     * `mkfs -t ext4 /dev/sdXn`

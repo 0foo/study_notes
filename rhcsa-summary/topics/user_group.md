@@ -6,7 +6,7 @@
     * alternative add/remove user from group
         * usermod -aG groupname username
         * usermod -G <all groups minus one to remove>
-    
+
 * view info
     * groups username, to view groups a user is in
     * id username, to view info about a user
@@ -15,9 +15,9 @@
 * change password expiration:
     * existing user
         * `sudo chage -M days username`
+        * `date -d "+180 days" +%F`
         * for all existing users will have to use a for loop
     * can edit /etc/login.defs to change it for any new users, but this will not change any retroactively
-
 
 * change accounts
     * use su
@@ -26,7 +26,8 @@
     * when use a - with su will run all logins scripts just like the user had logged in them selves (login shell)
     * without - will maintain all the variables and login shell of current user just with new privileges of su user
 
-    
+* When a user is removed with userdel without the -r option specified, the system, will have files that are owned by an unassigned UID.
+
 ### General
 * useradd, usermod, userdel, adduser, /etc/passwd
 * groupadd, groupmod, groupdel, gpasswd, /etc/group, make a sudo account: usermod -aG wheel <username>

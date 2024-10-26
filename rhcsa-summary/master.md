@@ -5,6 +5,9 @@
 * run `mandb &`
 
 
+### to do
+* learn vim
+
 ### Misc
 * create a file: 
   * allocate space, no writing, faster: `fallocate -l 100M`
@@ -17,7 +20,9 @@
 * get all aliases with `alias` command
 * `file` command to tell which type of file it is
 * use `zcat` or `zless` to read zipped files!
+* get a date in the future: `date -d "+180 days" +%F`
 * math: 
+  * `bc`
   * integers: `expr 56276 + 73768` (+,-,/ works but have to escape * in this)
   * doubles: `echo "4.2 * 2" | bc` or just use `bc`/ quit or cntrl+d to exit
 * `mkdir -p`  will recursive create directories!
@@ -36,7 +41,6 @@
   * Binary system (Mebibyte - MiB, Gibibyte - GiB, etc.):
       * 1 MiB = 1,048,576 bytes
       * 1 GiB = 1,073,741,824 bytes
-
   * Decimal system (Megabyte - MB, Gigabyte - GB, etc.):
       * 1 MB = 1,000,000 bytes
       * 1 GB = 1,000,000,000 bytes
@@ -155,3 +159,15 @@ WantedBy=multi-user.target
 * Interrupt the boot process in order to gain access to a system
 * preserve system journals
 * Modify the system bootloader
+
+
+
+### Variables
+* Shell variables that are not environment variables can only be used by the shell. Environment
+variables can be used by the shell and by programs run from that shell.
+* You can make any variable defined in the shell into an environment variable by marking it for
+export with the export command.
+
+* `env` vs `set`
+
+* `unset`
