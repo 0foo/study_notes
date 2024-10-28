@@ -4,8 +4,16 @@
 * can type an option then hit tab twice and get the suboptions
 
 
+#### General info
+* `traceroute`, `ping`, `ip route`, `host`
+
+#### DNS
+* `/etc/hosts`, `/etc/resolv.conf`, `host`, `hostname`, `hostnamectl`, `nmcli con mod ipv4.dns`
+
 #### Connection
+* `/etc/sysconfig/network-scripts/ifcfg-name`
 * nmcli
+* nmcli general reload
 * nmcli device status
 * nmcli device show
 * sudo nmcli -p connection show SETUP-6860    (p is for pretty print/ t is for terse)

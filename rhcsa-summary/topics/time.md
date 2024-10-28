@@ -4,25 +4,20 @@
     * Display system time
     * doesn't interact with NTP servers directly, needs an NTP daemon for NTP
 
-    * set timezone
+    * `tzselect` to help figure out what timezone!!
+    * `list|set timezone`
         * timedatectl list-timezones
         * timedatectl set-timezone
         * this changes the symlinked file at /etc/localtime
         * can do this manually as well
 
     * manually set time
-        * set-time
+        * `timedatectl set-time "YYYY-MM-DD hh:mm:ss"`
+        * `timedatectl set-time "hh:mm:ss"`
 
     * turn ntp on or off
         * timedatectl set-ntp 1 or timedatectl set-ntp true
             * switch on/off NTP use
-
-* systemd-timesyncd
-    * simple build in systemd program for NTP
-    * config file
-    * * `/etc/systemd/timesyncd.conf`
-    * force ntp update by restarting systemd service
-        * `sudo systemctl restart systemd-timesyncd`
 
 
 * chrony 
@@ -37,6 +32,18 @@
     server ntp2.example.com iburst
     ```
     * restart chronyd if you change the config file
+
+
+-----------------------
+### not on rhcsa
+
+* systemd-timesyncd
+    * simple build in systemd program for NTP
+    * config file
+    * * `/etc/systemd/timesyncd.conf`
+    * force ntp update by restarting systemd service
+        * `sudo systemctl restart systemd-timesyncd`
+
 
 
 * ntp

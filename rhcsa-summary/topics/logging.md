@@ -1,3 +1,20 @@
+### Essentials/tips
+* `journalctl`
+    * `--since`
+    * `-u`
+    * `-r`
+    * `-x`
+    * etc.
+
+
+### Persistant journald logging
+* `/run/log/journal`
+* `/etc/systemd/journald.conf`
+* `Storage=persistent|auto|volatile`
+* volatile: never store
+* persistant: will create `/var/log/journal` if not exist and always store
+* auto: will only store in `/var/log/journal` if already exists otherwise will not store
+
 ### journald
 * journalctl
 
@@ -29,7 +46,7 @@
 * `journalctl`
 * `journalctl -f`
 * `journalctl -b`
-* `journalctl -b -1`
+* `journalctl -b -1` : for system crashes looks at boot before current one
 * `journalctl -k`
 * `journalctl --since "2023-07-11 10:00:00" --until "2023-07-11 11:00:00"`
 * `journalctl --since "15 minutes ago"`

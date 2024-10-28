@@ -37,6 +37,9 @@ sudo systemctl restart sshd
     * `ssh username@server`
 
 
+* eval $(ssh-agent) && ssh-add
+    * if have a passphrase ssh-agent will cache it prevent having to type it numerous times
+
 ### Can run a command instead of ssh in
 ssh root@192.168.1.1 hostname
 some_host.example.com

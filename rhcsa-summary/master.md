@@ -3,6 +3,10 @@
 * dnf -y install setroubleshoot
 * maybe: dnf install screen
 * run `mandb &`
+* always look for .d folders instead of modifying to original folder
+
+### To remember
+* after change a config file, RESTART SERVICE
 
 
 ### to do
@@ -62,6 +66,9 @@
 ### Logging
 * journald, journalctl, ausearch
 
+
+### Uname 
+* list installed kernel
 
 ### Systemd
 * systemctl
@@ -171,3 +178,8 @@ export with the export command.
 * `env` vs `set`
 
 * `unset`
+
+
+
+### View logged in users
+* `w` will view logged in users

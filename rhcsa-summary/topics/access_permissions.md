@@ -13,6 +13,9 @@
 * `chmod u+rwx,g+rx,o+r filename`
 * `chmod u-s,g-s,o-s directory`
 * +,-,a,o,u,g
+* Read-only (r): File can only be read, not modified.
+* Write (w): Allows modifications to the file.
+* Execute (x): Grants permission to execute a file as a program.
 
 ### Permissions meanings
 * +,-,a,o,u,g
@@ -33,12 +36,19 @@
 * 1-execute
 
 ### Special permissions
-* `sudo chmod +t directory`
-* `sudo chmod u+s filename`
-* `sudo chmod g+s directory`
+* `sudo chmod +t directory`: sticky bit, this is s in the other x position, -rwxr-xr-s
+* `sudo chmod u+s filename`: set uid, this is s in the user x position, -rwsr-xr-x
+* `sudo chmod g+s directory`: set guid, this is s in the group x position: drwxr-sr-x
 * chmod, chattr, chown
 * set: guid, suid, sticky bit
-
+* Sticky bit (t): Allows only the file owner to delete or rename in a shared directory. (also root and dir owner)
+* Setuid (s): Runs the file with the permissions of its owner.
+* Setgid (s): 
+    * on file: Runs the file with the group permissions of its group.
+    * on directory: 
+        * any files or subdirectories created within that directory inherit the group ownership of the directory, instead of the primary group of the user creating the files. 
+        * This helps enforce consistent group ownership for all files within a shared directory, which is especially useful in collaborative environments.
+* Immutable (i): Prevents modifications or deletions to the file.
 
 ### umask EXAM OBJECTIVE
 * files default = 666
@@ -49,7 +59,7 @@
 * note: cannot set files to execute with umask!!! (only manually)
     * WILL ROUND DOWN (i.e. umask of 055 is 044 for files)
 * execute on directory mean can navigate to them
-* put in /etc/profile and reboot to make permanant
+* put in /etc/profile and reboot to make permanant for everyone
 
 
 ### Set guid: EXAM OBJECTIVE

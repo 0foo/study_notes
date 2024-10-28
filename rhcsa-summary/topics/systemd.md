@@ -1,6 +1,8 @@
 ### ESsentials/Tips
 * list available targets to boot into: `systemctl list-unit-files --type=target`
-* `systemctl isolate`, `systemctl get-default`, `systemctl set-default`
+* list available services: `systemctl list-unit-files --type=service`
+* `systemd is-enabled <service>`
+*  `systemctl isolate`, `systemctl get-default`, `systemctl set-default`
 * `systemctl status service`: will have location of service file 
 * `loginctl enable-linger <username>` and `~/.config/systemd/user/` and `systemctl --user <command>`
 
@@ -18,7 +20,7 @@
 * systemctl list-dependencies <service>
 * mask/unmask
     * makes it completely impossible to start a service either manually or automatically
-    * note disable just stops it from starting at boot but can be started manually
+    * `systemctl mask sendmail.service`
 
 ### Boot systems into different targets manually
 * list available targets: `systemctl list-unit-files --type=target`
