@@ -71,6 +71,8 @@
 * find all files in logs modified within the last 5 minutes
 * Find all files larger than 3MB in the /etc directory on server1 and copy them to /largefiles
 
+
+
 ### Bash scripting
 * Write a script named awesome.sh in the root directory on server1.
     * If “me” is given as an argument, then the script should output “Yes, I’m awesome.”

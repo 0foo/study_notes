@@ -3,7 +3,12 @@
     * estimate minimum size filesystem can be shrunk: `resize2fs -P /dev/sda1`
     * get block size of the filesystem: `blockdev --getbsz /dev/sdX`
     * can use awk to calculate the total size: `echo | awk "{print 4 * 2}"
+    * `df` vs `du`
+    * `lsblk -pf`
 
+* `lsof` command lists all open files and the process accessing them in the provided directory.
+    * It is useful to identify which processes currently prevent the file system from successful unmounting.
+    * good for figuring out why filesystem is blocked from unmounting
 
 * General File system navigation
 	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
@@ -114,3 +119,23 @@
 `chattr`
 `lsattr`
 
+* `find`
+    * always quote find searches
+        * `find / -name "*.txt"`
+        * `find /etc -name '*pass*'`
+    * sensitive search by default
+        * insensitive search is -iname
+    * search by user and group:
+        * -user and -group 
+        * -uid and -gid
+        * `find . -perm 777`
+        * + and - are more than/less than
+        * `find / -size 10M` or `find -size +10M` or  `find -size -10M`
+        * `find / -mmin 120` or  `find / -mmin -120`: modification time
+        * `-type f|d|l|b` 
+            * b is block device (good for /dev directory)
+        * `-links +1` :hard link count
+    
+
+    * to defuck:
+    A numeric permission preceded by / matches files that have at least one bit of user, group, or other for that permission set. A file with permissions r--r--r-- does not match /222, but one with rw-r--r-- does. A - sign before a permission means that all three instances of that bit must be on, so neither of the previous examples would match, but something like rw-rw-rw-> would.

@@ -8,16 +8,20 @@
         * usermod -G <all groups minus one to remove>
 
 * view info
-    * groups username, to view groups a user is in
-    * id username, to view info about a user
+    * `id username`, to view user id and groups/group ids that a user is in
     * /etc/passwd to view all users, /etc/groups to view all groups
-
+    * can use `groups` command if need an iterable for the groups a user is in
+    
 * change password expiration:
     * existing user
         * `sudo chage -M days username`
         * `date -d "+180 days" +%F`
         * for all existing users will have to use a for loop
     * can edit /etc/login.defs to change it for any new users, but this will not change any retroactively
+
+* force passwd change on first login: `chage -d 0 dbuser1`
+* set minimum password age: `chage -m 10 dbuser1`
+* set maximum password age: `chage -M 10 dbuser1`
 
 * change accounts
     * use su

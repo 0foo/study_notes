@@ -1,3 +1,7 @@
+### Essentials/Tips
+* `man bash` search for expansion
+
+
 less, cat, head, tail, cut, sort, wc, awk, sed, grep, zgrep
 
 ```

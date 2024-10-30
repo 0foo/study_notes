@@ -1,6 +1,24 @@
 ### Essentials/tips
 * Always run dnf update after changing dnf repo files
 
+
+* `man rpm`
+* `man dnf`
+
+* `rpm -q`
+
+* `dnf list|info`
+* `dnf search|provides`
+* `dnf update|install|remove`
+
+* `dnf groups list|install|remove`
+
+* `dnf module list|info`
+* `dnf module disable|enable|reset|install`
+
+* `dnf repoinfo|repolist|config-manager`
+* `/etc/yum.repos.d/`
+
 #### rpm
 * `man rpm`
     * can find query options to pair with `rpm -q`
@@ -10,7 +28,7 @@
     * rpm2cpio package-name.rpm | cpio -idmv
 
 #### dnf
-* search: `list|search|provides|info`
+* `list|search|provides|info`
 * `update|install|remove`
 * list <pattern>
     * lists installed or availabled(i.e. not installed but available via repo)
@@ -27,11 +45,9 @@
     * Show info on currently enabled repositories
 * `repolist all`
     * shows all possible repos
-* enable/disable repo via cli
+*  add a repo with a cli command/enable_disable repo via cli
     * `man dnf config-manager`
-* add a repo with a cli command:
-    * `man dnf config-manager`
-    * creates the file!!
+    * creates the file if add the repo!!
 * `/etc/yum.repos.d/`
 
 #### logging/history
@@ -47,7 +63,8 @@
 
 
 ### modules
-* `dnf module list|info|disable|enable|reset|install`
+* `dnf module list|info`
+* `dnf module disable|enable|reset|install`
 
 * there's the default system stream that will run without any other modules enabled
 * `dnf module list --installed|--available`

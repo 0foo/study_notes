@@ -2,9 +2,10 @@
 * New files never get execute permission.
 * FACLs: a whole fucking thing see below
 * standard perms: a whole fucking thing
-* special perm's: see below
+* special perm's: o+t, g+s, u+s
 * attributes
 * umask
+* apply umask to both profile and bashrc!!
 
 ### Basic file perm's
 * `sudo chown user:group filename`

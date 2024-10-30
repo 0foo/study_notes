@@ -1,1 +1,1 @@
-* `dnf list kernel`
+* `dnf list kernel` : list all kernel option
