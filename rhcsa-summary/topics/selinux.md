@@ -1,27 +1,35 @@
 ### summary
 ---
+* install setroubleshoot-server package;
+    * listens for audit messages in /var/log/audit/audit.log and sends a short summary to /var/log/messages.
+
+* troubleshoot
+    1. `systemctl status` logs (journalctl -u)
+    2. `sealert -a /var/log/audit/audit.log`
+    3. `tail /var/log/messages | grep 'SELinux'` 
+        * needs setroubleshoot-server installed
+        * Run the sealert command if given
+
+* viewing contexts
+    * ls -lZ: what things currently are
+    * `semanage fcontext -l | grep <some directory>`: what they are supposed to be
+
+* repair
+    * run `restorecon` on things that have incorrect context to restore their context
+        * `-Rv` flags for recursive and verbose
+    * `man semanage-fcontext`  
+        * can change the context on a folder 
+        * for example if you want an httpd folder outside of traditional location
+
+* file locations
+    * `/etc/selinux/config`
+
+* ports
+    * `man semanage-port` (list,add,update,delete)
 
 
-
-ausearch -m avc 
-    * raw search of audit logs
-journalctl -t setroubleshoot
-    * note: may not persist between boots if not configured
-
-sealert -a /var/log/audit/audit.log
-    * gives human readable selinux info
-grep 'SELinux' /var/log/messages
-    * great output, does setroubleshoot package need to be installed?
-
- cat /var/log/audit/audit.log | grep denied
-
-
-
-
-
-
-
-
+### SELinux
+-----
 getenforce
 setenforce
 sestatus
@@ -48,7 +56,12 @@ getsebool -a
 setsebool boolean_name on
 setsebool -P boolean_name on (permanant)
 
-
+### Other troubleshooting 
+* `journalctl -t setroubleshoot`: note: may not persist between boots if not configured
+* `cat /var/log/audit/audit.log | grep denied`
+* `ausearch -m avc -ts recent`: raw search of audit logs(-ts is flag for time recent)
+* `sealert -a /var/log/audit/audit.log` : gives human readable selinux info
+    * sometimes sealert will have a follow up command to run in output
 
 ### Primary commands
 * setenforce 1 or 0
@@ -139,5 +152,12 @@ setsebool -P boolean_name on (permanant)
     * `dmesg | grep -i -e type=1300 -e type=1400`
 
 
+* ports
+    * `semanage port -l | grep http`: view
+    * `semanage port -a -t http_port_t -p tcp 82`: add (note can use -d or -m instead for delete/modify)
 
+
+
+    * backup: 
+        * * `ausearch -m avc -ts recent`: raw search of audit logs(-ts is flag for time recent)
 

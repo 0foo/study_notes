@@ -1,16 +1,53 @@
 ### At start of exam
 * setup ssh instead of using VM terminal
-* dnf -y install setroubleshoot
-* maybe: dnf install screen
+* `dnf -y install setroubleshoot policycoreutils-python policycoreutils setroubleshoot-server`
 * run `mandb &`
-* always look for .d folders instead of modifying to original folder
+
+* maybe:
+  * dnf install screen
+
+
 
 ### To remember
-* after change a config file, RESTART SERVICE
+
+* CONFIG FILE
+  * after change a config file, do one of these:
+  * `RESTART SERVICE`
+  * `systemctl daemon-reload`
+  * reboot
+
+* DNF REPO
+  * Always run `dnf update` after changing dnf repo files!!
+
+* NMCLI:
+  * After changing a network connection with nmcli RELOAD 
+  * `nmcli connection reload`
+  * can also restart network manager 
+    * `systemctl restart NetworkManager`
+  
+* Do not forget to run `systemctl daemon-reload` after editing `/etc/fstab` in recovery mode
+
+* FIREWALLD
+  * when editing firewalld rules with `--permanant` flag need to run:  `firewall-cmd --reload`
+
+
+* VERIFY FSTAB
+    * `findmnt --verify`: RUN EVERYTIME!!!
+    * `mount /mountpoint` - uses fstab file 
+    * `mount -a`
+
+* VERIFY PARTED
+    * `parted /filesystem`
+    * note: this is useful to make sure you made the right size partition
+
+* always use .d folders instead of modifying to original config file
+  * i.e. yum.repos.d, 
+
 
 
 ### to do
 * learn vim
+* learn screen or tmux
 
 ### Misc
 * create a file: 
@@ -48,52 +85,16 @@
   * Decimal system (Megabyte - MB, Gigabyte - GB, etc.):
       * 1 MB = 1,000,000 bytes
       * 1 GB = 1,000,000,000 bytes
-
-* run endless process: `sha1sum /dev/zero`
+* run endless process: `sha1sum /dev/zero` or   `yes > /dev/null`
 * `ls -d [ei]*`
   * pass -d to not descend into subdirectories when ls encounters a directory
   * should be default!
-
-### NFS/AutoFS
-* show all remote mounts for a server
-* mount an nfs share via cli
-* mount an remote fs permanantly in fstab
-* mount an remote fs permanantly via autofs
-* Configure autofs(chatgpt what is needed for this: this is from exam objective)
-* Mount and unmount network file systems using NFS
+* `uptime`: system load average
 
 
-### Logging
-* journald, journalctl, ausearch
 
 
-### Uname 
-* list installed kernel
 
-### Systemd
-* systemctl
-    * enable, mask, isolate, get-default/set-default
-* /etc/systemd/system/
-* list all target units
-* list all service units
-* Boot systems into different targets manually
-* 
-
-### journald
-* TBI
-
-### DNF
-* example repo files @ /etc/yum/yum.repos.d
-
-### general-networking
-* hostnamectl
-* resolvers
-    * never modify /etc/resolv.conf directly!
-    * nmcli connection modify <connection-name> ipv4.dns "<DNS-Server-IP>"  
-        * nmcli connection reload 
-        * systemctl restart NetworkManager
-    * /etc/resolve.conf
-    * /etc/hosts
 
 ### selinux
 * Primary commands

@@ -1,3 +1,14 @@
+### NFS/AutoFS
+* show all remote mounts for a server
+* mount an nfs share via cli
+* mount an remote fs permanantly in fstab
+* mount an remote fs permanantly via autofs
+* Configure autofs(chatgpt what is needed for this: this is from exam objective)
+* Mount and unmount network file systems using NFS
+
+
+
+
 ### Essentials/Tips
 * `showmount -e <remote nfs server>`
 * `mount -t nfs ....`

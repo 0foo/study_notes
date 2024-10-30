@@ -1,28 +1,28 @@
 ### ESsentials/Tips
-* list available targets to boot into: `systemctl list-unit-files --type=target`
-* list available services: `systemctl list-unit-files --type=service`
-* `systemd is-enabled <service>`
-*  `systemctl isolate`, `systemctl get-default`, `systemctl set-default`
-* `systemctl status service`: will have location of service file 
-* `loginctl enable-linger <username>` and `~/.config/systemd/user/` and `systemctl --user <command>`
+* know how to list services and targets
+* know how to find unit file, how to tell if unit is enabled or masked 
+* know how to disable a unit completely from being started
+* know how to change targets and set boot target and view current boot target
+* location of unit files for root and for user
+* know the structure of a service file, can just output existing one for reference
+* login linger and user services and how to run a user service even after user has logged out
+* know kernel parameter to change the target at boot
+
+
 
 ### dealing with services
-* systemctl list-units --type service
-* enable/disable
-* reload
-* restart
-* start/stop
-* status
-* systemctl cat <service name>
-    * view service file
-* systemctl edit <service name>
-    * edit service file
-* systemctl list-dependencies <service>
-* mask/unmask
-    * makes it completely impossible to start a service either manually or automatically
-    * `systemctl mask sendmail.service`
+* `enable/disable`, `reload`, `restart`, `start/stop`, `status`
+* `systemctl list-unit-files --type service|target --all`, `systemctl list-units --type service|target --all` 
+    * view dependencies: `systemctl list-dependencies`
+    * REMEMBER `--all`!!
+* `mask/unmask`: makes it completely impossible to start a service either manually or automatically
+*  `systemctl isolate`, `systemctl get-default`, `systemctl set-default`
 
-### Boot systems into different targets manually
+### Changing targets
+* `systemctl isolate`, `systemctl get-default`, `systemctl set-default`    
+* can only start targets that have `AllowIsolate=yes` set in their unit files
+
+### Targets
 * list available targets: `systemctl list-unit-files --type=target`
     * targets with `enabled` status can typically be isolated
     * can only isolate targets that have AllowIsolate=yes set in their unit files
@@ -30,9 +30,17 @@
 * temporarily switch to different target while system is running: `sudo systemctl isolate target_name.target`
 * set a default target for boot: `sudo systemctl set-default target_name.target`
 * list all target based dependencies: `systemctl list-dependencies graphical.target | grep target`
+* can change the target at boot with kernel parameter: 
+    * `systemd.unit=target.target`  i.e. `emergency.target` or `rescue.target`
 
-### systemd service files
-* /etc/systemd/system/<service-files>
+### Service files
+* view location of service files
+    * with `systemctl status <item>`, the unit file location will be in there 
+    * `systemctl cat <item>` will output the unit file
+
+* typically located: 
+    * /etc/systemd/system/<service-files> for root service files
+    * `/home/<username>/.config/systemd/user/`  for user service files
 
 ```
 [Unit]
@@ -48,20 +56,8 @@ ExecStop=/usr/bin/podman stop -t 2 <container-name>
 WantedBy=multi-user.target
 ```
 
-### Change targets temporarily during boot
-1. During boot, interrupt the boot process by pressing a key (usually `Esc` or `Shift`) to enter the GRUB menu.
-
-2. In the GRUB menu, highlight the kernel you want to boot and press `e` to edit the boot options.
-
-3. Find the line that starts with `linux` or `linux16`, and at the end of that line, add one of the following:
-   - `systemd.unit=multi-user.target` for multi-user mode.
-   - `systemd.unit=graphical.target` for graphical mode.
-   - `systemd.unit=rescue.target` for rescue mode.
-   - `systemd.unit=emergency.target` for emergency mode.
-
-4. Press `Ctrl + X` or `F10` to boot with the modified options.
-
 
 ### Login linger
 * The command loginctl enable-linger <username> is used to allow a user’s systemd user services to run even when that user is not logged in.
 * user specific unit files located in: `~/.config/systemd/user/` 
+* `loginctl enable-linger <username>` and `~/.config/systemd/user/` and `systemctl --user <command>`

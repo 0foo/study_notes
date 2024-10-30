@@ -1,3 +1,7 @@
+### Know
+
+
+
 ## Important note:
 
 * on test type `nmcli con show` and then hit tab twice to see all the top level options

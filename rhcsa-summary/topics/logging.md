@@ -1,3 +1,10 @@
+### Know
+* how to set persistant logging for journald 
+* once have persistant logging how to view previous boot logs
+* how to view logs by unit and time and give an explanation 
+
+
+
 ### Essentials/tips
 * `journalctl`
     * `--since`

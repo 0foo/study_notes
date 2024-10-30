@@ -1,3 +1,11 @@
+### Know
+* globbing
+* shell expansion- 5 types and how to avoid if not wanted
+* seq 
+* regex
+* grep and it's various comman flags
+* less(man) navigation 
+
 ### Essentials/Tips
 * `man bash` search for expansion
 
@@ -12,13 +20,14 @@ This is line 3.
 EOF
 ```
 
+
 ### redirection
 * >  output stout
 * 2> output sterr
 * `cat file > /dev/null 2>&1`  output both same as `cat file &> /dev/null`
 * `| tee`
 
-### shell pattern matching (also known as globbin)
+### globbing i.e. shitty regex/basic shell pattern matching
 * `man glob`
 * character classes for things like upper, whitespace, lower, etc.
     * `man glob` 
@@ -31,43 +40,35 @@ EOF
 
 * `ls *a` : files that end with a
 * `ls *a*`: files with a in them
-* 
 
-### expansion 
-* replace code with strings
+### Shell expansion
+* brace expansion
+    * `echo {Sunday,Monday,Tuesday,Wednesday}.log`
+    * `echo file{1..3}.txt`
+    - Numeric Range: `{1..5}` → `1 2 3 4 5`
+    - Alphabetic Range: `{a..e}` → `a b c d e`
+    - Comma-Separated: `{apple,banana,grape}` → `apple banana grape`
+    - Prepend/Append: `file{1,2,3}.txt` → `file1.txt file2.txt file3.txt`
+    - Nested: `{x,y}{1,2}` → `x1 x2 y1 y2`
+    - Zero-Padding: `{01..03}` → `01 02 03`
+    - Step: `{1..10..2}` → `1 3 5 7 9`
+* variable expansion
+    * `echo $VARIABLENAME` or `echo ${VARIABLENAME}`
+* command substitution
+    * `echo $(pwd)`
+* Arithmetic Expansion
+    * `echo $((3 + 2))`
 * avoid expansion with backslash i.e. \$HOME
 * Use double quotation marks to suppress globbing and shell expansion, but still allow command and variable substitution
 * Use single quotation marks to interpret all text literally.
+
 
 ### seq
 * echo $(seq 2 2 10)
 
 
-### brace expansion
-* `echo {Sunday,Monday,Tuesday,Wednesday}.log`
-* `echo file{1..3}.txt`
-- Numeric Range: `{1..5}` → `1 2 3 4 5`
-- Alphabetic Range: `{a..e}` → `a b c d e`
-- Comma-Separated: `{apple,banana,grape}` → `apple banana grape`
-- Prepend/Append: `file{1,2,3}.txt` → `file1.txt file2.txt file3.txt`
-- Nested: `{x,y}{1,2}` → `x1 x2 y1 y2`
-- Zero-Padding: `{01..03}` → `01 02 03`
-- Step: `{1..10..2}` → `1 3 5 7 9`
-
-
-### variable expansion
-* `VARIABLENAME=value`
-* `echo $VARIABLENAME` or `echo ${VARIABLENAME}`
-    * To help avoid mistakes due to other shell expansions, you can put the name of the variable in curly braces
-
-
-### Command substitution
-* `echo $(some command)`
-
-
 
 ### regex
-
 * man grep has regex explanation!!!
 
 * Square brackets ([]) in grep are for SINGLE characters.

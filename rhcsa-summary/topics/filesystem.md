@@ -1,14 +1,36 @@
-* tips
+### Know
+* `df` vs `du`
+* General File system navigation and CRUD of files/directorys
+* find out where a files manpages are
+* get general info about files (5 different commands)
+* view all block devices
+* list open files attached to a mount
+* not complete yet
+* find out if two files are hard links of each other
+* create/remove filesystem
+* make/activate/remove swap
+* resize filesystem
+
+### simple facts
     * `man 7 hier` or `man file-hierarchy`
     * estimate minimum size filesystem can be shrunk: `resize2fs -P /dev/sda1`
     * get block size of the filesystem: `blockdev --getbsz /dev/sdX`
     * can use awk to calculate the total size: `echo | awk "{print 4 * 2}"
-    * `df` vs `du`
     * `lsblk -pf`
+    * `man lsof`
+
+
+
+### Do I need to do the following?
+* When using the emergency shell to address file-system issues, do not forget to run systemctl daemon-reload after editing /etc/fstab. Without this reload, systemd may continue using the old version.
+* why won't mount -a work?
+* experiment if this is wrong in the manual
+
+
 
 * `lsof` command lists all open files and the process accessing them in the provided directory.
-    * It is useful to identify which processes currently prevent the file system from successful unmounting.
     * good for figuring out why filesystem is blocked from unmounting
+    * just do `man lsof` and look at examples
 
 * General File system navigation
 	* ls,mkdir,cd,pwd,rmdir,cp,rm,ln,file,touch,cat,vi,mv
@@ -27,8 +49,8 @@
 * blkid,lsblk, df -h, mount
 * in /etc/fstab: UUID=1234-5678 /mnt/mydata ext4 defaults 0 2
 
-* find out if two files are hard linke
-    * `ls -i`  or `stat <filename>`: the two files will have same inode numbers
+* find out if two files are hard links of each other
+    * `stat <filename>`: the two files will have same inode numbers 
 
 * Create a file system
     * `mkfs -t ext4 /dev/sdXn`
