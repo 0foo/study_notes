@@ -1,3 +1,7 @@
+### Know 
+* `man tuned-adm`
+
+
 ### Essentials/tips
 * simply look at man tuned-adm
 

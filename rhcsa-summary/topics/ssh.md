@@ -50,3 +50,6 @@ some_host.example.com
 * scp /loca/path/source <remote-user>@<host/ip>:/remote/path/to/destination
 
 
+### View logged in users
+* `w` will view logged in users
+

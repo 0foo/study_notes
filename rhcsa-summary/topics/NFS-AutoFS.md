@@ -1,9 +1,9 @@
 ### NFS/AutoFS
-* show all remote mounts for a server
+* show all remote mounts for a server. what is flag!?
 * mount an nfs share via cli
 * mount an remote fs permanantly in fstab
 * mount an remote fs permanantly via autofs
-* Configure autofs(chatgpt what is needed for this: this is from exam objective)
+* Configure autofs: normal, indirect, direct
 * Mount and unmount network file systems using NFS
 
 
@@ -43,18 +43,38 @@ verify: exportfs
         * `servername:/exported/share /mnt/nfs nfs defaults 0 0`
 
 ### autofs
-* /etc/auto.master: `base_mount_point base_mount_file`
-    * /etc/auto.master: `/mnt/nfs /etc/auto.nfs`
-* in `/etc/auto.nfs`: `some_directory server:/path/to/nfs/export`
+* in `/etc/auto.master`
+    * `/mnt /etc/auto.nfs`
+
+* in `/etc/auto.nfs`
+    * `nfs_share nfs-server:/data`
+
+
 * restart autofs service
-* `server:/path/to/nfs`  will be mounted at `/mnt/nfs/some_directory`
-* note: if no file system type declared in config files, then nfs is the default
-* ls or navigate will mount
-* mount point in auto.master must be present 
+* `nfs-server:/data`  will be mounted at `/mnt/nfs_share`
+
+
+* nfs is the default filesystem, can define another 
+* ls or navigate will mount!
+* mount point in auto.master must be present
 * mount points in auto.nfs DO NOT need to be present
 
-* direct mounts: manage all mounts in a single file with direct map: `/- /etc/auto.nfs`
-    * note: all directories in /etc/auto.nfs must be present
 
-* wildcard mounts: will mount the remote directory name locally so don't have to specify
+
+* direct mounts: 
+    * manage all mounts in a single file vs declaring a parent mount in auto.master
+    * note: all directories in /etc/auto.nfs must be present
+    * in `/etc/auto.master`
+        * `/- /etc/auto.nfs`
+    * in `/etc/auto.nfs`:
+```
+    /data     nfs-server:/data
+    /backup   nfs-server:/backup
+```
+
+* wildcard mounts:
+    * the `auto.master` is normal
+    * the `auto.nfs` doesn't have a directory for a mount point 
+    * has asterisk instead
+    * will mount any remote directory name locally so don't have to specify
     * `*   -rw,sync   serverb:/shares/&`

@@ -1,4 +1,7 @@
 ### Know
+* groups, modules, repolist, repoinfo, list, info, search, provides, update, install, remove 
+* location of repofiles 
+* `rpm -q`
 
 ### Essentials/tips
 * example repo files @ /etc/yum/yum.repos.d

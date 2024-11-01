@@ -1,3 +1,10 @@
+### Know
+
+
+### Tips
+* can run `man semanage-fcontext` and search `/example`to see examples
+
+
 ### summary
 ---
 * install setroubleshoot-server package;
@@ -27,6 +34,8 @@
 * ports
     * `man semanage-port` (list,add,update,delete)
 
+* temporary change context 
+    * `man chcon`
 
 ### SELinux
 -----
@@ -134,6 +143,7 @@ setsebool -P boolean_name on (permanant)
     * `getsebool httpd_enable_homedirs`
     * `setsebool httpd_enable_homedirs on`
     * `setsebool -P httpd_enable_homedirs on`
+    * `semanage boolean -l`
 
 * policy modules
     * `semodule -i mymodule.pp`

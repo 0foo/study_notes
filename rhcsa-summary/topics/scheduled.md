@@ -1,4 +1,13 @@
+###  KNow
+* cron
+    * `cat /etc/crontab`
+    * `man 5 crontab`
+* at
+    * `at`, `atq`, `atrm`
 
+
+
+    
 ### Essentials/tips
 
 * cron
@@ -68,6 +77,7 @@
 
 
 
+    * `anacron`
 
 
 

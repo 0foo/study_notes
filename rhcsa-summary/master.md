@@ -3,13 +3,8 @@
 * `dnf -y install setroubleshoot policycoreutils-python policycoreutils setroubleshoot-server`
 * run `mandb &`
 
-* maybe:
-  * dnf install screen
-
-
 
 ### To remember
-
 * CONFIG FILE
   * after change a config file, do one of these:
   * `RESTART SERVICE`
@@ -32,7 +27,7 @@
 
 
 * VERIFY FSTAB
-    * `findmnt --verify`: RUN EVERYTIME!!!
+    * `findmnt --verify /mountpoint`: RUN EVERYTIME!!!
     * `mount /mountpoint` - uses fstab file 
     * `mount -a`
 
@@ -40,20 +35,20 @@
     * `parted /filesystem`
     * note: this is useful to make sure you made the right size partition
 
+* verify swap: `swapon` with no param's
+
+* test NFS mounts by mounted with plain `mount -t nfs` command before adding to fstab or auto.master/auto.nfs
+
 * always use .d folders instead of modifying to original config file
   * i.e. yum.repos.d, 
 
 
 
-### to do
-* learn vim
-* learn screen or tmux
 
 ### Misc
 * create a file: 
   * allocate space, no writing, faster: `fallocate -l 100M`
   * allocate space and write to file, slower`dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile`
-
 * backslash before command \rm will use an unaliased command
 * find out if a command is an alias: type <command>
 * Always use visudo to edit the sudoers file
@@ -96,91 +91,35 @@
 
 
 
-### selinux
-* Primary commands
-    * `sestatus`
-    * `setenforce 1` or `0`
-    * `ls -Z`
-    * `sudo semanage fcontext -a -t httpd_sys_content_t "/repo-write(/.*)?"`
-    * `sudo restorecon -R /repo-write`
-    * `sudo chcon -R -t httpd_sys_content_t /repo-write`
-    * can run `man semanage-fcontext` and search `/example`to see examples
-
-* selinux booleans
-  * getsebool -a
-  * getsebool boolean_name
-  * setsebool boolean_name on|off
-  * sudo setsebool -P boolean_name on|off
-  * semanage boolean -l
-
-### bash scripting
-* for loop, read command, conditional, test
-* Read a file line by line
-* pipe to while loop
-* text block via while loop
-
-
-### Find all keyword in all bash scripts on the system
-find / -iname "*.sh" -exec fgrep -H -n -A3 -B3 -- "case" {} \; 2>/dev/null | less
-
-### containers
-* podman
-    * build -t my-apache .
-    * run -d -p 8080:80 --name apache-container -v /path/to/local/directory:/path/in/container my-apache
-    * ps
-    * stop apache-container
-    * rm apache-container
-    * pull <image>
-    * logs <container_id>
-    * exec -it <container_id> /bin/bash
-    * rmi <image_id>
-    * images
-    * rm $(ps -a -q)
-    * rmi $(images -f "dangling=true" -q)
-
-* setup podman search
-    * unqualified-search-registries=["registry.access.redhat.com", "registry.fedoraproject.org", "docker.io"]
-    * cat /etc/containers/registries.conf
-
-* Configure a container to start automatically as a systemd service
-* /etc/systemd/system/<service-files>
-
-```
-[Unit]
-Description=<decription>
-Want=<wanted-services>
-
-[Service]
-Restart=always
-ExecStart=/usr/bin/podman start <container-name>
-ExecStop=/usr/bin/podman stop -t 2 <container-name>
-
-[Install]
-WantedBy=multi-user.target
-```
 
 
 
 
 
-### SYSTEM FLOWS
-* Interrupt the boot process in order to gain access to a system
-* preserve system journals
-* Modify the system bootloader
 
 
 
-### Variables
-* Shell variables that are not environment variables can only be used by the shell. Environment
-variables can be used by the shell and by programs run from that shell.
-* You can make any variable defined in the shell into an environment variable by marking it for
-export with the export command.
-
-* `env` vs `set`
-
-* `unset`
 
 
 
-### View logged in users
-* `w` will view logged in users
+
+
+
+
+
+
+
+### Navigating man, less, etc.
+* Spacebar Scroll forward (down) one screen
+* PageDown Scroll forward (down) one screen
+* PageUp Scroll backward (up) one screen
+* DownArrow Scroll forward (down) one line
+* UpArrow Scroll backward (up) one line
+* D Scroll forward (down) one half-screen
+* U Scroll backward (up) one half-screen
+* /string Search forward (down) for string in the man page
+* N Repeat previous search forward (down) in the man page
+* Shift+N Repeat previous search backward (up) in the man page
+* G Go to start of the man page
+* Shift+G Go to end of the man page
+* Q Exit man and return to the command shell prompt

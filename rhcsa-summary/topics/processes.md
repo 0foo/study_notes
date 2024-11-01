@@ -1,10 +1,12 @@
 ### Essentials/tips
-* man nice/renice
-* man chrt
-* ps -ef or ps aux
-* pgrep/pkill
-* ps -eO [x] --sort +[x]
-* ps u $(pgrep sha1sum)
+* how to view/change nice levels
+* how to view/change realtime levels
+* `man nice/renice`
+* `man chrt`
+* `ps -ef or ps aux`
+* `pgrep/pkill`
+* `ps -eO [x] --sort +[x]`
+* `ps u $(pgrep sha1sum)`
 
 
 

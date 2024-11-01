@@ -1,10 +1,25 @@
-### Arithmetic expansion is very important
+### Know
+* text_processing.md
+* conditional
+* for loop
+* what does bash script return if there's no return statement?
+* what exit code is true or false in bash?
+* how to access the exit code of last run process?
+* test command and 2 ways to access the result!?
+* compare strings if equal
+* read a file line by line
+* output multiline to file
+* sequences
+* what does export do
+* how to view all environment variables (2 ways)
 
+### See text_processing.md section for part 1!!!
 
 ### test
-
+* return codes are not echo-able directly
+* they are assigned to ? variable
 * test 1 -lt 2; echo $?
-* [ 4 -lt 2 ] && echo "sup" || echo "aw"
+* [ 4 -lt 2 ] && echo "True" || echo "False"
 
 
 ### if
@@ -24,17 +39,10 @@ else
 fi
 ```
 
-### variable names
-* can use either:
-  * ${HOST}
-  * $HOST
-* use braces if need to concatenate inside a string
-
 ### for
 * iterates over items separated by: spaces, tabs, or newlines
 * for EVEN in $(seq 2 2 10); do echo "$EVEN"; done
 * for x in $(ls -d */); do echo "$x"; done
-
 
 ### exit codes
 * returns exit code of last command by default
@@ -46,6 +54,27 @@ while read line; do
     echo "$line"
 done < input_file.txt
 ```
+
+* output multiline to a file
+```
+cat <<EOF > file.txt
+This is line 1.
+This is line 2.
+This is line 3.
+EOF
+```
+
+### Variables
+* Shell variables that are not environment variables can only be used by the shell. Environment
+variables can be used by the shell and by programs run from that shell.
+* You can make any variable defined in the shell into an environment variable by marking it for
+export with the export command.
+
+* `env` vs `set`
+* `unset`
+
+
+### Not needed RHCSA
 
 ```
 if [ "$str1" = "$str2" ]; then
@@ -61,6 +90,8 @@ else
   echo "String does not start with 'hello'."
 fi
 ```
+
+
 
 * pipe to while loop
 ```
@@ -93,3 +124,4 @@ This is line 2.
 This is line 3.
 EOF
 ```
+

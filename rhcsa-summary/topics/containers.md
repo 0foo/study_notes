@@ -59,3 +59,42 @@ deleted every time it stops
 * To control your new user services, use the systemctl command with the --user option
 * `systemctl --user enable my-service.service`
 * If these steps are done, then my-service.service will automatically start whenever the system boots
+
+
+
+
+### TO BE ORGANIZED
+* podman
+    * build -t my-apache .
+    * run -d -p 8080:80 --name apache-container -v /path/to/local/directory:/path/in/container my-apache
+    * ps
+    * stop apache-container
+    * rm apache-container
+    * pull <image>
+    * logs <container_id>
+    * exec -it <container_id> /bin/bash
+    * rmi <image_id>
+    * images
+    * rm $(ps -a -q)
+    * rmi $(images -f "dangling=true" -q)
+
+* setup podman search
+    * unqualified-search-registries=["registry.access.redhat.com", "registry.fedoraproject.org", "docker.io"]
+    * cat /etc/containers/registries.conf
+
+* Configure a container to start automatically as a systemd service
+* /etc/systemd/system/<service-files>
+
+```
+[Unit]
+Description=<decription>
+Want=<wanted-services>
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start <container-name>
+ExecStop=/usr/bin/podman stop -t 2 <container-name>
+
+[Install]
+WantedBy=multi-user.target
+```

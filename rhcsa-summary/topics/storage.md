@@ -1,9 +1,17 @@
-* `lsblk -af`
+### Know
+* make partitions, labels, types, flags on a volume
+* view all volumes with filesystems
+* view all mounts
+* how to verify a mount (3 ways)
+* how to create a file system
+* how to mount a filesystem both permanantly and persistently 
+* how to create a swap partition and VERIFY swap is working, both persistently and temporarily
+* `lsblk -pf`
 * `parted`
 * `mkfs`
 * `mount`
 * `/etc/fstab` + `systemctl daemon-reload` + `mount -a`
-
+* note: du and df are for filesystems not devices
 
 
 

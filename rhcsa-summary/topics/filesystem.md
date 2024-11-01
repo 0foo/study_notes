@@ -21,10 +21,8 @@
 
 
 
-### Do I need to do the following?
-* When using the emergency shell to address file-system issues, do not forget to run systemctl daemon-reload after editing /etc/fstab. Without this reload, systemd may continue using the old version.
-* why won't mount -a work?
-* experiment if this is wrong in the manual
+### 
+* do not forget to run systemctl daemon-reload after editing /etc/fstab. 
 
 
 
@@ -158,6 +156,9 @@
             * b is block device (good for /dev directory)
         * `-links +1` :hard link count
     
+* Find all keyword in all bash scripts on the system*
+  * `find / -iname "*.sh" -exec fgrep -H -n -A3 -B3 -- "case" {} \; 2>/dev/null | less`
+
 
     * to defuck:
     A numeric permission preceded by / matches files that have at least one bit of user, group, or other for that permission set. A file with permissions r--r--r-- does not match /222, but one with rw-r--r-- does. A - sign before a permission means that all three instances of that bit must be on, so neither of the previous examples would match, but something like rw-rw-rw-> would.

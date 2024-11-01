@@ -1,5 +1,16 @@
 ### Know
 * create, remove, extend, display: physical,logical, and volume groups
+* note: go through creating and resizing!!
+* `resize2fs/xfs_growfs`
+* `pmove` before shrink
+* what command to add another volume to a vg?
+* increase a logical volume size, BY a given amount(i.e. add 10G) versus TO a given amount(make it 10G total)
+
+### Tips
+* `vgdisplay -v` is extremely useful and the only way to get full info about the group
+* `lvcreate -L` capital L!! allows specifying storage by bytes
+* `-l +100%FREE`: use all available space
+* `--resizefs`
 
 ### essentials
 * command prefixes: `lv`, `pv`, `vg`

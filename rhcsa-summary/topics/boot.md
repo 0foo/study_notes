@@ -1,3 +1,8 @@
+### Know
+* reset root password
+* boot into a rescue shell
+* modify bootloader 
+
 ### Essentials/Tips
 * know how to reset root password
 * know how to boot into different targets
@@ -40,4 +45,9 @@
 ### Stuck jobs
 * `systemctl list-jobs`
 
-
+### Modify bootloader
+* edit `/etc/default/grub`
+* do a find in /boot directory for grub.cfg and pass that as the output file
+* example:
+    * `grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg`
+    * `grub2-mkconfig -o /boot/grub2/grub.cfg`
