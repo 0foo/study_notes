@@ -49,7 +49,7 @@
 1. chroot /sysroot
     * make /sysroot the new root /
 1. make your changes!!!
-1. 1. The SELinux context will be messed up now two options:
+1. 1. The SELinux context will be messed up now three options:
     1. create file in root directory:   /.autorelabel
         * force SELinux to relable file system
         * note: this is easier but can cause relabeling issue
@@ -60,11 +60,11 @@
         * load_policy -i to start SELinux
         * manually set the correct context type to /etc/shadow. To do this, type chcon -t shadow_t /etc/shadow
         * reboot
-
-### Resetting root password
-1. Boot into emergency shell as described above 
-1. `passwd` command as usual
-1. reset selinux context as described abovecc
+    
+    3. Add extra kernel param
+        * At step 1 add additional kernel param enforcing=0 which will stick after exit out of rd.break shell as you're simply exiting out of ramfs
+        * restorecon on /etc/shadow when logged in 
+        * either reboot to regain selinux enforcing or setenforce=1
 
 
 ### Modify GRUB config
