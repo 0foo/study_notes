@@ -16,11 +16,10 @@
 * Interrupt the boot process in order to gain access to a system
 * preserve system journals: `man journald.conf`
 * Modify the system bootloader 
-
+* AutoFS - direct , indirect, and normal mounts
 
 
 ### TO REVIEW
 * ACL
 * SELINUX
 * Containers
-* AutoFS - direct , indirect, and normal mounts

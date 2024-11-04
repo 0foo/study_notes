@@ -1,3 +1,19 @@
+### KNOW
+* start, stop, remove, view containers/images
+* ports, volumes, naming
+* run a command in a running container and in a container not yet created
+* list all registries/file where registries defined (both root file and user file)
+* run podman commands on all containers
+* search registries and inspect local and remote images
+* running commands on user level containers 
+* creating service files for containers
+* managing containers with systemd
+* allow systemd service containers to run even if user not logged in
+
+
+
+* `podman login <registry>`
+
 
 * `ps`, `rmi`, `rm`, `pull`, `run`, `stop`, `restart/kill`, `exec`, `info`, `login`, `images`
 * flags: `--it, --rm`, `-d`, `-p`, `--name`, `-d`
@@ -8,6 +24,7 @@
     * `-p 8000:8080` : open a port to local host
     * mount a local directory in container with `-v`
         * `-v <source dir>:<dest dir inside container>:Z`
+        * note: the contents of source dir will be mounted inside of the dest dir
         * NEED THE Z for selinux to add the context to the source dir
         * mount directory(persistent storage) inside of container
 
@@ -35,7 +52,7 @@
 * config file : `/etc/containers/registries.conf`
 * config file non-root: `~/.config/containers/registries.conf`
 
-
+### Search/Inspect 
 * do `podman search` to find images and do a `skopeo inspect` to find versions of that image
 * `skopeo inspect docker://registry.redhat.io/rhel8/python-36`
     * The skopeo inspect command can inspect different image formats from different sources, such as remote registries or local directories. 
@@ -50,10 +67,16 @@
 * `[user@host ~]$ cd ~/.config/systemd/user/` 
 * `[user@host user]$ podman generate systemd --name web --files --new` : omit `--new` if you dont want the container to be 
 deleted every time it stops
+    * cd to the user directory: ~/.config/systemd/user/  for user container services
+    * cd to root directory: /etc/systemd/system for root container services
 * `systemctl --user daemon-reload`
 * After the file is created, you must delete the container because systemd expects the container to be absent initially.
 * if generating it for root: simply run the above command in :  `/etc/systemd/system`
-
+* all the commands are the same for user containers as root but with `--root` flag 
+    * `systemctl --user start container-web`
+    * Containers managed with the systemctl command are controlled by systemd. systemd monitors container status and restarts them if they fail.
+* still use `enable` to start when computer starts: `systemctl --user enable container-web`
+Do not use the podman command to start or stop these containers. Doing so may interfere with systemd monitoring.
 * The command `loginctl enable-linger <username>` is used to allow a user’s systemd user services to run even when that user is not logged in.
 * unit files located in: `~/.config/systemd/user/` 
 * To control your new user services, use the systemctl command with the --user option

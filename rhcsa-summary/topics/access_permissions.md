@@ -1,3 +1,11 @@
+### Know
+* basic file permissions
+* what the permissions mean on files vs dires
+* specialy perm's: guid, suid, sticky bit
+* umask: file and dir defaults, how to make permanant for both a user and all accounts
+* add someone to sudo, add a GROUP to sudo
+* facl: view, set, modify, remove, mask
+
 ### Essentials/Tips
 * New files never get execute permission.
 * FACLs: a whole fucking thing see below
@@ -138,9 +146,26 @@ default:other::---
 
 * `ls -l`
     * if have a plus after it means ACL's are configured
-    
+
 * View
     * `getfacl filename`
+* basic
+    * `setfacl -m u:username:permissions /path/to/file`
+    * `setfacl -m g:groupname:permissions /path/to/file`
+    * `setfacl -m o:permissions filename`
+    *  `-x`: removes 
+    * `-R`: recursive
+    * `setfacl -b /path/to/file`: removes ALL
+* defaults
+    * `setfacl -dm u:username|groupname:permissions /path/to/directory` : defaults (apply to all new files created, but not existing)
+
+
+* `setfacl -m m:permissions(i.e. rwx) /path/to/file`
+    * When setting ACLs, the permissions mask limits the effective permissions for users and groups.
+    * This means that even if you specify full permissions for a user or group (e.g., read, write, execute), they will only be granted if they fall within the mask's limit
+
+
+
 * Set/Remove
     * `setfacl -m u:username:rw- filename`
     * `setfacl -m g:groupname:r-- filename`
@@ -162,4 +187,47 @@ default:other::---
     * `setfacl -m m::rwx example.txt`
 
 
+### Questions
+* Set read and write permissions for user `john` on `/var/data/file1.txt`.
+* Remove ACL permissions for user `john` on `/var/data/file1.txt`.
+* Set read, write, and execute permissions for group `devs` on `/var/data/file2.txt`.
+* Set default read and write permissions for user `susan` on `/var/data/shared`.
+* Remove all ACLs on `/var/data/file3.txt`.
+* View the current ACL settings on `/var/data/file4.txt`.
+* Set the ACL mask to allow only read and execute permissions on `/var/data/file5.txt`.
+* Set read-only permission for user `alex` on `/var/data/file6.txt`.
+* Add write permission for the group `admin` on `/var/data/file7.txt`.
+* Set default read and execute permissions for group `testers` on `/var/data/projects`.
+* Remove ACL permission for group `devs` on `/var/data/file8.txt`.
+* Grant full (rwx) permissions to user `emily` on `/var/data/file9.txt`.
+* Set the mask to allow read, write, and execute permissions on `/var/data/file10.txt`.
+* Set read-only default permission for others on `/var/data/shared_docs`.
+* Give read and write permissions to group `sales` on `/var/data/report.txt`.
+* Add default write-only permission for user `mike` on `/var/data/logs`.
+* Remove ACL permission for user `laura` on `/var/data/file11.txt`.
+* Set the mask to read-only on `/var/data/file12.txt`.
+* Grant read and write permissions to group `hr` on `/var/data/file13.txt`.
+* Remove all default ACLs from `/var/data/backup`.
 
+
+### Answers
+* setfacl -m u:john:rw /var/data/file1.txt
+* setfacl -x u:john /var/data/file1.txt
+* setfacl -m g:devs:rwx /var/data/file2.txt
+* setfacl -dm u:susan:rw /var/data/shared
+* setfacl -b /var/data/file3.txt
+* getfacl /var/data/file4.txt
+* setfacl -m m:rx /var/data/file5.txt
+* setfacl -m u:alex:r /var/data/file6.txt
+* setfacl -m g:admin:w /var/data/file7.txt
+* setfacl -dm g:testers:rx /var/data/projects
+* setfacl -x g:devs /var/data/file8.txt
+* setfacl -m u:emily:rwx /var/data/file9.txt
+* setfacl -m m:rwx /var/data/file10.txt
+* setfacl -dm o:r /var/data/shared_docs
+* setfacl -m g:sales:rw /var/data/report.txt
+* setfacl -dm u:mike:w /var/data/logs
+* setfacl -x u:laura /var/data/file11.txt
+* setfacl -m m:r /var/data/file12.txt
+* setfacl -m g:hr:rw /var/data/file13.txt
+* setfacl -k /var/data/backup

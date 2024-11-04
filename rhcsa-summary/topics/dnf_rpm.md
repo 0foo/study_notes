@@ -5,7 +5,6 @@
 
 ### Essentials/tips
 * example repo files @ /etc/yum/yum.repos.d
-
 * Always run dnf update after changing dnf repo files
 
 
