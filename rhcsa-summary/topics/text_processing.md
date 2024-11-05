@@ -1,17 +1,21 @@
 ### Know
-* globbing
-* shell expansion- 5 types and how to avoid if not wanted
+* globbing(shitty regex)-what man page for this
+* shell expansion
+    * 5 types and how to avoid if not wanted
+    * what man page
+    * seq vs {}
+    * brace expansion
+    * variable expansion
+    * arithmetic expansion
+    * command substitution
 * seq 
 * redirection or error/stdout also tee command
-* grep and it's various comman flags
+* grep and it's various comman flags-man page
 * less(man) navigation 
-* brace expansion
-* variable expansion
-* arithmetic expansion
-* command substitution
 * glob/regex: 
     * `man grep` 
     * glob: *, ?, [az], [a-z], [^az], character classes i.e. [[:upper:]], ^ and $/start_end of line
+    * know what parenthesis in globbing do
     * regex: alternation with |, -E with grep
 * grep: recursive, not, case insensitive, logical OR, logical AND
 * how to combine regex/glob: c[aou]*t
