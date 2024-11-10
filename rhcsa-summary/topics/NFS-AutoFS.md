@@ -58,7 +58,7 @@ verify: exportfs
 * ls or navigate will mount!
 * mount point in auto.master must be present
 * mount points in auto.nfs DO NOT need to be present
-
+* the mount point in auto.master will be overwritten
 
 
 * direct mounts: 

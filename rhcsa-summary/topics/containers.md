@@ -8,12 +8,22 @@
 * running commands on user level containers 
 * creating service files for containers
 * managing containers with systemd
+    * what service files folder to create for user an what folder to navigate for root?
+    * what command to generate the file
+    * remember: delete container, reload systemd daemons
+    * how to start/stop these generated containers with systemctl
 * allow systemd service containers to run even if user not logged in
+    * loginctl
+        * enable-linger
+        * disable-linger
+        * show-user <username>
+    * enable service in systemd
 
 
 
 * `podman login <registry>`
-
+* `podman search <package>`
+    * always search because the package could be in a subdirectory
 
 * `ps`, `rmi`, `rm`, `pull`, `run`, `stop`, `restart/kill`, `exec`, `info`, `login`, `images`
 * flags: `--it, --rm`, `-d`, `-p`, `--name`, `-d`
@@ -62,13 +72,14 @@
 * `podman search <image>`:search for an image in registries
 
 
+### Systemd containers
 * make folder: `~/.config/systemd/user/`
 * generate a systemd service file for a user
 * `[user@host ~]$ cd ~/.config/systemd/user/` 
 * `[user@host user]$ podman generate systemd --name web --files --new` : omit `--new` if you dont want the container to be 
 deleted every time it stops
-    * cd to the user directory: ~/.config/systemd/user/  for user container services
-    * cd to root directory: /etc/systemd/system for root container services
+    * cd to the user directory: `~/.config/systemd/user/`  for user container services
+    * cd to root directory: `/etc/systemd/system` for root container services
 * `systemctl --user daemon-reload`
 * After the file is created, you must delete the container because systemd expects the container to be absent initially.
 * if generating it for root: simply run the above command in :  `/etc/systemd/system`
@@ -77,7 +88,8 @@ deleted every time it stops
     * Containers managed with the systemctl command are controlled by systemd. systemd monitors container status and restarts them if they fail.
 * still use `enable` to start when computer starts: `systemctl --user enable container-web`
 Do not use the podman command to start or stop these containers. Doing so may interfere with systemd monitoring.
-* The command `loginctl enable-linger <username>` is used to allow a user’s systemd user services to run even when that user is not logged in.
+* The command `loginctl enable-linger <username>` or just `loginctl enable-linger` if logged in. 
+    * is used to allow a user’s systemd user services to run even when that user is not logged in.
 * unit files located in: `~/.config/systemd/user/` 
 * To control your new user services, use the systemctl command with the --user option
 * `systemctl --user enable my-service.service`

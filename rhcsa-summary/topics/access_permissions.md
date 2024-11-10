@@ -1,10 +1,14 @@
 ### Know
 * basic file permissions
-* what the permissions mean on files vs dires
+* what the permissions mean on files vs dir's
 * specialy perm's: guid, suid, sticky bit
 * umask: file and dir defaults, how to make permanant for both a user and all accounts
 * add someone to sudo, add a GROUP to sudo
 * facl: view, set, modify, remove, mask
+* Configure superuser access
+* Create and configure set-GID directories for collaboration(EXAM OBJECTIVE)
+* Diagnose and correct file permission problems
+
 
 ### Essentials/Tips
 * New files never get execute permission.
@@ -102,11 +106,11 @@
 * Essentials
     * setfacl -m 
     * setfacl -x
+    * -b
     * getfacl
     * use X
     * ACL mask
     * default, user, group, owner, other
-
 
 
 

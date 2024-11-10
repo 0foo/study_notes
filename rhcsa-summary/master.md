@@ -4,28 +4,44 @@
 * run `mandb &`
 
 
+### things to make permanant
+* firewall-cmd --permanant
+* setsebool -P
+
 ### To remember
-* CONFIG FILE
-  * after change a config file, do one of these:
-  * `RESTART SERVICE`
+* use `pgrep -f` instead of plain `pgrep` for searching patterns, plain pgrep just searches the command name!
+
+
+* anytime change a config file restart that daemon
+  * can search systemctl list-units | grep <service name>
+  * can try to vefify it's working by looking at `journalctl -u <service>`
+
+* if change any unit files or fstab
   * `systemctl daemon-reload`
-  * reboot
 
-* DNF REPO
-  * Always run `dnf update` after changing dnf repo files!!
+* always test fstab changes with `mount -a`
 
-* NMCLI:
-  * After changing a network connection with nmcli RELOAD 
-  * `nmcli connection reload`
+* after editing or adding a nmcli connection 
+  * if autoconnect is not equal to yes have to down/up the interface
+    * nmcli con down enp0s8
+    * nmcli con up enp0s8
+
+
+* Always run `dnf update` after changing dnf repo files!!
+
+* After changing a network connection with nmcli RELOAD: `nmcli connection reload`
   * can also restart network manager 
     * `systemctl restart NetworkManager`
   
-* Do not forget to run `systemctl daemon-reload` after editing `/etc/fstab` in recovery mode
+* when editing firewalld rules with `--permanant` flag need to run:  `firewall-cmd --reload`
 
-* FIREWALLD
-  * when editing firewalld rules with `--permanant` flag need to run:  `firewall-cmd --reload`
+* after changes to partitions either add or remove: `partprobe`
 
+* when deleting partition: `umount` first
 
+* no need to restart anything if update: `/etc/hosts`
+
+### TBD
 * VERIFY FSTAB
     * `findmnt --verify /mountpoint`: RUN EVERYTIME!!!
     * `mount /mountpoint` - uses fstab file 
@@ -42,8 +58,51 @@
 * always use .d folders instead of modifying to original config file
   * i.e. yum.repos.d, 
 
+### To practice a little more
+* bash scripting
+* selinux: 
+  * chcon(wiped when reboot or relabeled) vs semanage + restorecon!(permanant!)
+  * cat /etc/selinux/targeted/files/file_contexts.local
+  * `man semanage-port`
+  * `man semanage-fcontext`
+* at time
+* firewall-cmd more advanced stuff
+* dnf modules and groups
+* what does /etc/login.defs do for password
 
+### to remember
+* autofs  indirect mount uses &!!!
+* timedatectl to set timezone and set-ntp tru
+* /etc/login.defs, #/etc/passwd /etc/group /etc/shadow /etc/gshadow
+*  /sbin/nologin
+* rpmkey -K
+* at time defintions
+* install a module stream and profile i.e. postgres stream 10
+* /etc/sysconfig/network-scripts/
+* password aging-chage
+* umask in /etc/login.defs and /etc/profile
+* `chmod a=rwx permu_file1`: assign to all ugo at once!
+* how to run commands without entering container, also from a stopped container
+* in repo file can use a file repo with: `	 baseurl = file:///mnt/AppStream `
 
+### Userful man pages
+* `man less`: for controls in less
+* `man grep`  
+  * for regex and glob and special classes i.e. [[:space:]]
+  * for grep flags
+* `man bash`: all the shell expansions
+* `man semanage-port`
+* `man semanage-fcontext`
+* cli based nmcli connection paramters: `man nmcli-examples`
+* file based nmcli connection parameters: `man nm-settings-ifcfg-rh`
+
+### Useful directories/files
+* `~/.config/systemd/user` vs `/etc/systemd/system`
+* `/etc/sysconfig/network-scripts/`
+* `/etc/selinux/targeted/files/file_contexts.local`
+* `/etc/login.defs`
+* `~/.config/containers/registries.conf` vs `/etc/containers/registries.conf`
+* `/etc/yum.repo.d`
 
 ### Misc
 * create a file: 
@@ -110,16 +169,4 @@
 
 
 ### Navigating man, less, etc.
-* Spacebar Scroll forward (down) one screen
-* PageDown Scroll forward (down) one screen
-* PageUp Scroll backward (up) one screen
-* DownArrow Scroll forward (down) one line
-* UpArrow Scroll backward (up) one line
-* D Scroll forward (down) one half-screen
-* U Scroll backward (up) one half-screen
-* /string Search forward (down) for string in the man page
-* N Repeat previous search forward (down) in the man page
-* Shift+N Repeat previous search backward (up) in the man page
-* G Go to start of the man page
-* Shift+G Go to end of the man page
-* Q Exit man and return to the command shell prompt
+* m

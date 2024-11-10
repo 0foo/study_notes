@@ -12,6 +12,13 @@
 * `sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent`
 
 
+* view all active zones
+* list everything on all zones
+* add a service to a zone and make it permanant
+* remove a service from a zone
+* add a network interface to a zone
+* tip: reload firewall after using a command with --permanant flag!!!
+* this is necessary because the --permanent option applies changes to the persistent configuration, but they do not take effect immediately. 
 
 
 

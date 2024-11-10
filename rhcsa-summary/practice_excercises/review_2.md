@@ -1,8 +1,3 @@
-
-
-
-
-
 ### I get it
 * text processing
 * bash scripting
@@ -17,9 +12,10 @@
 * preserve system journals: `man journald.conf`
 * Modify the system bootloader 
 * AutoFS - direct , indirect, and normal mounts
-
+* Containers
+* ACL
 
 ### TO REVIEW
-* ACL
 * SELINUX
-* Containers
+* sealert!!!
+

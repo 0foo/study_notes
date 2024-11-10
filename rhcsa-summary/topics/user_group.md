@@ -1,3 +1,15 @@
+### Know
+* add, remove, modify, search for a user: 
+* add, remove, modify, search for a group
+* add/remove user from a group
+* view all groups a user is in
+* view id's of user 
+* change password for users/root
+* password aging
+    * set password age
+    * set user account to inactive
+    * set to require user to change password at next login
+
 ### essentials
 * change info
     * useradd/usermod/userdel (can see all the options with help)

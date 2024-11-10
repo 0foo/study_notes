@@ -13,6 +13,9 @@
 * what does export do
 * how to view all environment variables (2 ways)
 
+
+
+
 ### See text_processing.md section for part 1!!!
 
 ### test

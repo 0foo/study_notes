@@ -7,7 +7,10 @@
 * know the structure of a service file, can just output existing one for reference
 * login linger and user services and how to run a user service even after user has logged out
 * know kernel parameter to change the target at boot
-
+* switch systems into different targets temporarily
+* boot systems into different targets
+* view current target 
+* view all targets possible
 
 
 ### dealing with services

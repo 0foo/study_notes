@@ -1,7 +1,13 @@
 ### Know
 * reset root password
-* boot into a rescue shell
+* boot into a rescue shell emergency
+* mount root file system, chroot, deal with SELinux issues
+* troubleshoot fstab issues
+* look at bootloader logs-2 possible ways
 * modify bootloader 
+* how to shutdown and how to shutdown with reboot
+* shutdown -r now
+* shutdown -h now
 
 ### Essentials/Tips
 * know how to reset root password
@@ -15,8 +21,9 @@
 
 ### useful kernel parameters
 
-* `system.target=<sometarget>`
+* `systemd.unit=emergency.target`
 * `rd.break`
+
 
 ### Reset root password
 1. add `rd.break` kernel parameter and then boot
@@ -29,7 +36,7 @@
     * this is because passwd command recreates the /etc/shadow file
 6b. alternative to fix SELinux context
     * Instead of /.autorelabel
-    * Can pass in `rd.break enforce=0` as kernel parameters
+    * Can pass in `rd.break enforcing=0` as kernel parameters
     * reset root password then exit from the shell which will restart and allow you to login with root password
     * Then run restorecon on the /etc/shadow file 
     * Reboot or run `setenforce=1` command
@@ -37,9 +44,14 @@
 
 
 ### systemd boot targets
-* `emergency.target`: mounts a readonly filesystem
+* `emergency.target`: mounts a readonly filesystem, will need to remount root to read write
+    * `mount -o remount,rw /`
 * `rescue.target` : for sysinit.target to complete, so that more of the system is initialized, such as the logging service or the file systems.
 
+
+### Bootloader logs
+* `journalctl -b` 
+* `/var/log/boot.log`
 
 
 ### Stuck jobs

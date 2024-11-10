@@ -10,6 +10,29 @@
 * create/remove filesystem
 * make/activate/remove swap
 * resize filesystem
+* basic volume creation
+    * List, create, delete partitions on MBR and GPT disks
+    * set the partition type flag for lvm (set 1 lvm on) (note: pvcreate does this)
+    * List all bare metal volumes
+    * Create and remove physical volumes
+    * Assign physical volumes to volume groups
+    * Create and delete logical volumes
+    * format a volume with file system
+    * Create, mount, unmount, and use vfat, ext4, and xfs file systems
+
+* basic file system creation
+    * create filesystem on a volume
+    * mount file system to a directory
+    * Configure systems to mount file systems at boot by universally unique ID (UUID) or label
+
+* shrink/expand ext4 and xfs filesystem: : Different commands!!
+* shrink/expand lvm volumes
+
+* swap
+    * Add/remove swap to a system non-destructively
+
+* extras: wipe a volume with shred or dd
+
 
 ### simple facts
     * `man 7 hier` or `man file-hierarchy`

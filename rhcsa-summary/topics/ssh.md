@@ -1,3 +1,9 @@
+### Know
+* serverside: install/enable sshd on a server and open firewall and allow rootlogins
+* userside: create a key, get key on remote server (2 ways), login via ssh
+* Note: apt packages: ubuntu uses ssh/rhel uses sshd
+
+
 
 ### server
 * /etc/ssh/ssh_config

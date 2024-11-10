@@ -1,3 +1,21 @@
+### Know
+* RTC is 'real time clock' which is the systemclock
+
+* chrony
+    * add ntp servers
+        * remember after updating chrony.conf to restart
+        * 0.us.pool.ntp.org
+    * verify ntp servers
+        * chronyc -N sources
+
+* timedatectl
+    * verify ntp is active
+    * enable/disable ntp with timedatectl
+    * view/change timezone 
+        * timedatectl and symlink in /etc/localtime
+
+
+
 ### Time
 
 * timedatectl

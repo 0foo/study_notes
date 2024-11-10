@@ -5,6 +5,19 @@
 * at
     * `at`, `atq`, `atrm`
 
+* at
+    * know how to create at's
+    * view all at's
+    * remove an at
+
+* cron
+    * create/view cronjobs for root and users
+    * resources:
+        * cat /etc/crontab to view format of cron and 
+        * can view files in /etc/cron.* for examples
+        * man 5 crontab
+    * note: don't need username if using a user crontab
+    * logfile in /var/log: either syslog or cron
 
 
     

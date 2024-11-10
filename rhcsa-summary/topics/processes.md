@@ -1,3 +1,13 @@
+### Know
+* search processes
+* kill processes
+* set process priority
+* set process niceness
+* view default proc info with ps plus additional info with -O flag
+* find the most memory or cpu or nice or other resource intensive process(i.e. sorting)
+* adjust process scheduling priority/policy 
+* adjust process nice value or new/running process
+
 ### Essentials/tips
 * how to view/change nice levels
 * how to view/change realtime levels

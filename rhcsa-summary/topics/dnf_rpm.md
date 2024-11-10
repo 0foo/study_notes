@@ -1,5 +1,8 @@
 ### Know
-* groups, modules, repolist, repoinfo, list, info, search, provides, update, install, remove 
+* groups, modules
+* repolist, repoinfo
+* list, info, search, provides
+* update, install, remove 
 * location of repofiles 
 * `rpm -q`
 

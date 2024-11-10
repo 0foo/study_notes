@@ -25,7 +25,7 @@
 * `man grep` has regex explanation!!!
 * `ls *a` : files that end with a
 * `ls *a*`: files with a in them
-* ignore blank lines= grep '^$'
+* ignore blank lines= grep -v '^$'
 * use single quotes for regex
 
 

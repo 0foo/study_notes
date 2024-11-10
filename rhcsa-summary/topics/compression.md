@@ -1,4 +1,8 @@
+### Know
 * tar, xz/unxz, bzip2/bunzip2, gzip/gunzip, zip/unzip
+* compress/uncompress files 
+* create archive of file
+* know tar command parameter order of source and destination !!
 
 
 * Compress files with gzip

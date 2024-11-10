@@ -1,6 +1,9 @@
 ### Know 
 * `man tuned-adm`
 
+### performance profiles
+* change, view current, list all profiles, list reccomended
+
 
 ### Essentials/tips
 * simply look at man tuned-adm
