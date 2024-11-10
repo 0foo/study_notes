@@ -1,6 +1,7 @@
 ### At start of exam
 * setup ssh instead of using VM terminal
-* `dnf -y install setroubleshoot policycoreutils-python policycoreutils setroubleshoot-server`
+* `dnf install -y policycore* setrouble*`
+  * shortcut for: `dnf -y install setroubleshoot policycoreutils-python policycoreutils setroubleshoot-server`
 * run `mandb &`
 
 
@@ -41,6 +42,13 @@
 
 * no need to restart anything if update: `/etc/hosts`
 
+* remember `chmod +x` on scripts!!!
+
+* remember to open firewall/check for any web services
+
+* activate all swap: `swapon -a`
+
+
 ### TBD
 * VERIFY FSTAB
     * `findmnt --verify /mountpoint`: RUN EVERYTIME!!!
@@ -69,6 +77,8 @@
 * firewall-cmd more advanced stuff
 * dnf modules and groups
 * what does /etc/login.defs do for password
+* `/etc/security/pwquality.conf`!!! && `/etc/login.defs` && `PASS_MAX_DAYS   60`
+* two places to change umask
 
 ### to remember
 * autofs  indirect mount uses &!!!
@@ -80,10 +90,17 @@
 * install a module stream and profile i.e. postgres stream 10
 * /etc/sysconfig/network-scripts/
 * password aging-chage
-* umask in /etc/login.defs and /etc/profile
+* umask in /etc/login.defs and /etc/profile!!!
 * `chmod a=rwx permu_file1`: assign to all ugo at once!
 * how to run commands without entering container, also from a stopped container
 * in repo file can use a file repo with: `	 baseurl = file:///mnt/AppStream `
+* Create a bash script that shows total count of the supplied arguments , value of the first argument, PID of the script and all the supplied arguments
+* be careful of 1GiB and 1GB with parted!!!!
+* extent size is defined in vgcreate with -s flag!!!
+* lowercase -l is extent amount vs upper case -L is size in bytes
+* the size of a volume is specified by the partition size!!!
+* always open firewall for web services
+* bash string comparison is = i.e. "x"="y" is 1 "x"="x" is 0 and use echo $? to see output of test
 
 ### Userful man pages
 * `man less`: for controls in less
@@ -103,6 +120,8 @@
 * `/etc/login.defs`
 * `~/.config/containers/registries.conf` vs `/etc/containers/registries.conf`
 * `/etc/yum.repo.d`
+* `/etc/selinux/config`
+* `/etc/default/grub`
 
 ### Misc
 * create a file: 
