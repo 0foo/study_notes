@@ -5,13 +5,106 @@
 * run `mandb &`
 
 
+
+#### Know
+* how to search processes and kill process
+* what do when change a service config file
+* what do when change unit file
+* what do when change fstab
+* how to verify fstab
+* what do after editing fstab and adding swap
+* what do when edit nmcli connection
+* what do when edit repo files
+* what do when editing firewall-cmd rules
+* what do after editing partitions
+* what do at start of exam(3)
+* how to read from file into while loop
+* how to script multiline output to file in cli
+* how to verify a parted change
+* how to verify swap
+* how to test nfs mounts before adding to fstab
+* two places to change umask
+* what file to set password complexity
+* what file to set password age
+* what is directory of user systemd service definitions
+* what man page give yum.repos.d config options?!
+* what is the name of the parameter to put a yum repo url or file location?
+* what man page will give the command to create yum repo files with cli?
+* two places to change umask for entire system and two places for single user umask set
+
+### password management
+* `pwquality.conf` and `login.defs`
+
+
+### selinux
+* `man semanage-port`
+* `man semanage-fcontext`
+* `file_contexts.local`
+* `dnf install -y policycore* setrouble*`
+* `grep SELinux /var/log/messages` or  can grep the service you're looking for i.e. httpd
+* `sealert -a /var/log/audit/audit.log`
+
+
+### network manager
+`man nmcli-examples`
+`man -K BOOTPROTO`
+
+
+### sudoers
+```
+%sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS
+%wheel	ALL=(ALL)	ALL
+%wheel	ALL=(ALL)	NOPASSWD: ALL
+```
+
+### crontab
+sudo crontab -u alex -e
+By default, cron jobs do not send output to the terminal. To see the output, you could redirect it to a file or email.
+
+
+### autofs
+  * timeout in auto.master: `/mnt/auto /etc/auto.shares --timeout=120`
+  * readonly in auto.shares: `somedir -fstype=nfs,ro 192.168.14.132:/export/public`
+    * CAN ONLY HAVE SINGLE DIRECTORY HERE UNLESS USE /- IN PARENT FILE
+    * don't forget & for * 192.168.1.4:/srv/share/&
+  * verify autofs options with: mount command
+
+
+### yum
+* `man yum.conf`: for yum.repos.d configuration
+* `man dnf config-manager`: for creating yum repos via cli!!!
+* Always run `dnf update` after changing dnf repo files!!
+* in repo file can use a file repo with: `	 baseurl = file:///mnt/AppStream `
+* 
+```
+[somerepo]
+name = Some repo
+baseurl = some url starting with http(s):// or file:///mnt/AppStream
+enabled = 0
+```
+
+### bash scripting
+```
+while IFS=":" read user uid group ; do
+echo "Creating user $user..."
+useradd -b /mnt/autofs_home -G $group -u $uid -M $user
+done < userlist.txt
+```
+```
+cat <<EOF > test.txt
+some stuff
+stuff
+EOF
+```
+
+
+
 ### things to make permanant
 * firewall-cmd --permanant
 * setsebool -P
 
 ### To remember
 * use `pgrep -f` instead of plain `pgrep` for searching patterns, plain pgrep just searches the command name!
-
 
 * anytime change a config file restart that daemon
   * can search systemctl list-units | grep <service name>
@@ -27,13 +120,12 @@
     * nmcli con down enp0s8
     * nmcli con up enp0s8
 
-
 * Always run `dnf update` after changing dnf repo files!!
 
-* After changing a network connection with nmcli RELOAD: `nmcli connection reload`
-  * can also restart network manager 
-    * `systemctl restart NetworkManager`
-  
+* After changing a network connection with nmcli:
+  * nmcli conn down <connection_name>
+    nmcli conn up <connection_name>
+
 * when editing firewalld rules with `--permanant` flag need to run:  `firewall-cmd --reload`
 
 * after changes to partitions either add or remove: `partprobe`
@@ -48,23 +140,16 @@
 
 * activate all swap: `swapon -a`
 
+* read input from file: `while IFS=":" read key value; do echo "$key $value"; done < test.txt`
 
-### TBD
-* VERIFY FSTAB
-    * `findmnt --verify /mountpoint`: RUN EVERYTIME!!!
-    * `mount /mountpoint` - uses fstab file 
-    * `mount -a`
+```
+while IFS=":" read user uid group ; do
+echo "Creating user $user..."
+useradd -b /mnt/autofs_home -G $group -u $uid -M $user
+done < userlist.txt
+```
 
-* VERIFY PARTED
-    * `parted /filesystem`
-    * note: this is useful to make sure you made the right size partition
 
-* verify swap: `swapon` with no param's
-
-* test NFS mounts by mounted with plain `mount -t nfs` command before adding to fstab or auto.master/auto.nfs
-
-* always use .d folders instead of modifying to original config file
-  * i.e. yum.repos.d, 
 
 ### To practice a little more
 * bash scripting
@@ -78,7 +163,7 @@
 * dnf modules and groups
 * what does /etc/login.defs do for password
 * `/etc/security/pwquality.conf`!!! && `/etc/login.defs` && `PASS_MAX_DAYS   60`
-* two places to change umask
+* two places to change umask for entire system and two places for single user umask set
 
 ### to remember
 * autofs  indirect mount uses &!!!
@@ -111,7 +196,7 @@
 * `man semanage-port`
 * `man semanage-fcontext`
 * cli based nmcli connection paramters: `man nmcli-examples`
-* file based nmcli connection parameters: `man nm-settings-ifcfg-rh`
+* file based nmcli connection parameters: `man nm-settings-ifcfg-rh` or `man -K BOOTPROTO`
 
 ### Useful directories/files
 * `~/.config/systemd/user` vs `/etc/systemd/system`
@@ -124,7 +209,7 @@
 * `/etc/default/grub`
 
 ### Misc
-* create a file: 
+* create empty file of specific length: 
   * allocate space, no writing, faster: `fallocate -l 100M`
   * allocate space and write to file, slower`dd if=/dev/zero of=/swapfile bs=1M count=1024 && chmod 600 /swapfile`
 * backslash before command \rm will use an unaliased command
@@ -171,7 +256,22 @@
 
 
 
+### TBD
+* VERIFY FSTAB
+    * `findmnt --verify /mountpoint`: RUN EVERYTIME!!!
+    * `mount /mountpoint` - uses fstab file 
+    * `mount -a`
 
+* VERIFY PARTED
+    * `parted /filesystem`
+    * note: this is useful to make sure you made the right size partition
+
+* verify swap: `swapon` with no param's
+
+* test NFS mounts by mounted with plain `mount -t nfs` command before adding to fstab or auto.master/auto.nfs
+
+* always use .d folders instead of modifying to original config file
+  * i.e. yum.repos.d, 
 
 
 
