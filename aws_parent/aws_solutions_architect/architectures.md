@@ -21,6 +21,22 @@
     * transit gateway 
 
 
+### Lambda
+* Serverless thumbnail creation
+    1. New image in S3
+    2. Trigger Lambda
+         * create a thumbnail
+         * push the new thumbnail to s3
+         * push the metadata to DynamoDB
+    
+* Serverless Cron job
+    1. Event bridge to create a time based trigger
+    2. Triggers AWS lambda
+
+* Whats the difference:
+    * s3 -> SNS -> lambda
+    * s3 -> SNS -> SQS -> lambda
+
 #### AWS Network firewall
 
 * set up an "inspection VPC" that has network firewall enabled that all traffic goes through
