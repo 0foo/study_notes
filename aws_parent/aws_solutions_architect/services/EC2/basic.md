@@ -165,3 +165,27 @@
     * capacityOptimized: pool with optimal capacity for the number of instances
     * priceCapacityOptimized: pools with highest capacity available then select pool with lowest price
         * this is best choice for most workloads
+
+    
+
+#### Storage
+* Instance store volume backed instance: 
+    * very FAST
+    * block storage
+    * cannot increase in size
+    * Root volume resides on ephemeral storage that provides high performance but no persistence. Best for temporary or stateless workloads.
+    * Stopping instance is NOT allowed
+    * REboot WILL KEEP THE DATA
+    * The instance store data is lost if you terminate the instance!!!
+    * Stopping the instance NOT ALLOWED
+        * Stopping would require saving the instance's state (similar to an EBS snapshot), which instance store-backed instances are not designed to do.
+    * physically attached local disks on the host machine where the instance is running.
+
+
+* EBS-Backed volume instance: 
+    * Root volume resides on persistent, durable, and scalable EBS storage, making it the default choice for most use cases.
+    * Most modern AMIs are EBS-backed. Without EBS, they cannot boot because they rely on an EBS volume for their root filesystem.
+
+
+* can have OS/apps on an instance backed and then also have an EBS volume for persistent data
+

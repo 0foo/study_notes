@@ -125,6 +125,24 @@
     * API Gateway supports direct service integrations with DynamoDB through its AWS service proxy feature. This allows API Gateway to directly perform actions like PutItem, GetItem, UpdateItem, or Query on DynamoDB tables.
 
 
+#### Integration
+* Can integrated DIRECTLY with these service with no lambda needed
+
+* AWS Lambda
+* Amazon S3
+* Amazon DynamoDB
+* Amazon SNS (Simple Notification Service)
+* Amazon SQS (Simple Queue Service)
+* AWS Step Functions
+* Amazon Kinesis
+* Amazon RDS (Relational Database Service)
+* AWS AppSync
+* Amazon CloudWatch
+* AWS Secrets Manager
+* AWS IoT Core
+* Amazon ECS / Fargate
+* AWS WAF (Web Application Firewall)
+
 
 
 

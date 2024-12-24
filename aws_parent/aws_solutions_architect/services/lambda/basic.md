@@ -111,7 +111,18 @@
     * If need XRay instrumentation in CODE: Use AWS SDK 
     * Ensure Lamda has IAM access to XRay
     * Note: Xray can trace all kinds of stuff including a request flow through AWS, database performance, etc.
-    
+
+
+* Cold start
+    * Lambda's have cold starts
+    * cold start happens the first time a lambda is invoked
+    * cold start can take up to 1 second to get the lambda working (programming language runtime can reduce this drastically)
+    * after the first invokation the container stays 'warm' and handles requests instantly
+    * AWS Lambda containers typically stay warm for 5 to 15 minutes after the last invocation. However, the exact duration is not guaranteed and depends on AWS's internal optimizations and resource allocation policies.
+    * if autoscaling will have delays during the cold starts as new lambdas are spun up to handle load(small delays of 1 seoncd or so)
+        * note: this happens once as it expands and the new lambdas stay warm for many minutes
+    * still way faster than any other method of autoscaling
+
 
 
 

@@ -17,6 +17,16 @@
         * dynamic port mapping
     * can write routing rules to LB traffic to in detail:  path, headers, query string, etc.
         * ex: one route for search, and one for login
+    * can integrate it directly with various services
+        * EC2
+        * ECS on EC2
+        * ECS on Fargate
+        * AWS Global Accelerator
+        * AWS WAF
+        * S3 (Static Website Hosting)
+        * API Gateway (as an HTTP backend)
+        * Lambda
+
 
 * Network LB
     * TCP, TLS(secure TCP), UDP
