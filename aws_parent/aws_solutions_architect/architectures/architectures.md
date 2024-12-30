@@ -123,3 +123,94 @@
 * API Gateway + HTTP backend (ex: ALB)
     * connect API GW To ALB, on-prem, EC2, some other HTTP host
     * can use HTTP integrations inside API GW if needed
+
+
+
+#### S3
+* Different ways to expose static objects
+    * Ec2 instance 
+    * cloudfront - EC2 - Ebs
+    * cloudfront - alb  - target group(ec2) - EFS(EBS can only attach to one instance)
+    * same as prev but with ASG
+    * cloudfront in front of S3
+
+* how to search objects in s3
+    * no indexing so CAN'T search for an object in S3 bucket
+    * index objects in Dynamo
+    * use s3 events plus lambda to write metadata to dynamo table on PUT or DELETE
+
+* can use DNS (route53) to redirect requests for dynamic content to the application and static content to cloudfront + S3
+    * html + img + vids
+
+
+
+#### FSx
+* single AZ to multi AZ
+    1. simply use AWS Data Sync, we remain up, data sync does not lose availability
+        * single AZ FXs for Windows - AWS Data Sync - multi AZ FXs for Windowns
+    2. backup the file system, shut it down, then move it into a multi AZ 
+
+* decrease FSx volume size
+    * can't restore to a smaller File System size
+    * cannot decrease storage size of an existing file system
+    1. create a new FS that's smaller
+    2. use Data Sync to restore data to the smaller size
+
+
+#### Data Sync 
+* remember can sync between S3, FSx, EFS seamlessly with no downtime with datasync service
+* can sync onprem/other cloud with data sync as well if install the data sync agent
+* can sync either way
+* use snowcone which has datasync agent installed on it if don't have the network bandwidth
+* this also keeps metadata and permissions
+* scheduled task, happens hourly, daily, weekly, etc.
+* can transfer data while it's live
+* can transfer live data, 
+
+
+
+#### User session store via elasticache
+* user session store
+    * if have a 3 tier architecture with stateless server tier of numerous servers
+    * if no sticky LB could use any of the servers
+    * each server uses elasticache to write the session data to
+    * if a user hits another instance, it can recover the session info
+
+
+#### Handling extreme rates
+* route 53 built for it
+* cloudfront-100,000 rps 
+* ALB-
+* API gateway- soft limit of 10,000 rps + caching option
+* compute layer 
+    * ASG, ECS: slow to initialize, will need to bootstrap instances 
+    * fargate: faster, docker containers are faster to spin up (but still take seconds)
+    * lambda: soft limit 1000 concurrent
+* database layer
+    * RDS, aurora, ElasticSearch - provisioned, harder to scale
+    * DynamoDB: on demand scaling, much higher read/write
+
+* caching
+    * redis: up to 200 nodes replicated
+    * memcached: up to 20 nodes sharded
+    * DynamoDB DAX: 10 nodes, primary + replicas
+
+* Disk
+    * EBS: 16k iops(gp2), 64k iops(io1), can be used as a local cache
+    * EFS: 2 modes
+        * general: performance scales with the number of files on EFS file system
+        * Max IO: provisiioned can set a high level of iops
+
+    * instance store: millions of iops, can be used as a local cache
+
+* queing
+    * SNS/SQS: virtually unlimited scale
+    * SQS FIFO: 3000 rps with batching / 300rps without batching
+    * Kinesis: per shard: 1MB/second in, 2MB/second out
+
+
+* s3: 3500 PUT, 5500 GET, per prefix, per second
+    * KMS limits s3 performance
+
+* edge functions
+    * cloudfront at the edge 

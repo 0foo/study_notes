@@ -4,21 +4,68 @@
 * NOT redundant so will need setup to a second connection or VPN
 * Connect to a single region!!!
 
-#### VIF
-* virtual interface
-* public VIF - connect to public AWS endpoints like s3, EC2
-* private VIF - connect to private resources inside of VPC
-    * EC2
-    * VPC interface endpoints 
-    
-* transit VIF - when using a Transit Gateway 
+* typicallly uses BGP and advertises the network of subset of network to the VPC
 
-
-customer site -> direct connect hub -> virtual private gateway attached to the direct connect hub->vpc
+#### Physical Layter
+* architecture
+    * customer site -> direct connect hub -> virtual private gateway attached to the direct connect hub->vpc
 
 * direct connect hub is structure located somewhere.
-* public and private VIF's go from customer site to AWS
 
+#### VIF
+* virtual interface
+* The VIF is the logical interface that AWS provides to route traffic
+* A VIF (Virtual Interface) is on the AWS side of the Direct Connect connection. It is created and managed within AWS to define how traffic is routed between your on-premises network and AWS resources over the Direct Connect link.
+* Your on-premises router communicates with the VIF using BGP for traffic routing.
+
+* types:
+    1. public VIF 
+        * connect to public facing AWS endpoints like s3, EC2, many more
+    2. private VIF - connect to private resources inside of VPC
+        * EC2
+        * VPC interface endpoints 
+        * can then use an Interface VPC endpoint to connect to other servicea
+            * this is a more private alternative to public VIF
+        * associates with a VPG when it needs to connect to a VPC
+            * VPG uses BGP and recieves BGP
+    3. transit VIF - when using a Transit Gateway 
+
+
+* When you create a Virtual Interface (VIF) in AWS Direct Connect, it will attach to your Direct Connect connection but not directly to a VPC. Instead, the VIF connects to a gateway (like a Virtual Private Gateway, or Direct Connect Gateway) that links the VIF to the VPC.
+
+* a single Virtual Interface (VIF) cannot connect to multiple Virtual Private Gateways (VPGs) directly. A Private VIF is limited to a one-to-one connection with either:
+    * A Virtual Private Gateway (VPG) (for a single VPC).
+    * A Direct Connect Gateway (DX Gateway), which can provide access to multiple VPGs or VPCs via a Transit Gateway or directly to multiple VPG's.
+
+
+#### Gateways
+* transit gateway
+    * transit VIF - when using a Transit Gateway 
+    * A VIF cannot directly connect to a Transit Gateway. 
+    * requires a Direct Connect Gateway to connect to a transit gateway
+    * so the architecture is:
+        * on prem -- direct connect -- direct connect gateway -- transit gateway -- numerous other things
+
+* Direct Connect Gateway
+    * associate a VIF with a DCGW
+    * then must connect DCGW to a VPG or a Transit GW which then connect to VPC
+    * has BGP for routing
+    * There is a limit to the number of Virtual Private Gateways (VGWs) that a Direct Connect Gateway (DX Gateway) can connect to. Currently, a DX Gateway can connect to a maximum of 10 VGWs by default.
+
+    * DCGW can connect to up to 10 VGW
+
+* VPG
+    * can connect a private VIF to a VPC directly via a VPG
+    * limited to a single VPC connectivity
+    * If you are connecting a Private VIF to a single VPC in the same region as the Direct Connect location, you can connect the Private VIF directly to the VPG.
+
+
+#### Architectures
+* on prem - direct connect - VIF - VPG - VPC
+    * simple, connect a private VIF to a single VPG to a single VPC
+* on prem - direct connect - VIF - DCGW - VPG(up to 10) - VPC  
+    * connect up to 10 VPG which also means 10 separate VPC's
+* on prem - direct connect - VIF - DCGW - Transit Gateway where anything goes
 
 #### connection types
 1. 
@@ -55,20 +102,23 @@ customer site -> direct connect hub -> virtual private gateway attached to the d
 * must have same bandwidth and terminate at same direct connect location
 * can set minimum number of connections for lag to function
 
-#### Direct Connect Gateway
-* something you add inside of AWS that the direct connect links connect to
-* have to have a DCG to be able to connect to one or VPC's in different regions/accounts
-* Direct Connect connects into a single region
-* add the private VIF to the DCG
-* this will allow the private VIF to be assignable to multiple regions/vpcs/accounts
-* has BGP for routing
 
-* direct connect-sitelink
-    * if two offices each with their own direct connect link to AWS
-    * each of these offices is connected to a direct connect location in a different region
-    * can use DCG-sitelink so they can speak with each other and bypass going thru AWS
-    * the direct connections will go to AWS then hit the DCG and then sent back out to the other location, avoiding 
+#### Connection via VPG
+* can connect a private VIF to a VPG in a VPC
+* single connection to a single VPC
+* for multiple VPC connection would need a VPG in each VPC
+
+
+
 
 #### Other
 * can use transit gateway with direct connect but that will only link things in the same region
 * can use a direct connect gateway to link single direct connect vif to multiple transit gateways in multiple regions
+
+
+####  direct connect-sitelink
+
+* if two offices each with their own direct connect link to AWS
+* each of these offices is connected to a direct connect location in a different region
+* can use DCG-sitelink so they can speak with each other and bypass going thru AWS
+* the direct connections will go to AWS then hit the DCG and then sent back out to the other location, avoiding 

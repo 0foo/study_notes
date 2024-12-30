@@ -7,6 +7,8 @@
     * Health checks can be L7 via HTTP or layer 4 via TCP
     * only one SSL certificate allowed(must use multiple CLB for multiple)
     * TCP passes all the traffic to the EC2 instance only way 
+
+    
 * Application
     * HTTP, HTTPS, Websocket
     * Layer 7 only HTTP(S), Websocket, HTTP/2
@@ -90,3 +92,67 @@
     * Flow Hash
         * take a bunch of data from the request packet and generate a hash and route based on that hash
         * with this its permanantly sticky
+
+
+
+
+#### ways to connect to load balancers
+Yes, among the AWS load balancers, Network Load Balancers (NLBs) can be internet-facing and associated with Elastic IPs (EIPs). However, Application Load Balancers (ALBs) and Gateway Load Balancers (GWLBs) do not directly support Elastic IPs.
+
+Here’s how Elastic IPs work with different load balancer types:
+
+1. Network Load Balancer (NLB)
+* Supports Elastic IPs: 
+* For each subnet where you deploy an NLB, you can associate a specific Elastic IP (EIP). This makes the NLB's public-facing IP address static, which is ideal for predictable client-side configurations.
+* Internet-Facing:
+* NLBs can be configured as internet-facing to expose services to the public internet.
+* Use Case:
+* Ideal for applications requiring low latency, high throughput, and static IPs (e.g., FTP, gaming, VoIP).
+
+Steps to Configure an Internet-Facing NLB with EIP:
+* Create an NLB with internet-facing scheme.
+* Add listeners for the required ports (e.g., 21 for FTP).
+* Associate an EIP for each public subnet used by the NLB.
+
+2. Application Load Balancer (ALB)
+* Does Not Support Elastic IPs:
+* ALBs are designed to route traffic using DNS-based endpoints rather than static IPs. They use dynamic public IPs managed by AWS.
+* Internet-Facing:
+* ALBs can still be configured as internet-facing but rely on AWS DNS names (e.g., abc123.elb.amazonaws.com) instead of static IPs.
+* Use Case:
+* Best suited for HTTP/HTTPS workloads with advanced Layer 7 routing features.
+
+Workaround for Static IPs with ALB:
+* Use a Static IP Proxy:
+* Deploy an NLB in front of the ALB and associate EIPs with the NLB. The NLB forwards traffic to the ALB.
+* Use AWS Global Accelerator:
+* Provides static IPs that route traffic to the ALB via a global edge network.
+
+3. Gateway Load Balancer (GWLB)
+* Does Not Support Elastic IPs:
+* GWLB is designed for traffic inspection and routing through virtual appliances, not for public internet-facing use.
+* Use Case:
+* Ideal for deploying and managing third-party virtual appliances (e.g., firewalls, intrusion detection systems).
+
+Workaround for Public Traffic with GWLB:
+* Use an NLB with EIP in front of the GWLB for public-facing traffic.
+
+4. Classic Load Balancer (CLB)
+* Supports Elastic IPs:
+* For each subnet where you deploy a CLB, you can associate an EIP.
+* Internet-Facing:
+* CLBs can be internet-facing and use EIPs for static IP configuration.
+* Use Case:
+* Legacy applications still relying on CLBs for Layer 4 and basic Layer 7 routing.
+
+Summary of Elastic IP Compatibility
+Network Load Balancer (NLB): Supports Elastic IPs and can be internet-facing, ideal for low latency and static IP needs.
+Application Load Balancer (ALB): Does not support Elastic IPs but can be internet-facing with advanced routing for HTTP/HTTPS.
+Gateway Load Balancer (GWLB): Does not support Elastic IPs and is not internet-facing, used for traffic inspection.
+Classic Load Balancer (CLB): Supports Elastic IPs and can be internet-facing for legacy workloads.
+
+Conclusion
+* If you need static IPs with internet-facing capability, the best choice is the Network Load Balancer (NLB) or Classic Load Balancer (CLB).
+* For ALBs or GWLBs, workarounds like pairing with an NLB or AWS Global Accelerator can provide static IP functionality.
+
+Would you like step-by-step instructions for setting up an NLB with EIPs?

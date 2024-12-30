@@ -3,7 +3,7 @@
 It is primarily used for:
 * setting up Site-to-Site VPN connections
 * integrating with AWS Direct Connect.
-
+    * it's what the VIF associates with to connect to the VPC
 
 Supports both:
 
