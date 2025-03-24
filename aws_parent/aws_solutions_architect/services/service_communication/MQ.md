@@ -30,3 +30,6 @@
         * Producers send messages to a topic.
         * All subscribers to the topic receive a copy of the message.
         * Subscribers can filter messages based on conditions or routing keys (depending on the protocol).
+    * NOTE:
+        * amazon SQS is queue
+        * amazon SNS is topic

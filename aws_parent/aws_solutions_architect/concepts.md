@@ -3,6 +3,9 @@
     * price
     * capacity planning
     * is it self managed, AWS managed, serverless?
+    * encryption at rest/in flight
+    * security: authentication/authorization
+    * location: subnet, region, AZ, VPC, AWS public, internet public, on prem, cross account
 
 * tradeoffs
     * durability
@@ -54,4 +57,19 @@
 
 
 
+* service communication
+    * Queue
+        * Producers send messages to a queue.
+        * A single consumer receives and processes each message.
+        * Messages are removed from the queue once delivered and acknowledged.
+    * Topics
+        * Producers send messages to a topic.
+        * All subscribers to the topic receive a copy of the message.
+        * Subscribers can filter messages based on conditions or routing keys (depending on the protocol).
+    * NOTE:
+        * amazon SQS is queue
+        * amazon SNS is topic
 
+* payment
+    * pay by provisioning
+    * pay by usage
