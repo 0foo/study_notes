@@ -74,6 +74,10 @@ Rsync
         * sudo apt install dirb
         * wordlists are located in: /usr/share/wordlists
 
+
+* rsync
+    * rsync 
+
 * Can research ports
 Port 135 TCP : https://www.speedguide.net/port.php?port=135
 Port 139 TCP : https://www.speedguide.net/port.php?port=139
