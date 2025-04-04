@@ -4,7 +4,8 @@
 * Show how outages happen in AWS
 * Show impact on resources
 * List issues/actions you can do to remediate them
-
+* differs' from SSM ops center in that Health dashboard gives you all the issues that AWS is experiencing
+    * whereas AWS SSM ops center gives you all the issues happning in your environment
 
 * will show you all the maintenance events from AWS
     * keyword to look for in the exam
