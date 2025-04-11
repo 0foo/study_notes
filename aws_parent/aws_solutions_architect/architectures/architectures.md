@@ -214,3 +214,31 @@
 
 * edge functions
     * cloudfront at the edge 
+
+
+
+
+
+### general 
+
+ backup resources
+    * snapshots: EBS, RDS
+    * regular pushes to s3, lifecycle policies, glacier, cross region replication
+    * from on prem to cloud->snowball or storage gateway
+* high availability
+    * route53 to route traffic between sites/regions
+    * multi-AZ services, i.e. RDS, elasticache, efs, s3, aurora global
+    * site to site VPN as a recovery for failure of direct connect service
+* replication
+    * RDS, Aurora global
+    * database replication from on prem to AWS RDS
+    * storage gateway
+* automation
+    * cloudformation / Beanstalk can create entire new environment in the cloud
+    * recover reboot instances in EC2 if cloudwatch alarms fail
+    * aws lambda for customized automation
+* chaos testing
+    * how to know if solution will work?
+    * introduce chaos
+    * netflix - has a program called 'simian army' randomly terminating EC2 instances
+    * introduce chaos to ensure infrastructure is capable of surviving failures

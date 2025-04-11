@@ -15,6 +15,11 @@
     * scale
     * cost
 
+* concepts
+    * performance
+    * observibibily
+    * resiliency
+
 * disaster recovery terms
     * RPO (Recovery Point Objective)
         * basically time between backups which means that data is lost
@@ -73,3 +78,28 @@
 * payment
     * pay by provisioning
     * pay by usage
+
+
+* OLTP (Online Transaction Processing)
+  * Purpose: Manages real-time transactional data (e.g., inserts, updates, deletes)
+  * Typical Use Case: Banking systems, e-commerce transactions, booking systems
+  * Operations: Short, fast read/write operations (e.g., `INSERT`, `UPDATE`, `DELETE`)
+  * Data Volume: Typically handles many small transactions
+  * Data Normalization: Highly normalized (to avoid data redundancy)
+  * Performance Focus: Speed and concurrency for many users
+  * Users: Front-end users or applications
+  * Examples: MySQL, PostgreSQL, Oracle (in transactional mode)
+
+* OLAP (Online Analytical Processing)
+  * Purpose: Analyzes large volumes of historical data (read-heavy)
+  * Typical Use Case: Business intelligence, reporting, data warehousing
+  * Operations: Complex queries, aggregations, joins, drill-downs (e.g., `SELECT`, `GROUP BY`)
+  * Data Volume: Large datasets with fewer, longer queries
+  * Data Normalization: Often denormalized (star/snowflake schemas)
+  * Performance Focus: Query performance and read optimization
+  * Users: Data analysts, business stakeholders
+  * Examples: Snowflake, Amazon Redshift, Google BigQuery, Apache Druid
+
+* Summary
+  * OLTP = fast and reliable transactions
+  * OLAP = deep and fast analytics over large datasets

@@ -113,3 +113,19 @@ Example:
         * No API calls needed(is push model)
 
 * retention 24 hours by default, can be extended by 365 days.
+
+
+
+#### Integration with Recognition
+* producers
+    * one video stream per streaming device 
+        * security cam, body cam, work cam, smartphone
+    * video stream is called a producer
+    * kinesis video stream producer library
+    * data is stored in S3 but CANNOT access it, will have to build own dump to S3
+* consumers
+    * consumed by EC2 instances for real time analysis or batch
+    * can leverage Kinesis video stream parser library
+    * integrate with Recognition for facial detection
+
+ producer -> kinesis vid stream -> consumers like recognition or EC2 -> can send metadata to kinesis data stream and store faces in Recognition ->

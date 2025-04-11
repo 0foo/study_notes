@@ -8,7 +8,44 @@
 * Seamless integration with AWS services like AWS Backup, AWS DataSync, and CloudWatch.
 
 
+* Supports multi-AZ, backups, encryption, and monitoring
+* Fully managed by AWS (no hardware, patching, etc.)
+
+* Unlike S3 (object storage) or EBS (block storage), FSx provides file storage, which is ideal when you need things like POSIX-compliant file systems, Windows file shares, or high-speed HPC workloads.
+
+
+
+
+
+### Use Cases - KNOW
+* FSx for Windows File Server  
+  * Use Case: Windows-based applications needing SMB, NTFS, Active Directory, or Windows ACLs  
+  * Example: File shares, Microsoft SQL Server, home directories
+
+* FSx for Lustre  
+  * Use Case: High-performance compute, ML training, big data analytics, media rendering  
+  * Example: EC2-based HPC jobs needing fast, parallel access to S3 data
+
+* FSx for NetApp ONTAP  
+  * Use Case: Enterprise-grade shared storage with NFS/SMB/iSCSI, snapshots, deduplication  
+  * Example: Hybrid cloud storage, VMware workloads, shared storage across platforms
+
+* FSx for OpenZFS  
+  * Use Case: Linux workloads needing POSIX compliance, ZFS features like snapshots and clones  
+  * Example: Developer environments, CI/CD pipelines, Linux-based applications
+
+
+
+
+
+
+
+
+
+### More detail don't really need to know I dont think
+
 #### FSx for Windows File Server 
+* USE CASE: Windows-based applications needing SMB, NTFS, Active Directory, or Windows ACLs. Think file shares, SQL Server.
 * fully managed
 * supports SMB and NTFS, Active Directory, ACL's, user quotas
 * can also be mounted on EC2 Linux instances
@@ -24,6 +61,7 @@
 
 
 #### FSx for Lustre
+* USE CASE: High performance compute (HPC), ML training, media rendering, big data workloads. Can integrate with S3.
 * disributed file system for large scale computing
 * lustre = linux cluster
 * Machine learning and HPC (high performance computing)
@@ -60,6 +98,7 @@
     * eseentially lustre is a durable cache
 
 #### FSx for NetApp ONTAP
+* USE CASE: Enterprise workloads needing multi-protocol access (SMB, NFS, iSCSI), snapshots, data deduplication, hybrid/multi-cloud setups.
 * compatible with NFS, SMB, iSCSI protocol
 * use cases: used for workloads that are already running ONTAP or NFS
 * very broad compatibility
@@ -71,6 +110,7 @@
 * main use case: move workloads running on ONTAP to AWS
 
 #### FSx for OpenZFS
+* USE CASE: Linux apps needing POSIX-compliant storage, ZFS features, snapshots, clones.
 * compatible with NFS
 * main use case: move workloads running on ZFS to AWS
 * broad compatibility (linux, mac, windows)
