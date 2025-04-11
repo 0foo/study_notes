@@ -3,55 +3,40 @@
 
 #### Main benefits
 * you upload data to firehose and get these benefits
-
-1. can send to multiple destinations
-2. buffering(i.e. for saving money on writes to s3)
-3. can add custom transformation logic with lambda
-4. automatic scaling
-5. data compression/encryption(can configure Firehose to compress data (e.g., GZIP, Snappy) and encrypt it )
-6. error handling/retry mechanisms (Firehose retries failed data deliveries and supports logging errors for troubleshooting.)
-
+    * automatic scaling!!!
+    * buffering(i.e. for saving money on writes to s3)
+    * can add custom transformation logic with lambda
+    * data compression/encryption(can configure Firehose to compress data (e.g., GZIP, Snappy) and encrypt it )
+    * error handling/retry mechanisms (Firehose retries failed data deliveries and supports logging errors for troubleshooting.)
+    * encrypted at rest and in transit
 
 #### Flow of KDF
+1. Sources:
+    * Kinesis data streams - MOST COMMON
+    * Amazon cloudwatch
+    * AWS IoT
+    * clients directly
+    * other AWS services
 
-
-
-
-* it's not real time!
-* if want real time must use lambda!
-* fire hose is not the way to do real time
-
-* recieve data
-    * can recieve from kinesis stream, clients directly, cloudwatch or other AWS services
-
-* transform 
-    * can use lambda to optionally transform the data
+2. transform data optional
+    * has some automatic transformations
+    * can use lambda to do custom transforms to the data
     * there's several blueprint lambda templates
-        * example: json to csv
-    * Data can be encrypted in transit and at rest using AWS KMS.
-    * Firehose supports data compression (e.g., GZIP, Snappy) to save storage costs.
+        * example: json to csv or compress of data
+    * Firehose supports data compression (e.g., GZIP, Snappy) to save storage costs
+    * firehose supports many data formats, conversions, transformation,compression
+    * Lambda is invoked for every batch of data sent by Firehose to the function for transformation.
+    * Invocation cost: $0.20 per million invocations.
+    * Frequent invocations (due to small Firehose buffer sizes) can increase costs.
+    * want a large buffer to use one lambda
+    * Note this can get expensive
 
+    * if have high throughput, the size buffer will be reached
 
-* destinations
-    * 3 types of destination
-        * AWS destination(know these really well)
-            * S3
-            * redshift(copies to s3 first! very important! then KDF issues a copy command to copy from s3 to redshift)
-            * opensearch
-        * 3rd party (splunk, datadog, mongo etc)
-        * custom HTTP api 
-    * can deliver to one or more destination 
-
-
-* post processing
-    * after data sent to destinations can also output the source records to s3 as a backup
-    * can have a sort of DLQ by sending data that was failed to write to a s3 bucket
-* firehose supports many data formats,conversions, transformation,compression
-
-
-
-
-####  buffering
+3. data is buffered if enabled
+    * has size and time buffers that can be specified
+    * can disable buffering
+    * can allow buffer to autoscale as well
     * Firehose buffers incoming data before delivering it, reducing the number of writes to the destination and improving efficiency.
     * adjustable buffer interval from 0 to 900 seconds 
     * also has a few second constant delivery time interval
@@ -62,7 +47,36 @@
             * minium time: is 1 minute
     * firehose can automatically scale the buffer size if have high throughput
     * if have low throughput the buffer time limit will reached
-    * if have high throughput, the size buffer will be reached
+
+
+4. destinations
+    * can send to multiple destinations
+    * 3 types of destination:
+        * AWS destination  REMEMBER THESE VERY IMPORTANT FOR TEST
+            * S3
+            * redshift(copies to s3 first! very important! then KDF issues a copy command to copy from s3 to redshift)
+            * opensearch
+            * splunk
+        * 3rd party (splunk, datadog, mongo etc)
+        * custom HTTP api 
+    * can deliver to one or more destination 
+    * NOTE: Sparc and KCL CANNOT read from FIREHOSE, ONLY kinesis data stream
+    
+
+
+5. post processing
+    * after data sent to destinations can also output the source records to s3 as a backup
+    * can have a sort of DLQ by sending data that was failed to write to a s3 bucket
+
+#### Capacity planning
+* NONE! 
+* automatic scaling
+
+
+#### Price
+* pay only for data going through firehose
+
+ 
 
 
 #### When to use streams vs firehose
@@ -89,23 +103,11 @@
     * pay by usage!!!
     * no data storage
     * can send to multiple destinations
-    *  buffering(i.e. for saving money on writes to s3) 
+    * buffering(i.e. for saving money on writes to s3) 
     * can add custom transformation logic with lambda
     * automatic scaling
     * data compression/encryption(can configure Firehose to compress data (e.g., GZIP, Snappy) and encrypt it )
     * error handling/retry mechanisms (Firehose retries failed data deliveries and supports logging errors for troubleshooting.)
-
-
-
-
-#### Custom transformations with lambda
-
-* Lambda is invoked for every batch of data sent by Firehose to the function for transformation.
-    * Invocation cost: $0.20 per million invocations.
-    * Frequent invocations (due to small Firehose buffer sizes) can increase costs.
-    * want a large buffer to use one lambda
-
-* Note this can get expensive
 
 
 #### Why?
@@ -116,8 +118,4 @@
 * It can handle gigabytes per second of input data, making it suitable for high-throughput use cases.
 * Firehose can invoke an AWS Lambda function to transform or enrich data before delivering it to the destination.
     * Example: Format raw JSON logs into a structured CSV format for storage in Amazon S3 or Redshift.
-
-
-#### Price
-* pay only for data going through firehose
 

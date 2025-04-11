@@ -103,3 +103,8 @@
 * Summary
   * OLTP = fast and reliable transactions
   * OLAP = deep and fast analytics over large datasets
+
+
+* Security
+    * At Rest: KMS encryption
+    * In flight: HTTPS encryption

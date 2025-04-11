@@ -1,5 +1,53 @@
 ### Eventbridge
 
+* What is EventBridge?
+  * A fully managed event bus service
+  * Allows you to build event-driven applications using events from AWS services, SaaS apps, or custom sources
+
+* Key Concepts:
+  * Event Bus:
+    * Default, Partner, or Custom
+    * Receives and routes events
+  * Rules:
+    * Match incoming events using patterns
+    * Route matched events to targets
+  * Event Pattern:
+    * JSON structure that defines what events to match (by service, type, resource, etc.)
+  * Target:
+    * AWS services like Lambda, Step Functions, SQS, SNS, Kinesis, etc.
+
+* Sources of Events:
+  * AWS services (e.g., EC2, CodePipeline, S3, DynamoDB)
+  * SaaS partners (e.g., Zendesk, Datadog, PagerDuty)
+  * Custom applications (via PutEvents API)
+
+* Use Cases:
+  * Orchestrate microservices
+  * Trigger workflows (e.g., Lambda or Step Functions)
+  * Audit and compliance tracking
+  * Real-time data processing
+  * Integrate SaaS tools with AWS services
+
+* Features:
+  * Schema registry (for event validation/discovery)
+  * Archive and replay events
+  * Event transformation (with input transformers)
+  * Fine-grained access control with IAM
+
+
+* how it works example:
+    * S3 emits events (e.g., object created, deleted, restored)
+    * If EventBridge is enabled for the bucket, those events are automatically sent to the EventBridge default event bus
+        * no need for SNS or lambda intermediary
+    * You write a rule in EventBridge to match those events and send them to a target (Lambda, SQS, etc.)
+
+
+
+
+
+
+
+
 * formerly known as cloudwatch events
 
 

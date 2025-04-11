@@ -66,6 +66,7 @@
         * Aurora global database
 
 
+*  a lot of customers opt for “Disaster Avoidance” capabilities, rather than “Disaster Recovery”. This is a perfectly viable approach, and essentially aims to implement highly-robust configurations spanning multiple locations to prevent downtime in the event of a hardware or geographical outage, and therefore avoiding a disaster scenario.
 
 *### general 
 

@@ -95,6 +95,26 @@
 * can have a dummy column with all values the same as partition key to return ALL objects, then use a sort key to sort that
     * but why?
 
+
+#### Dynamo streams
+* Record Size Limit
+  * Each stream record is limited to 1 MB
+  * If the record exceeds 1 MB, it will not be added to the stream
+
+* Shard Throughput Limits
+  * Per shard:
+    * Up to 2 MB/second read throughput
+    * Up to 5 read requests/second
+  * DynamoDB will create more shards automatically if needed
+
+* Stream Retention
+  * Records are retained for 24 hours
+
+* Lambda Invocation Size (if using Lambda triggers)
+  * Maximum of 6 MB per batch event payload
+
+
+
 #### Important features
 * TTL- can make a row expire after certain amount of time
 * Dynamo Streams    
