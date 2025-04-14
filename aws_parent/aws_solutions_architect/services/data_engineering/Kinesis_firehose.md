@@ -57,6 +57,12 @@
             * redshift(copies to s3 first! very important! then KDF issues a copy command to copy from s3 to redshift)
             * opensearch
             * splunk
+            * lambda (as transformation NOT final endpoint)
+            * API Gateway via POST calls, which then call a lambda
+                * Set Firehose’s destination to HTTP endpoint.
+                * Create an API Gateway + Lambda combo to accept incoming POSTs from Firehose.
+                * In your Lambda, write data to Timestream or any other custom destination.
+
         * 3rd party (splunk, datadog, mongo etc)
         * custom HTTP api 
     * can deliver to one or more destination 
