@@ -6080,7 +6080,7 @@ Would you like step-by-step instructions for setting up an NLB with EIPs?
 * ECS anywhere
     * easily run containers on customer managed on prem hard ware
     * can deploy native ECS tasks in any environment
-    * the hosts communicate with ECS control plane in AWS
+    * the hosts communicate with ECS control plane in AWSa
     * ECS container agent and SSM agent need to be installed on the host(will register with AWS cloud)
     * specify the "External" launch type for our services and tasks in ECS on AWS
     * must have a stable connection to AWS (region with your ECS control plane)
