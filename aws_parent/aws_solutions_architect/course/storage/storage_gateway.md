@@ -44,7 +44,6 @@
     2. stored volume - entire dataset on premesis, with scheduled backup to s3
 
 
-
 ### Tape gateway
 * USE CASE: backup tape library to the cloud
 * backs up using iSCSI interface

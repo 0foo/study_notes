@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random AWS Service</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f5f5;
+      text-align: center;
+    }
+
+    #service {
+      font-size: 2rem;
+      padding: 1.5rem 2rem;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    #description {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      max-width: 600px;
+      display: none;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="service" onclick="toggleDescription()"></div>
+  <div id="description"></div>
+
+  <script>
+    const services = {
+      "EC2": "Resizable virtual machines in the cloud.",
+      "Lambda": "Run code without provisioning or managing servers.",
+      "S3": "Scalable object storage for any type of data.",
+      "RDS": "Managed relational databases like MySQL and PostgreSQL.",
+      "DynamoDB": "Fully managed NoSQL database with millisecond performance.",
+      "VPC": "Virtual network for your AWS resources.",
+      "IAM": "Manage access to AWS services and resources securely.",
+      "API Gateway": "Create and manage REST or WebSocket APIs.",
+      "CloudFront": "Content delivery network for low-latency content delivery.",
+      "SQS": "Decoupled message queuing service.",
+      "SNS": "Pub/sub messaging for distributed systems.",
+      "CloudWatch": "Monitor AWS resources and custom metrics.",
+      "CloudFormation": "Infrastructure as code for defining and deploying resources.",
+      "Redshift": "Fully managed data warehouse for big data analytics.",
+      "ECS": "Run and scale containerized applications using Docker.",
+      "Fargate": "Serverless compute engine for containers.",
+      "Route 53": "Scalable DNS and domain name management.",
+      "ELB": "Distribute incoming traffic across multiple targets.",
+      "Glue": "Serverless ETL service for data integration.",
+      "Athena": "Query S3 data using SQL without setting up servers.",
+      "App Sync": "Build GraphQL APIs with real-time data access and syncing."
+    };
+
+    const keys = Object.keys(services);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+
+    document.getElementById("service").textContent = randomKey;
+
+    function toggleDescription() {
+      const desc = document.getElementById("description");
+      desc.textContent = services[randomKey];
+      desc.style.display = desc.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>

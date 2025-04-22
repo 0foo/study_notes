@@ -1,14 +1,21 @@
+#### Main
 * AWS managed service
+* manage all kinds of services backups/snapshots from a centralized place
+* supported services: all database related services, all file system services, and more
+* cross region/account 
+* encrypted vaults
+* backup plans
+
+
+#### Other
+
 * centrally manage and automate AWS backups across AWS services
 * no need to create custom scripts and manual processes
 * want a central view of your backup strategy
-* supported services: all database related services, all file system services, and more
-
 
 * supports cross region backups
     * can have your backup pushed to another region (disaster recovery)
 * supports cross account backups
-
 
 * supports point in time recovery (PITR) for supported services
 * on demand and scheduled backups

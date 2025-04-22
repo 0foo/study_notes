@@ -1,3 +1,12 @@
+* common encyption
+    * KMS at rest/ SSL in flight
+* common authentication
+    * Cognito
+    * IAM
+    * API Key 
+    * Open ID connect
+
+
 * For exam think about
     * migration
     * price

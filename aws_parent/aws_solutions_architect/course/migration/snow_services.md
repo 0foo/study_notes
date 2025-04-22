@@ -13,9 +13,6 @@
     * can run ec2 instance or lambda functions at the edge
     * preprocess data, machine learning, transcode media
 
-
-
-
 ### Improve transfer performance for snowfamily devices
 * perform multiple write operations at one time - from multiple terminals
 * transfer small files in batches - zip up small files together until at least 1MB

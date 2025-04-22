@@ -14,12 +14,18 @@
 * Storage
   * S3: Scalable object storage.
   * Amazon EFS: Elastic file system for Linux workloads.
-  * Amazon FSx: Managed file systems (Windows/Lustre/OpenZFS).
-  * AWS Backup: Centralized backup across AWS services.
+  * Amazon FSx: Managed file systems (Windows/Lustre).
+  * AWS Backup: Centralized backup dashboard for a bunch of AWS services.
   * AWS Snow Family: Physical devices for edge storage & transfer.
   * EBS: Block storage for EC2 instances.
-  * Storage Gateway: Bridge on-prem data with cloud storage.
-  * datasync: Automate data transfer between on-prem and AWS.
+  * Storage Gateway: On Prem link to convert s3 to a file system and optional hot or full cache
+  * datasync: Replicate, Automate, Sync large scale live or static data between any combination of on-prem, AWS, other cloud, etc.
+
+* Web layer
+  * App Sync: GraphQL version of API Gateway. 
+  * API Gateway: REST Api gateway
+  * Amazon MQ: Managed message broker (ActiveMQ/RabbitMQ).
+
 
 * Database
   * RDS: Managed relational databases.
@@ -30,7 +36,7 @@
   * Amazon Keyspaces: Managed Cassandra-compatible database.
   * Amazon Neptune: Graph database for relationships.
   * Amazon QLDB: Ledger database with immutable history.
-  * AWS DMS: Migrate databases to AWS.
+  * AWS DMS(database migration service): Migrate databases between other databases (either on prem or within AWS). can convert data/schemas too
 
 * Networking & Content Delivery
   * VPC: Private cloud network configuration.
@@ -79,7 +85,6 @@
   * Kinesis Data Analytics (Flink): Analyze streaming data.
   * Kinesis Firehose: Load streaming data to destinations.
   * Amazon MSK: Managed Kafka service.
-  * Amazon MQ: Managed message broker (ActiveMQ/RabbitMQ).
   * AWS Glue: ETL service for data integration.
   * Amazon OpenSearch Service: Search and log analytics.
   * AWS DataBrew: Visual data preparation.
