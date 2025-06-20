@@ -1,0 +1,1 @@
+pulse ox, vitals, skin, level of conciousness
